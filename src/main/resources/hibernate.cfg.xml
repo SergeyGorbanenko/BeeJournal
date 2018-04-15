@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD//EN"
+    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+
+    <property name="hibernate.connection.driver_class">org.sqlite.JDBC</property>
+    <property name="hibernate.connection.url">jdbc:sqlite:C:/myRoom/BeeJournal/src\dbfile</property>
+    <property name="hibernate.dialect">org.hibernate.dialect.SQLiteDialect</property>
+    <property name="hibernate.hbm2ddl.auto">update</property>
+
+    <property name="connection.username"></property>
+    <property name="connection.password"></property>
+
+    <property name="show_sql">true</property>
+    <property name="hibernate.connection.pool_size">5</property>
+    <property name="current_session_context_class">thread</property>
+    <property name="hibernate.enable_lazy_load_no_trans">true</property>
+
+    <mapping class="hba.BeegardenEntity"/>
+    <mapping class="hba.BeehiveEntity"/>
+    <mapping class="hba.BeemanEntity"/>
+    <mapping class="hba.CountFrameEntity"/>
+    <mapping class="hba.FinancialOperateEntity"/>
+    <mapping class="hba.IncomeExpenseEntity"/>
+    <mapping class="hba.ResourceTypeEntity"/>
+    <mapping class="hba.WorkEntity"/>
+    <mapping class="hba.WorkKindEntity"/>
+
+  </session-factory>
+</hibernate-configuration>
