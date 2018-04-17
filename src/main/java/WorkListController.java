@@ -134,6 +134,7 @@ public class WorkListController {
 
     public void viewWorks(List<WorkEntity> workEntityList) {
         AnchorPane aPane = null;
+        scrlPane.setContent(new AnchorPane());
         ColumnConstraints col1 = new ColumnConstraints();
         ColumnConstraints col2 = new ColumnConstraints();
         ColumnConstraints col3 = new ColumnConstraints();
@@ -193,4 +194,18 @@ public class WorkListController {
         }
     }
 
+    @FXML
+    public void viewWorksByStatusPlanning() {
+        viewWorks( mainController.loadWorkList("Планируется"));
+    }
+
+    @FXML
+    public void viewWorksByStatusInProcess() {
+        viewWorks( mainController.loadWorkList("В процессе"));
+    }
+
+    @FXML
+    public void viewWorksByStatusDone() {
+        viewWorks(mainController.loadWorkList("Выполнена"));
+    }
 }

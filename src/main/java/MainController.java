@@ -82,5 +82,30 @@ public class MainController {
         return this.workEntityList;
     }
 
+    public List<WorkEntity> loadWorkList(String statusString) {
+        Transaction transaction = null;
+        Session session = HBUtil.getSessionFactory().openSession();
+        try {
+            transaction = session.beginTransaction();
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<WorkEntity> query = builder.createQuery(WorkEntity.class);
+            Root<WorkEntity> root = query.from(WorkEntity.class);
+            query.select(root);
+            query.where(builder.equal(root.get("workStatus"), statusString));
+            Query<WorkEntity> q = session.createQuery(query);
+            this.workEntityList = q.getResultList();
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        } finally {
+            if (session != null)
+                session.close();
+        }
+        return this.workEntityList;
+    }
+
 
 }

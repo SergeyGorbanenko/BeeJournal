@@ -1,6 +1,8 @@
 import hba.BeehiveEntity;
 import hba.WorkEntity;
 import hba.WorkKindEntity;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -8,10 +10,12 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class WorkCUDController {
 
-    private Main mnApp;
+        private Main mnApp;
     public void setMainApp(Main mainApp) {
         this.mnApp = mainApp;
     }
@@ -97,6 +101,19 @@ public class WorkCUDController {
         changeStateToWorkKindCUD();
     }
 
+    private ObservableList<String> obserlistWorkStatus;
+    @FXML
+    private void initialize() {
+        List<String > lst = new ArrayList<>();
+        lst.add("Планируется");
+        lst.add("В процессе");
+        lst.add("Выполнена");
+        this.obserlistWorkStatus = FXCollections.observableArrayList(lst);
+        this.cmbStatus.getItems().clear();
+        this.cmbStatus.setItems(this.obserlistWorkStatus);
+        this.cmbStatus.getSelectionModel().select(0);
+    }
+
     @FXML private Label lblcaptionTitle;
     @FXML private Hyperlink hyperlinkAddOrEdit;
     @FXML private Hyperlink hyperlinkDeleteWork;
@@ -120,5 +137,6 @@ public class WorkCUDController {
     }
 
     private WorkEntity workEntity;
+
 
 }

@@ -22,12 +22,27 @@
             </Pane>
             <Pane layoutY="50.0" prefHeight="510.0" prefWidth="315.0" style="-fx-background-color: #ffefd3;">
                <children>
-                  <ScrollPane fx:id="scrlPane" prefHeight="456.0" prefWidth="315.0" style="-fx-background-color: #ffefd3;">
+                  <ScrollPane fx:id="scrlPane" prefHeight="470.0" prefWidth="315.0" style="-fx-background-color: #ffefd3;">
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="310.0" />
                     </content>
                   </ScrollPane>
-                  <Hyperlink layoutX="136.0" layoutY="468.0" onAction="#goCreateNewWork" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="Создать новую работу" textFill="#7f5c2f">
+                  <Hyperlink layoutY="470.0" onAction="#goCreateNewWork" prefHeight="40.0" prefWidth="315.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="           Создать новую работу" textFill="#7f5c2f">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Hyperlink>
+                  <Hyperlink layoutY="436.0" onAction="#viewWorksByStatusPlanning" prefHeight="30.0" prefWidth="105.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="    ПЛАНИР" textFill="#0a0a0a">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Hyperlink>
+                  <Hyperlink layoutX="105.0" layoutY="436.0" onAction="#viewWorksByStatusInProcess" prefHeight="30.0" prefWidth="105.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="В ПРОЦЕССЕ" textFill="#0a0a0a">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Hyperlink>
+                  <Hyperlink layoutX="210.0" layoutY="436.0" onAction="#viewWorksByStatusDone" prefHeight="30.0" prefWidth="105.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="ВЫПОЛНЕНО" textFill="#0a0a0a">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
