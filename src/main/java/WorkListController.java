@@ -1,10 +1,22 @@
+import hba.WorkEntity;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Locale;
 
 public class WorkListController {
 
@@ -34,7 +46,7 @@ public class WorkListController {
     private WorkDetailController workDetailController;
     private BorderPane workDetailLayout;
     private Scene workDetailScene;
-    public void changeStateToWorkDetail() {
+    public void changeStateToWorkDetail(WorkEntity workEntity) {
         if (workDetailScene != null) {
             Stage mainStage = mnApp.getPrimaryStage();
             mainStage.setScene(workDetailScene);
@@ -42,7 +54,8 @@ public class WorkListController {
             mnApp.getPrimaryStage().show();
             workDetailController.setWorkListController(this);
             workDetailController.setMainApp(mnApp);
-            workDetailController.initWorkDetailState();
+            //workDetailController.initWorkDetailState();
+            workDetailController.fillWorkDetailState(workEntity);
         } else {
             try {
                 FXMLLoader loader = new FXMLLoader();
@@ -56,7 +69,8 @@ public class WorkListController {
                 workDetailController = loader.getController();
                 workDetailController.setWorkListController(this);
                 workDetailController.setMainApp(mnApp);
-                workDetailController.initWorkDetailState();
+                //workDetailController.initWorkDetailState();
+                workDetailController.fillWorkDetailState(workEntity);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -105,7 +119,7 @@ public class WorkListController {
 
     @FXML       //[ЭЛЕМЕНТ РАБОТЫ] - подробнее о работе
     public void goWorkDetail() {
-        changeStateToWorkDetail();
+        changeStateToWorkDetail(this.workEntity);
     }
 
     @FXML       //[СОЗДАТЬ НОВУЮ РАБОТУ]
@@ -115,5 +129,68 @@ public class WorkListController {
 
     @FXML private ScrollPane scrlPane;
 
+    //Конкретная работа
+    private WorkEntity workEntity;
+
+    public void viewWorks(List<WorkEntity> workEntityList) {
+        AnchorPane aPane = null;
+        ColumnConstraints col1 = new ColumnConstraints();
+        ColumnConstraints col2 = new ColumnConstraints();
+        ColumnConstraints col3 = new ColumnConstraints();
+        Integer gridPaneLayoutY = 10;
+        Integer gridPaneLayoutX = 5;
+        Integer aPanePrefHeight = 50;
+        for (WorkEntity wrkE : workEntityList) {
+            GridPane gridPane = new GridPane();
+            gridPane.setStyle("-fx-background-color:  #ffefd3;");
+            gridPane.setPadding(new Insets(10, 10, 10, 10));
+            gridPane.setHgap(3);
+            gridPane.setVgap(3);
+            gridPane.setLayoutY(gridPaneLayoutY); gridPaneLayoutY+=65;
+            gridPane.setLayoutX(gridPaneLayoutX);
+            gridPane.setPrefWidth(302);
+            //
+            DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("dd MMM", new Locale("ru", "RU"));
+            DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("EEE");
+            Label lblvalueDateStart = new Label(wrkE.getDateStart().format(formatter1).toString());
+            Label lblvalueDayDateStart = new Label("   " + wrkE.getDateStart().format(formatter2));
+            Label lblvalueName = new Label(wrkE.getWorkKindByIdWorkKind().getName());
+            Label lblcaptionWorkStatus = new Label("Статус");
+            Label lblvalueWorkStatus = new Label(wrkE.getWorkStatus());
+            Label lblvalueBeehive = new Label("улей: нет");
+            if (wrkE.getBeehive() != null)
+                lblvalueBeehive.setText("улей: " + wrkE.getBeehive().getHiveNumber());
+            //
+            lblvalueDateStart.setFont(new Font("Arial Bold", 14));
+            lblvalueDayDateStart.setFont(new Font("Arial Bold", 13));
+            lblvalueName.setFont(new Font("Arial Bold", 15));
+            lblvalueName.setTextFill(Color.web( "#7f5c2f"));
+            lblvalueWorkStatus.setFont(new Font("Arial Bold", 13));
+            lblcaptionWorkStatus.setFont(new Font("Arial", 12));
+            lblvalueBeehive.setFont(new Font("Arial", 12));
+            //
+            gridPane.add(lblvalueDateStart, 0, 0, 1, 1);
+            gridPane.add(lblvalueDayDateStart, 0, 1, 1, 1);
+            gridPane.add(lblvalueName, 1, 0, 1, 1);
+            gridPane.add(lblvalueBeehive, 1, 1, 1, 1);
+            gridPane.add(lblvalueWorkStatus, 2, 0, 1, 1);
+            gridPane.add(lblcaptionWorkStatus, 2, 1, 1, 1);
+            //
+            col1.setPercentWidth(25);
+            col2.setPercentWidth(43);
+            col3.setPercentWidth(32);
+            gridPane.getColumnConstraints().addAll(col1, col2, col3);
+            //
+            gridPane.setOnMouseClicked((MouseEvent event) -> {
+                this.workEntity = wrkE;
+                changeStateToWorkDetail(this.workEntity);
+            });
+            //
+            aPane = (AnchorPane) scrlPane.getContent();
+            aPane.getChildren().add(gridPane);
+            aPane.setPrefHeight(aPanePrefHeight); aPanePrefHeight+=65;
+            scrlPane.setContent(aPane);
+        }
+    }
 
 }

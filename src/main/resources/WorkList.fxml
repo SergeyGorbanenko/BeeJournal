@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -23,13 +22,16 @@
             </Pane>
             <Pane layoutY="50.0" prefHeight="510.0" prefWidth="315.0" style="-fx-background-color: #ffefd3;">
                <children>
+                  <ScrollPane fx:id="scrlPane" prefHeight="456.0" prefWidth="315.0" style="-fx-background-color: #ffefd3;">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="310.0" />
+                    </content>
+                  </ScrollPane>
                   <Hyperlink layoutX="136.0" layoutY="468.0" onAction="#goCreateNewWork" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="Создать новую работу" textFill="#7f5c2f">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Hyperlink>
-                  <ScrollPane fx:id="scrlPane" layoutX="13.0" layoutY="14.0" prefHeight="443.0" prefWidth="290.0" style="-fx-background-color: #ffefd3;" />
-                  <Button layoutX="37.0" layoutY="45.0" mnemonicParsing="false" onAction="#goWorkDetail" text="Подробнее о работе" />
                </children>
             </Pane>
          </children></AnchorPane>

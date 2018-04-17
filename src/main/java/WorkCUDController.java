@@ -1,4 +1,5 @@
 import hba.BeehiveEntity;
+import hba.WorkEntity;
 import hba.WorkKindEntity;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -83,7 +84,7 @@ public class WorkCUDController {
 
     @FXML       //[СОХРАНИТЬ]
     public void goAddOrEdit() {
-        workListController.changeStateToWorkDetail();
+        workListController.changeStateToWorkDetail(this.workEntity);
     }
 
     @FXML       //[УДАЛИТЬ]
@@ -117,5 +118,7 @@ public class WorkCUDController {
         this.hyperlinkAddOrEdit.setText("Изменить");
         this.hyperlinkDeleteWork.setVisible(true);
     }
+
+    private WorkEntity workEntity;
 
 }

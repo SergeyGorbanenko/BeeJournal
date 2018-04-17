@@ -29,56 +29,56 @@
                <children>
                   <Label layoutX="22.0" layoutY="53.0" text="Начало" textFill="#7f5c2f">
                      <font>
-                        <Font name="System Bold" size="16.0" />
+                        <Font name="System Bold" size="17.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblvalueDateStart" layoutX="131.0" layoutY="53.0" text="начало">
+                  <Label fx:id="lblvalueDateStart" layoutX="129.0" layoutY="55.0" text="начало">
                      <font>
-                        <Font size="16.0" />
+                        <Font name="Cambria" size="18.0" />
                      </font>
                   </Label>
                   <Label layoutX="22.0" layoutY="96.0" text="Истекает" textFill="#7f5c2f">
                      <font>
-                        <Font name="System Bold" size="16.0" />
+                        <Font name="System Bold" size="17.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblvalueDateEnd" layoutX="131.0" layoutY="96.0" text="истекает">
+                  <Label fx:id="lblvalueDateEnd" layoutX="129.0" layoutY="98.0" text="истекает">
                      <font>
-                        <Font size="16.0" />
+                        <Font name="Cambria" size="18.0" />
                      </font>
                   </Label>
                   <Label layoutX="22.0" layoutY="139.0" text="Улей" textFill="#7f5c2f">
                      <font>
-                        <Font name="System Bold" size="16.0" />
+                        <Font name="System Bold" size="17.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblvalueBeehive" layoutX="131.0" layoutY="139.0" text="улей">
+                  <Label fx:id="lblvalueBeehive" layoutX="129.0" layoutY="141.0" text="улей">
                      <font>
-                        <Font size="16.0" />
+                        <Font name="Cambria" size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblvalueDescription" layoutX="26.0" layoutY="226.0" text="описание">
+                  <Label fx:id="lblvalueDescription" layoutX="23.0" layoutY="230.0" maxHeight="250.0" prefHeight="80.0" prefWidth="270.0" text="описание" wrapText="true">
                      <font>
-                        <Font size="14.0" />
+                        <Font name="Cambria" size="18.0" />
                      </font>
                   </Label>
                   <Label layoutX="22.0" layoutY="178.0" text="Статус" textFill="#7f5c2f">
                      <font>
-                        <Font name="System Bold" size="16.0" />
+                        <Font name="System Bold" size="17.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblvalueStatus" layoutX="131.0" layoutY="178.0" text="статус">
+                  <Label fx:id="lblvalueWorkStatus" layoutX="129.0" layoutY="180.0" text="статус">
                      <font>
-                        <Font size="16.0" />
+                        <Font name="Cambria" size="18.0" />
                      </font>
                   </Label>
+                  <Hyperlink layoutX="260.0" layoutY="-17.0" onAction="#goEdit" prefHeight="35.0" prefWidth="55.0" style="-fx-background-color: #ffa500; -fx-underline: false;" text="  РЕД" textFill="#0d0d0d">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Hyperlink>
                </children>
                 </Pane>
-            <Hyperlink layoutX="249.0" layoutY="35.0" onAction="#goEdit" prefHeight="35.0" prefWidth="47.0" style="-fx-background-color: #ffa500; -fx-underline: false;" text=" РЕД" textFill="#0d0d0d">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Hyperlink>
             </children></AnchorPane>
     </center>
 </BorderPane>

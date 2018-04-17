@@ -1,3 +1,4 @@
+import hba.WorkEntity;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -5,6 +6,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 public class WorkDetailController {
 
@@ -82,7 +85,7 @@ public class WorkDetailController {
     @FXML private Label lblvalueBeehive;
     @FXML private Label lblvalueDescription;
     @FXML private Label lblvalueName;
-    @FXML private Label lblvalueStatus;
+    @FXML private Label lblvalueWorkStatus;
 
     public void initWorkDetailState() {
         this.lblvalueDateStart.setText("пусто");
@@ -90,6 +93,20 @@ public class WorkDetailController {
         this.lblvalueBeehive.setText("пусто");
         this.lblvalueDescription.setText("пусто");
         this.lblvalueName.setText("пусто");
-        this.lblvalueStatus.setText("пусто");
+        this.lblvalueWorkStatus.setText("пусто");
     }
+
+    public void fillWorkDetailState(WorkEntity workEntity) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy", new Locale("ru", "RU"));
+        this.lblvalueName.setText(workEntity.getWorkKindByIdWorkKind().getName());
+        this.lblvalueDateStart.setText(workEntity.getDateStart().format(formatter));
+        this.lblvalueDateEnd.setText(workEntity.getDateEnd().format(formatter));
+        if (workEntity.getBeehive() != null)
+            lblvalueBeehive.setText(workEntity.getBeehive().getHiveNumber());
+        else
+            this.lblvalueBeehive.setText("нет");
+        this.lblvalueWorkStatus.setText(workEntity.getWorkStatus());
+        this.lblvalueDescription.setText(workEntity.getWorkKindByIdWorkKind().getDescription());
+    }
+
 }

@@ -26,7 +26,7 @@ public class MainController {
     private Scene workListScene;
     @FXML                               //[РАБОТЫ]
     public void changeStateToWorkList() {
-        loadWorkList();
+        this.workEntityList = loadWorkList();
         if (workListScene != null) {
             Stage mainStage = mnApp.getPrimaryStage();
             mainStage.setScene(workListScene);
@@ -34,6 +34,7 @@ public class MainController {
             mnApp.getPrimaryStage().show();
             workListController.setMainController(this);
             workListController.setMainApp(mnApp);
+            workListController.viewWorks(this.workEntityList);
         } else {
             try {
                 FXMLLoader loader = new FXMLLoader();
@@ -47,6 +48,7 @@ public class MainController {
                 workListController = loader.getController();
                 workListController.setMainController(this);
                 workListController.setMainApp(mnApp);
+                workListController.viewWorks(this.workEntityList);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -55,6 +57,7 @@ public class MainController {
 
 
     private List<WorkEntity> workEntityList;
+    //Получить список Работ
     public List<WorkEntity> loadWorkList() {
         Transaction transaction = null;
         Session session = HBUtil.getSessionFactory().openSession();
