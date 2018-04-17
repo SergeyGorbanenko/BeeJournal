@@ -7,18 +7,18 @@ import java.util.Objects;
 @Entity
 @Table(name = "WorkKind", schema = "main", catalog = "")
 public class WorkKindEntity {
-    private short idWorkKind;
+    private Integer idWorkKind;
     private String name;
     private String description;
     private Collection<WorkEntity> worksByIdWorkKind;
 
     @Id
     @Column(name = "idWorkKind", nullable = false)
-    public short getIdWorkKind() {
+    public Integer getIdWorkKind() {
         return idWorkKind;
     }
 
-    public void setIdWorkKind(short idWorkKind) {
+    public void setIdWorkKind(Integer idWorkKind) {
         this.idWorkKind = idWorkKind;
     }
 
@@ -47,7 +47,7 @@ public class WorkKindEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         WorkKindEntity that = (WorkKindEntity) o;
-        return idWorkKind == that.idWorkKind &&
+        return Objects.equals(idWorkKind, that.idWorkKind) &&
                 Objects.equals(name, that.name) &&
                 Objects.equals(description, that.description);
     }

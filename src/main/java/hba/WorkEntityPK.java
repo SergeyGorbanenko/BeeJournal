@@ -6,26 +6,26 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class WorkEntityPK implements Serializable {
-    private short idWork;
-    private short idWorkKind;
+    private Integer idWork;
+    private Integer idWorkKind;
 
     @Column(name = "idWork", nullable = false)
     @Id
-    public short getIdWork() {
+    public Integer getIdWork() {
         return idWork;
     }
 
-    public void setIdWork(short idWork) {
+    public void setIdWork(Integer idWork) {
         this.idWork = idWork;
     }
 
     @Column(name = "idWorkKind", nullable = false)
     @Id
-    public short getIdWorkKind() {
+    public Integer getIdWorkKind() {
         return idWorkKind;
     }
 
-    public void setIdWorkKind(short idWorkKind) {
+    public void setIdWorkKind(Integer idWorkKind) {
         this.idWorkKind = idWorkKind;
     }
 
@@ -34,8 +34,8 @@ public class WorkEntityPK implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         WorkEntityPK that = (WorkEntityPK) o;
-        return idWork == that.idWork &&
-                idWorkKind == that.idWorkKind;
+        return Objects.equals(idWork, that.idWork) &&
+                Objects.equals(idWorkKind, that.idWorkKind);
     }
 
     @Override

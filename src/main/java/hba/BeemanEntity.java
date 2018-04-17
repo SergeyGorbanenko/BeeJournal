@@ -7,17 +7,17 @@ import java.util.Objects;
 @Entity
 @Table(name = "Beeman", schema = "main", catalog = "")
 public class BeemanEntity {
-    private short idBeeman;
+    private Integer idBeeman;
     private String fio;
     private Collection<BeegardenEntity> beegardensByIdBeeman;
 
     @Id
     @Column(name = "idBeeman", nullable = false)
-    public short getIdBeeman() {
+    public Integer getIdBeeman() {
         return idBeeman;
     }
 
-    public void setIdBeeman(short idBeeman) {
+    public void setIdBeeman(Integer idBeeman) {
         this.idBeeman = idBeeman;
     }
 
@@ -36,7 +36,7 @@ public class BeemanEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BeemanEntity that = (BeemanEntity) o;
-        return idBeeman == that.idBeeman &&
+        return Objects.equals(idBeeman, that.idBeeman) &&
                 Objects.equals(fio, that.fio);
     }
 

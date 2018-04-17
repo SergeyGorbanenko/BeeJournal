@@ -8,23 +8,23 @@ import java.util.Objects;
 @Table(name = "Work", schema = "main", catalog = "")
 @IdClass(WorkEntityPK.class)
 public class WorkEntity {
-    private short idWork;
+    private Integer idWork;
     private LocalDate dateStart;
     private LocalDate dateEnd;
     private String workStatus;
-    private short idWorkKind;
-    private short idBeehive;
-    private short idBeegarden;
+    private Integer idWorkKind;
+    private Integer idBeehive;
+    private Integer idBeegarden;
     private WorkKindEntity workKindByIdWorkKind;
     private BeehiveEntity beehive;
 
     @Id
     @Column(name = "idWork", nullable = false)
-    public short getIdWork() {
+    public Integer getIdWork() {
         return idWork;
     }
 
-    public void setIdWork(short idWork) {
+    public void setIdWork(Integer idWork) {
         this.idWork = idWork;
     }
 
@@ -60,31 +60,31 @@ public class WorkEntity {
 
     @Id
     @Column(name = "idWorkKind", nullable = false, insertable = false, updatable = false)
-    public short getIdWorkKind() {
+    public Integer getIdWorkKind() {
         return idWorkKind;
     }
 
-    public void setIdWorkKind(short idWorkKind) {
+    public void setIdWorkKind(Integer idWorkKind) {
         this.idWorkKind = idWorkKind;
     }
 
     @Basic
     @Column(name = "idBeehive", nullable = true, insertable = false, updatable = false)
-    public short getIdBeehive() {
+    public Integer getIdBeehive() {
         return idBeehive;
     }
 
-    public void setIdBeehive(short idBeehive) {
+    public void setIdBeehive(Integer idBeehive) {
         this.idBeehive = idBeehive;
     }
 
     @Basic
     @Column(name = "idBeegarden", nullable = false, insertable = false, updatable = false)
-    public short getIdBeegarden() {
+    public Integer getIdBeegarden() {
         return idBeegarden;
     }
 
-    public void setIdBeegarden(short idBeegarden) {
+    public void setIdBeegarden(Integer idBeegarden) {
         this.idBeegarden = idBeegarden;
     }
 
@@ -93,10 +93,10 @@ public class WorkEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         WorkEntity that = (WorkEntity) o;
-        return idWork == that.idWork &&
-                idWorkKind == that.idWorkKind &&
-                idBeehive == that.idBeehive &&
-                idBeegarden == that.idBeegarden &&
+        return Objects.equals(idWork, that.idWork) &&
+                Objects.equals(idWorkKind, that.idWorkKind) &&
+                Objects.equals(idBeehive, that.idBeehive) &&
+                Objects.equals(idBeegarden, that.idBeegarden) &&
                 Objects.equals(dateStart, that.dateStart) &&
                 Objects.equals(dateEnd, that.dateEnd) &&
                 Objects.equals(workStatus, that.workStatus);

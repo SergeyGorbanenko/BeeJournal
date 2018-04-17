@@ -8,24 +8,24 @@ import java.util.Objects;
 @Table(name = "IncomeExpense", schema = "main", catalog = "")
 @IdClass(IncomeExpenseEntityPK.class)
 public class IncomeExpenseEntity {
-    private short idIncomeExpense;
+    private Integer idIncomeExpense;
     private LocalDate date;
-    private short count;
+    private Integer count;
     private String description;
     private Boolean operationType;
-    private short idBeehive;
-    private short idBeegarden;
-    private short idResourseType;
+    private Integer idBeehive;
+    private Integer idBeegarden;
+    private Integer idResourseType;
     private BeehiveEntity beehive;
     private ResourceTypeEntity resourceTypeByIdResourseType;
 
     @Id
     @Column(name = "idIncomeExpense", nullable = false)
-    public short getIdIncomeExpense() {
+    public Integer getIdIncomeExpense() {
         return idIncomeExpense;
     }
 
-    public void setIdIncomeExpense(short idIncomeExpense) {
+    public void setIdIncomeExpense(Integer idIncomeExpense) {
         this.idIncomeExpense = idIncomeExpense;
     }
 
@@ -41,11 +41,11 @@ public class IncomeExpenseEntity {
 
     @Basic
     @Column(name = "Count", nullable = false)
-    public short getCount() {
+    public Integer getCount() {
         return count;
     }
 
-    public void setCount(short count) {
+    public void setCount(Integer count) {
         this.count = count;
     }
 
@@ -71,31 +71,31 @@ public class IncomeExpenseEntity {
 
     @Basic
     @Column(name = "idBeehive", nullable = true, insertable = false, updatable = false)
-    public short getIdBeehive() {
+    public Integer getIdBeehive() {
         return idBeehive;
     }
 
-    public void setIdBeehive(short idBeehive) {
+    public void setIdBeehive(Integer idBeehive) {
         this.idBeehive = idBeehive;
     }
 
     @Basic
     @Column(name = "idBeegarden", nullable = false, insertable = false, updatable = false)
-    public short getIdBeegarden() {
+    public Integer getIdBeegarden() {
         return idBeegarden;
     }
 
-    public void setIdBeegarden(short idBeegarden) {
+    public void setIdBeegarden(Integer idBeegarden) {
         this.idBeegarden = idBeegarden;
     }
 
     @Id
     @Column(name = "idResourseType", nullable = false, insertable = false, updatable = false)
-    public short getIdResourseType() {
+    public Integer getIdResourseType() {
         return idResourseType;
     }
 
-    public void setIdResourseType(short idResourseType) {
+    public void setIdResourseType(Integer idResourseType) {
         this.idResourseType = idResourseType;
     }
 
@@ -104,10 +104,10 @@ public class IncomeExpenseEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         IncomeExpenseEntity that = (IncomeExpenseEntity) o;
-        return idIncomeExpense == that.idIncomeExpense &&
-                count == that.count &&
-                idBeegarden == that.idBeegarden &&
-                idResourseType == that.idResourseType &&
+        return Objects.equals(idIncomeExpense, that.idIncomeExpense) &&
+                Objects.equals(count, that.count) &&
+                Objects.equals(idBeegarden, that.idBeegarden) &&
+                Objects.equals(idResourseType, that.idResourseType) &&
                 Objects.equals(date, that.date) &&
                 Objects.equals(description, that.description) &&
                 Objects.equals(operationType, that.operationType) &&

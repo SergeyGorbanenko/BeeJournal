@@ -6,26 +6,26 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class IncomeExpenseEntityPK implements Serializable {
-    private short idIncomeExpense;
-    private short idResourseType;
+    private Integer idIncomeExpense;
+    private Integer idResourseType;
 
     @Column(name = "idIncomeExpense", nullable = false)
     @Id
-    public short getIdIncomeExpense() {
+    public Integer getIdIncomeExpense() {
         return idIncomeExpense;
     }
 
-    public void setIdIncomeExpense(short idIncomeExpense) {
+    public void setIdIncomeExpense(Integer idIncomeExpense) {
         this.idIncomeExpense = idIncomeExpense;
     }
 
     @Column(name = "idResourseType", nullable = false)
     @Id
-    public short getIdResourseType() {
+    public Integer getIdResourseType() {
         return idResourseType;
     }
 
-    public void setIdResourseType(short idResourseType) {
+    public void setIdResourseType(Integer idResourseType) {
         this.idResourseType = idResourseType;
     }
 
@@ -34,8 +34,8 @@ public class IncomeExpenseEntityPK implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         IncomeExpenseEntityPK that = (IncomeExpenseEntityPK) o;
-        return idIncomeExpense == that.idIncomeExpense &&
-                idResourseType == that.idResourseType;
+        return Objects.equals(idIncomeExpense, that.idIncomeExpense) &&
+                Objects.equals(idResourseType, that.idResourseType);
     }
 
     @Override

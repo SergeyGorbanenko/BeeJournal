@@ -7,7 +7,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "ResourceType", schema = "main", catalog = "")
 public class ResourceTypeEntity {
-    private short idResourseType;
+    private Integer idResourseType;
     private String name;
     private String category;
     private String description;
@@ -17,11 +17,11 @@ public class ResourceTypeEntity {
 
     @Id
     @Column(name = "idResourseType", nullable = false)
-    public short getIdResourseType() {
+    public Integer getIdResourseType() {
         return idResourseType;
     }
 
-    public void setIdResourseType(short idResourseType) {
+    public void setIdResourseType(Integer idResourseType) {
         this.idResourseType = idResourseType;
     }
 
@@ -70,7 +70,7 @@ public class ResourceTypeEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ResourceTypeEntity that = (ResourceTypeEntity) o;
-        return idResourseType == that.idResourseType &&
+        return Objects.equals(idResourseType, that.idResourseType) &&
                 Objects.equals(name, that.name) &&
                 Objects.equals(category, that.category) &&
                 Objects.equals(description, that.description) &&

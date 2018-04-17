@@ -10,8 +10,8 @@ import java.util.Objects;
 public class CountFrameEntity {
     private String countFrame;
     private LocalDate checkDate;
-    private short idBeehive;
-    private short idBeegarden;
+    private Integer idBeehive;
+    private Integer idBeegarden;
     private BeehiveEntity beehive;
 
     @Basic
@@ -36,21 +36,21 @@ public class CountFrameEntity {
 
     @Id
     @Column(name = "idBeehive", nullable = false, insertable = false, updatable = false)
-    public short getIdBeehive() {
+    public Integer getIdBeehive() {
         return idBeehive;
     }
 
-    public void setIdBeehive(short idBeehive) {
+    public void setIdBeehive(Integer idBeehive) {
         this.idBeehive = idBeehive;
     }
 
     @Id
     @Column(name = "idBeegarden", nullable = false, insertable = false, updatable = false)
-    public short getIdBeegarden() {
+    public Integer getIdBeegarden() {
         return idBeegarden;
     }
 
-    public void setIdBeegarden(short idBeegarden) {
+    public void setIdBeegarden(Integer idBeegarden) {
         this.idBeegarden = idBeegarden;
     }
 
@@ -59,8 +59,8 @@ public class CountFrameEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CountFrameEntity that = (CountFrameEntity) o;
-        return idBeehive == that.idBeehive &&
-                idBeegarden == that.idBeegarden &&
+        return Objects.equals(idBeehive, that.idBeehive) &&
+                Objects.equals(idBeegarden, that.idBeegarden) &&
                 Objects.equals(countFrame, that.countFrame) &&
                 Objects.equals(checkDate, that.checkDate);
     }
@@ -71,7 +71,7 @@ public class CountFrameEntity {
         return Objects.hash(countFrame, checkDate, idBeehive, idBeegarden);
     }
 
-    @OneToOne
+/*    @OneToOne
     @JoinColumns({@JoinColumn(name = "idBeehive", referencedColumnName = "idBeehive", nullable = false), @JoinColumn(name = "idBeegarden", referencedColumnName = "idBeegarden", nullable = false, insertable = false, updatable = false)})
     public BeehiveEntity getBeehive() {
         return beehive;
@@ -79,5 +79,5 @@ public class CountFrameEntity {
 
     public void setBeehive(BeehiveEntity beehive) {
         this.beehive = beehive;
-    }
+    }*/
 }

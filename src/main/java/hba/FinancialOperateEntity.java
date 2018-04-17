@@ -8,22 +8,22 @@ import java.util.Objects;
 @Table(name = "FinancialOperate", schema = "main", catalog = "")
 @IdClass(FinancialOperateEntityPK.class)
 public class FinancialOperateEntity {
-    private short idFinOperate;
+    private Integer idFinOperate;
     private LocalDate date;
-    private short count;
+    private Integer count;
     private String description;
     private double unitPrice;
     private Boolean operationType;
-    private short idResourseType;
+    private Integer idResourseType;
     private ResourceTypeEntity resourceTypeByIdResourseType;
 
     @Id
     @Column(name = "idFinOperate", nullable = false)
-    public short getIdFinOperate() {
+    public Integer getIdFinOperate() {
         return idFinOperate;
     }
 
-    public void setIdFinOperate(short idFinOperate) {
+    public void setIdFinOperate(Integer idFinOperate) {
         this.idFinOperate = idFinOperate;
     }
 
@@ -39,11 +39,11 @@ public class FinancialOperateEntity {
 
     @Basic
     @Column(name = "Count", nullable = false)
-    public short getCount() {
+    public Integer getCount() {
         return count;
     }
 
-    public void setCount(short count) {
+    public void setCount(Integer count) {
         this.count = count;
     }
 
@@ -79,11 +79,11 @@ public class FinancialOperateEntity {
 
     @Id
     @Column(name = "idResourseType", nullable = false, insertable = false, updatable = false)
-    public short getIdResourseType() {
+    public Integer getIdResourseType() {
         return idResourseType;
     }
 
-    public void setIdResourseType(short idResourseType) {
+    public void setIdResourseType(Integer idResourseType) {
         this.idResourseType = idResourseType;
     }
 
@@ -92,10 +92,10 @@ public class FinancialOperateEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         FinancialOperateEntity that = (FinancialOperateEntity) o;
-        return idFinOperate == that.idFinOperate &&
-                count == that.count &&
+        return Objects.equals(idFinOperate, that.idFinOperate) &&
+                Objects.equals(count, that.count) &&
                 Double.compare(that.unitPrice, unitPrice) == 0 &&
-                idResourseType == that.idResourseType &&
+                Objects.equals(idResourseType, that.idResourseType) &&
                 Objects.equals(date, that.date) &&
                 Objects.equals(description, that.description) &&
                 Objects.equals(operationType, that.operationType);

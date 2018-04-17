@@ -7,20 +7,20 @@ import java.util.Objects;
 @Entity
 @Table(name = "Beegarden", schema = "main", catalog = "")
 public class BeegardenEntity {
-    private short idBeegarden;
+    private Integer idBeegarden;
     private String name;
     private String address;
-    private short idBeeman;
+    private Integer idBeeman;
     private BeemanEntity beemanByIdBeeman;
     private Collection<BeehiveEntity> beehivesByIdBeegarden;
 
     @Id
     @Column(name = "idBeegarden", nullable = false)
-    public short getIdBeegarden() {
+    public Integer getIdBeegarden() {
         return idBeegarden;
     }
 
-    public void setIdBeegarden(short idBeegarden) {
+    public void setIdBeegarden(Integer idBeegarden) {
         this.idBeegarden = idBeegarden;
     }
 
@@ -46,11 +46,11 @@ public class BeegardenEntity {
 
     @Basic
     @Column(name = "idBeeman", nullable = false, insertable = false, updatable = false)
-    public short getIdBeeman() {
+    public Integer getIdBeeman() {
         return idBeeman;
     }
 
-    public void setIdBeeman(short idBeeman) {
+    public void setIdBeeman(Integer idBeeman) {
         this.idBeeman = idBeeman;
     }
 
@@ -59,8 +59,8 @@ public class BeegardenEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BeegardenEntity that = (BeegardenEntity) o;
-        return idBeegarden == that.idBeegarden &&
-                idBeeman == that.idBeeman &&
+        return Objects.equals(idBeegarden, that.idBeegarden) &&
+                Objects.equals(idBeeman, that.idBeeman) &&
                 Objects.equals(name, that.name) &&
                 Objects.equals(address, that.address);
     }

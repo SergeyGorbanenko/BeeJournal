@@ -6,26 +6,26 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class CountFrameEntityPK implements Serializable {
-    private short idBeehive;
-    private short idBeegarden;
+    private Integer idBeehive;
+    private Integer idBeegarden;
 
     @Column(name = "idBeehive", nullable = false)
     @Id
-    public short getIdBeehive() {
+    public Integer getIdBeehive() {
         return idBeehive;
     }
 
-    public void setIdBeehive(short idBeehive) {
+    public void setIdBeehive(Integer idBeehive) {
         this.idBeehive = idBeehive;
     }
 
     @Column(name = "idBeegarden", nullable = false)
     @Id
-    public short getIdBeegarden() {
+    public Integer getIdBeegarden() {
         return idBeegarden;
     }
 
-    public void setIdBeegarden(short idBeegarden) {
+    public void setIdBeegarden(Integer idBeegarden) {
         this.idBeegarden = idBeegarden;
     }
 
@@ -34,8 +34,8 @@ public class CountFrameEntityPK implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CountFrameEntityPK that = (CountFrameEntityPK) o;
-        return idBeehive == that.idBeehive &&
-                idBeegarden == that.idBeegarden;
+        return Objects.equals(idBeehive, that.idBeehive) &&
+                Objects.equals(idBeegarden, that.idBeegarden);
     }
 
     @Override

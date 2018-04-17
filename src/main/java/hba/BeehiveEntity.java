@@ -8,11 +8,11 @@ import java.util.Objects;
 @Table(name = "Beehive", schema = "main", catalog = "")
 @IdClass(BeehiveEntityPK.class)
 public class BeehiveEntity {
-    private short idBeehive;
+    private Integer idBeehive;
     private String hiveNumber;
     private String hiveType;
     private String description;
-    private short idBeegarden;
+    private Integer idBeegarden;
     private BeegardenEntity beegardenByIdBeegarden;
     private CountFrameEntity countFrame;
     private Collection<IncomeExpenseEntity> incomeExpenses;
@@ -20,11 +20,11 @@ public class BeehiveEntity {
 
     @Id
     @Column(name = "idBeehive", nullable = false)
-    public short getIdBeehive() {
+    public Integer getIdBeehive() {
         return idBeehive;
     }
 
-    public void setIdBeehive(short idBeehive) {
+    public void setIdBeehive(Integer idBeehive) {
         this.idBeehive = idBeehive;
     }
 
@@ -60,11 +60,11 @@ public class BeehiveEntity {
 
     @Id
     @Column(name = "idBeegarden", nullable = false, insertable = false, updatable = false)
-    public short getIdBeegarden() {
+    public Integer getIdBeegarden() {
         return idBeegarden;
     }
 
-    public void setIdBeegarden(short idBeegarden) {
+    public void setIdBeegarden(Integer idBeegarden) {
         this.idBeegarden = idBeegarden;
     }
 
@@ -73,8 +73,8 @@ public class BeehiveEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BeehiveEntity that = (BeehiveEntity) o;
-        return idBeehive == that.idBeehive &&
-                idBeegarden == that.idBeegarden &&
+        return Objects.equals(idBeehive, that.idBeehive) &&
+                Objects.equals(idBeegarden, that.idBeegarden) &&
                 Objects.equals(hiveNumber, that.hiveNumber) &&
                 Objects.equals(hiveType, that.hiveType) &&
                 Objects.equals(description, that.description);
@@ -96,14 +96,14 @@ public class BeehiveEntity {
         this.beegardenByIdBeegarden = beegardenByIdBeegarden;
     }
 
-    @OneToOne(mappedBy = "beehive")
+/*    @OneToOne(mappedBy = "beehive")
     public CountFrameEntity getCountFrame() {
         return countFrame;
     }
 
     public void setCountFrame(CountFrameEntity countFrame) {
         this.countFrame = countFrame;
-    }
+    }*/
 
     @OneToMany(mappedBy = "beehive")
     public Collection<IncomeExpenseEntity> getIncomeExpenses() {
