@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="560.0" prefWidth="315.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="WorkDetailController">
+    <center>
+        <AnchorPane prefHeight="560.0" prefWidth="315.0" BorderPane.alignment="CENTER">
+            <children>
+                <Pane prefHeight="50.0" prefWidth="315.0" style="-fx-background-color: #7f5c2f;">
+                    <children>
+                        <Hyperlink onAction="#goBack" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #ffa500; -fx-underline: false;" text=" ←" textFill="#0d0d0d">
+                            <font>
+                                <Font name="System Bold" size="24.0" />
+                            </font>
+                        </Hyperlink>
+                  <Label fx:id="lblvalueName" layoutX="73.0" layoutY="12.0" text="Название работы" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                    </children>
+                </Pane>
+                <Pane layoutY="50.0" prefHeight="510.0" prefWidth="315.0" style="-fx-background-color: #ffefd3;">
+               <children>
+                  <Label layoutX="22.0" layoutY="53.0" text="Начало" textFill="#7f5c2f">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblvalueDateStart" layoutX="131.0" layoutY="53.0" text="начало">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="22.0" layoutY="96.0" text="Истекает" textFill="#7f5c2f">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblvalueDateEnd" layoutX="131.0" layoutY="96.0" text="истекает">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="22.0" layoutY="139.0" text="Улей" textFill="#7f5c2f">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblvalueBeehive" layoutX="131.0" layoutY="139.0" text="улей">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblvalueDescription" layoutX="26.0" layoutY="226.0" text="описание">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="22.0" layoutY="178.0" text="Статус" textFill="#7f5c2f">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblvalueStatus" layoutX="131.0" layoutY="178.0" text="статус">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+                </Pane>
+            <Hyperlink layoutX="249.0" layoutY="35.0" onAction="#goEdit" prefHeight="35.0" prefWidth="47.0" style="-fx-background-color: #ffa500; -fx-underline: false;" text=" РЕД" textFill="#0d0d0d">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Hyperlink>
+            </children></AnchorPane>
+    </center>
+</BorderPane>
