@@ -107,6 +107,7 @@ public class WorkCUDController {
         Transaction transaction = null;
         Session session = HBUtil.getSessionFactory().openSession();
         try {
+            if (dtpckrDateEnd.getValue().isBefore(dtpckrDateStart.getValue())) throw new Exception();
             workEntity = new WorkEntity();
             workEntity.setIdBeegarden(loadBeegarden().getIdBeegarden());
             workEntity.setIdBeehive(this.cmbBeehive.getValue().getIdBeehive());
@@ -121,6 +122,8 @@ public class WorkCUDController {
             transaction.begin();
             session.save(workEntity);
             transaction.commit();
+            //
+            workListController.changeStateToWorkDetail(this.workEntity);
         } catch (Exception e) {
             e.printStackTrace();
             if (transaction != null) {
@@ -129,12 +132,13 @@ public class WorkCUDController {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Ошибка");
             alert.setHeaderText("Проверьте правильность введенных данных");
-            alert.setContentText(   "- недопустимы пустые поля\n");
+            alert.setContentText(   "- недопустимы пустые поля\n" +
+                    "- дата начала работы не может быть позже окончания");
             alert.showAndWait();
         } finally {
             if (session != null)
                 session.close();
-            workListController.changeStateToWorkDetail(this.workEntity);
+
         }
     }
 
@@ -144,6 +148,7 @@ public class WorkCUDController {
         Transaction transaction2 = null;
         Session session = HBUtil.getSessionFactory().openSession();
         try {
+            if (dtpckrDateEnd.getValue().isBefore(dtpckrDateStart.getValue())) throw new Exception();
             if (workEntity.getIdWorkKind() != cmbWorkKind.getValue().getIdWorkKind()) {
                 transaction2 = session.getTransaction();
                 transaction2.begin();
@@ -174,6 +179,8 @@ public class WorkCUDController {
                 transaction.begin();
                 session.update(workEntity);
                 transaction.commit();
+                //
+                workListController.changeStateToWorkDetail(this.workEntity);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -183,12 +190,12 @@ public class WorkCUDController {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Ошибка");
             alert.setHeaderText("Проверьте правильность введенных данных");
-            alert.setContentText(   "- недопустимы пустые поля\n");
+            alert.setContentText(   "- недопустимы пустые поля\n" +
+                    "- дата начала работы не может быть позже окончания");
             alert.showAndWait();
         } finally {
             if (session != null)
                 session.close();
-            workListController.changeStateToWorkDetail(this.workEntity);
         }
     }
 
@@ -215,6 +222,8 @@ public class WorkCUDController {
                 alertSuccess.setHeaderText(null);
                 alertSuccess.setContentText("Работа" + "[" + workKindName + ": " + workStatus + " - c " + dateStart + " по " + dateEnd + "]" + " была успешно удалена!");
                 alertSuccess.showAndWait();
+                //
+                workListController.getMainController().changeStateToWorkList();
             } catch (Exception e) {
                 e.printStackTrace();
                 if (transaction != null) {
@@ -228,7 +237,6 @@ public class WorkCUDController {
             } finally {
                 if (session != null)
                     session.close();
-                workListController.getMainController().changeStateToWorkList();
             }
         } else {
             alertSure.hide();

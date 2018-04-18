@@ -18,9 +18,6 @@ public class WorkKindCUDController {
     }
 
     private WorkCUDController workCUDController;
-    public WorkCUDController getWorkCUDController() {
-        return workCUDController;
-    }
     public void setWorkCUDController(WorkCUDController workCUDController) {
         this.workCUDController = workCUDController;
     }
@@ -53,6 +50,8 @@ public class WorkKindCUDController {
             transaction.begin();
             session.save(workKindEntity);
             transaction.commit();
+            //
+            changeStateToWorkCUD();
         } catch (Exception e) {
             e.printStackTrace();
             if (transaction != null) {
@@ -66,7 +65,6 @@ public class WorkKindCUDController {
         } finally {
             if (session != null)
                 session.close();
-            changeStateToWorkCUD();
         }
 
     }
@@ -83,6 +81,8 @@ public class WorkKindCUDController {
             transaction.begin();
             session.update(workKindEntity);
             transaction.commit();
+            //
+            changeStateToWorkCUD();
         } catch (Exception e) {
             e.printStackTrace();
             if (transaction != null) {
@@ -96,7 +96,6 @@ public class WorkKindCUDController {
         } finally {
             if (session != null)
                 session.close();
-            changeStateToWorkCUD();
         }
 
     }
@@ -121,6 +120,8 @@ public class WorkKindCUDController {
                 alertSuccess.setHeaderText(null);
                 alertSuccess.setContentText("Вид работы " + "[" + workKindName + "]" + " был успешно удален!");
                 alertSuccess.showAndWait();
+                //
+                changeStateToWorkCUD();
             } catch (Exception e) {
                 e.printStackTrace();
                 if (transaction != null) {
@@ -134,7 +135,6 @@ public class WorkKindCUDController {
             } finally {
                 if (session != null)
                     session.close();
-                changeStateToWorkCUD();
             }
         } else {
             alertSure.hide();
