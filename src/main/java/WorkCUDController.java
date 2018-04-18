@@ -1,3 +1,4 @@
+import hba.BeegardenEntity;
 import hba.BeehiveEntity;
 import hba.WorkEntity;
 import hba.WorkKindEntity;
@@ -22,6 +23,7 @@ import javax.persistence.criteria.Root;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class WorkCUDController {
 
@@ -100,14 +102,119 @@ public class WorkCUDController {
         mnApp.getPrimaryStage().show();
     }
 
-    @FXML       //[СОХРАНИТЬ]
-    public void goAddOrEdit() {
-        workListController.changeStateToWorkDetail(this.workEntity);
+    @FXML       //[ДОБАВИТЬ]
+    public void goAdd() {
+        Transaction transaction = null;
+        Session session = HBUtil.getSessionFactory().openSession();
+        try {
+            workEntity = new WorkEntity();
+            workEntity.setIdBeegarden(loadBeegarden().getIdBeegarden());
+            if (this.cmbBeehive.getValue() != null) {
+                workEntity.setIdBeehive(this.cmbBeehive.getValue().getIdBeehive());
+                workEntity.setBeehive(this.cmbBeehive.getValue());
+            }
+            workEntity.setIdWorkKind(this.cmbWorkKind.getValue().getIdWorkKind());
+            workEntity.setWorkKindByIdWorkKind(this.cmbWorkKind.getValue());
+            workEntity.setDateStart(this.dtpckrDateStart.getValue());
+            workEntity.setDateEnd(this.dtpckrDateEnd.getValue());
+            workEntity.setWorkStatus(this.cmbStatus.getValue());
+            //
+            transaction = session.getTransaction();
+            transaction.begin();
+            session.save(workEntity);
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            } //
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Ошибка");
+            alert.setHeaderText("Проверьте правильность введенных данных");
+            alert.setContentText(   "- недопустимы пустые поля\n");
+            alert.showAndWait();
+        } finally {
+            if (session != null)
+                session.close();
+            workListController.changeStateToWorkDetail(this.workEntity);
+        }
+    }
+
+    @FXML       //[ИЗМЕНИТЬ]
+    public void goEdit() {
+        Transaction transaction = null;
+        Session session = HBUtil.getSessionFactory().openSession();
+        try {
+            workEntity.setIdBeehive(this.cmbBeehive.getValue().getIdBeehive());
+            workEntity.setBeehive(this.cmbBeehive.getValue());
+            workEntity.setIdWorkKind(this.cmbWorkKind.getValue().getIdWorkKind());
+            workEntity.setWorkKindByIdWorkKind(this.cmbWorkKind.getValue());
+            workEntity.setDateStart(this.dtpckrDateStart.getValue());
+            workEntity.setDateEnd(this.dtpckrDateEnd.getValue());
+            workEntity.setWorkStatus(this.cmbStatus.getValue());
+            //
+            transaction = session.getTransaction();
+            transaction.begin();
+            session.update(workEntity);
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            } //
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Ошибка");
+            alert.setHeaderText("Проверьте правильность введенных данных");
+            alert.setContentText(   "- недопустимы пустые поля\n");
+            alert.showAndWait();
+        } finally {
+            if (session != null)
+                session.close();
+            workListController.changeStateToWorkDetail(this.workEntity);
+        }
     }
 
     @FXML       //[УДАЛИТЬ]
     public void goDelete() {
-        workListController.getMainController().changeStateToWorkList();
+        String workKindName = workEntity.getWorkKindByIdWorkKind().getName();
+        String workStatus = workEntity.getWorkStatus();
+        String dateStart = workEntity.getDateStart().toString();
+        String dateEnd = workEntity.getDateEnd().toString();
+        Alert alertSure = new Alert(Alert.AlertType.CONFIRMATION);
+        alertSure.setTitle("Удаление работы");
+        alertSure.setHeaderText("Удалить работу " + "[" + workKindName + ": " + workStatus + " - c " + dateStart + " по " + dateEnd + "]" + "?");
+        alertSure.setContentText("Вы уверены, что хотите удалить работу " + "[" + workKindName + ": " + workStatus + " - c " + dateStart + " по " + dateEnd + "]" + "?");
+        Optional<ButtonType> result = alertSure.showAndWait();
+        if (result.get() == ButtonType.OK){
+            Transaction transaction = null;
+            Session session = HBUtil.getSessionFactory().openSession();
+            try {
+                transaction = session.beginTransaction();
+                session.delete(this.workEntity);
+                transaction.commit();
+                Alert alertSuccess = new Alert(Alert.AlertType.INFORMATION);
+                alertSuccess.setTitle("Работа удалена");
+                alertSuccess.setHeaderText(null);
+                alertSuccess.setContentText("Работа" + "[" + workKindName + ": " + workStatus + " - c " + dateStart + " по " + dateEnd + "]" + " была успешно удалена!");
+                alertSuccess.showAndWait();
+            } catch (Exception e) {
+                e.printStackTrace();
+                if (transaction != null) {
+                    transaction.rollback();
+                }
+                Alert alertError = new Alert(Alert.AlertType.ERROR);
+                alertError.setTitle("Ошибка");
+                alertError.setHeaderText("Что-то пошло не так(");
+                alertError.setContentText("Что-то пошло не так(");
+                alertError.showAndWait();
+            } finally {
+                if (session != null)
+                    session.close();
+                workListController.getMainController().changeStateToWorkList();
+            }
+        } else {
+            alertSure.hide();
+        }
     }
 
     @FXML       //[Редактированить ВИД РАБОТЫ]
@@ -204,12 +311,19 @@ public class WorkCUDController {
     }
 
     public void initWorkAddState() {
+        this.hyperlinkAddOrEdit.setOnMouseClicked(event -> {
+            goAdd();
+        });
+        //
         this.lblcaptionTitle.setText("Добавить работу");
         this.hyperlinkAddOrEdit.setText("Добавить");
         this.hyperlinkDeleteWork.setVisible(false);
     }
 
     public void initWorkEditState() {
+        this.hyperlinkAddOrEdit.setOnMouseClicked(event -> {
+            goEdit();
+        });
         this.lblcaptionTitle.setText("Изменить работу");
         this.hyperlinkAddOrEdit.setText("Изменить");
         this.hyperlinkDeleteWork.setVisible(true);
@@ -278,6 +392,33 @@ public class WorkCUDController {
                 session.close();
         }
         return this.beehiveEntityList;
+    }
+
+    private BeegardenEntity beegardenEntity;
+    //Получить пасеку
+    public BeegardenEntity loadBeegarden() {
+        Transaction transaction = null;
+        Session session = HBUtil.getSessionFactory().openSession();
+        try {
+            transaction = session.beginTransaction();
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<BeegardenEntity> query = builder.createQuery(BeegardenEntity.class);
+            Root<BeegardenEntity> root = query.from(BeegardenEntity.class);
+            query.select(root);
+            Query<BeegardenEntity> q = session.createQuery(query);
+            this.beegardenEntity = null;
+            this.beegardenEntity = q.getSingleResult();
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        } finally {
+            if (session != null)
+                session.close();
+        }
+        return this.beegardenEntity;
     }
 
 }

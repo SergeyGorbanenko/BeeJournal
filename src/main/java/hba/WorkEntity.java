@@ -19,6 +19,7 @@ public class WorkEntity {
     private BeehiveEntity beehive;
 
     @Id
+    //@GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "idWork", nullable = false)
     public Integer getIdWork() {
         return idWork;
@@ -79,7 +80,7 @@ public class WorkEntity {
     }
 
     @Basic
-    @Column(name = "idBeegarden", nullable = false, insertable = false, updatable = false)
+    @Column(name = "idBeegarden", nullable = true, insertable = false, updatable = false)
     public Integer getIdBeegarden() {
         return idBeegarden;
     }

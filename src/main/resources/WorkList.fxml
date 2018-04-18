@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -18,6 +19,11 @@
                         <Font name="System Bold" size="24.0" />
                      </font>
                   </Hyperlink>
+                  <Label layoutX="73.0" layoutY="12.0" text="Журнал работ" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
                </children>
             </Pane>
             <Pane layoutY="50.0" prefHeight="510.0" prefWidth="315.0" style="-fx-background-color: #ffefd3;">

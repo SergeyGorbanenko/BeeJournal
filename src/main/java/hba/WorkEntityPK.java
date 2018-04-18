@@ -1,6 +1,8 @@
 package hba;
 
 import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Objects;
@@ -10,6 +12,7 @@ public class WorkEntityPK implements Serializable {
     private Integer idWorkKind;
 
     @Column(name = "idWork", nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     public Integer getIdWork() {
         return idWork;
@@ -20,6 +23,7 @@ public class WorkEntityPK implements Serializable {
     }
 
     @Column(name = "idWorkKind", nullable = false)
+    //@GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     public Integer getIdWorkKind() {
         return idWorkKind;
