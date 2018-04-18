@@ -316,7 +316,7 @@ public class WorkCUDController {
         });
         //
         this.lblcaptionTitle.setText("Добавить работу");
-        this.hyperlinkAddOrEdit.setText("Добавить");
+        this.hyperlinkAddOrEdit.setText("  Добавить");
         this.hyperlinkDeleteWork.setVisible(false);
     }
 
@@ -325,7 +325,7 @@ public class WorkCUDController {
             goEdit();
         });
         this.lblcaptionTitle.setText("Изменить работу");
-        this.hyperlinkAddOrEdit.setText("Изменить");
+        this.hyperlinkAddOrEdit.setText("  Изменить");
         this.hyperlinkDeleteWork.setVisible(true);
         //
         this.cmbStatus.getSelectionModel().select(getIndexOfWorkStatus(workEntity.getWorkStatus(), obserlistWorkStatus));

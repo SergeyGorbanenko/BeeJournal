@@ -15,7 +15,7 @@
             <children>
                 <Pane prefHeight="50.0" prefWidth="315.0" style="-fx-background-color: #7f5c2f;">
                     <children>
-                        <Hyperlink onAction="#goBack" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #ffa500; -fx-underline: false;" text=" ←" textFill="#0d0d0d">
+                        <Hyperlink onAction="#goBack" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #ce9504; -fx-underline: false;" text=" ←" textFill="#0d0d0d">
                             <font>
                                 <Font name="System Bold" size="24.0" />
                             </font>
@@ -29,19 +29,19 @@
                 </Pane>
                 <Pane layoutY="50.0" prefHeight="510.0" prefWidth="315.0" style="-fx-background-color: #ffefd3;">
                     <children>
-                        <Hyperlink layoutX="218.0" layoutY="226.0" onAction="#goSave" prefHeight="28.0" prefWidth="80.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="Изменить" textFill="#7f5c2f">
+                        <Hyperlink layoutX="181.0" layoutY="226.0" onAction="#goSave" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="  Изменить" textFill="#7f5c2f">
                             <font>
-                                <Font name="System Bold" size="14.0" />
+                                <Font name="System Bold" size="18.0" />
                             </font>
                         </Hyperlink>
-                  <Hyperlink layoutX="218.0" layoutY="264.0" onAction="#goDelete" prefHeight="28.0" prefWidth="80.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="  Удалить" textFill="#7f5c2f">
+                  <Hyperlink layoutX="181.0" layoutY="266.0" onAction="#goDelete" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #fff7e0; -fx-underline: false;" text="    Удалить" textFill="#7f5c2f">
                      <font>
-                        <Font size="14.0" />
+                        <Font size="17.0" />
                      </font>
                   </Hyperlink>
-                  <Hyperlink layoutX="19.0" layoutY="226.0" onAction="#goAdd" prefHeight="60.0" prefWidth="100.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="   Добавить &#10;  новый вид" textFill="#7f5c2f">
+                  <Hyperlink layoutX="14.0" layoutY="225.0" onAction="#goAdd" prefHeight="80.0" prefWidth="104.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="   Добавить &#10;  новый вид" textFill="#7f5c2f">
                      <font>
-                        <Font name="System Bold" size="14.0" />
+                        <Font name="System Bold" size="15.0" />
                      </font>
                   </Hyperlink>
                         <Label layoutX="19.0" layoutY="45.0" text="Название" textFill="#7f5c2f">
