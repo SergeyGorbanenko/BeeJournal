@@ -1,3 +1,4 @@
+import hba.WorkKindEntity;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -48,5 +49,18 @@ public class WorkKindCUDController {
 
     @FXML private TextField txtfldName;
     @FXML private TextArea txtareaDescription;
+
+
+
+    //Конкретный Вид работы
+    private WorkKindEntity workKindEntity;
+    public void setWorkKindEntity(WorkKindEntity workKindEntity) {
+        this.workKindEntity = workKindEntity;
+    }
+
+    public void initWorkKindDataInTextFields() {
+        this.txtfldName.setText(this.workKindEntity.getName());
+        this.txtareaDescription.setText(this.workKindEntity.getDescription());
+    }
 
 }

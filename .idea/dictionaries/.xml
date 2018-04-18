@@ -2,11 +2,14 @@
   <dictionary name="Сергей">
     <words>
       <w>beegarden</w>
+      <w>combobox</w>
       <w>dadd</w>
       <w>dbfile</w>
       <w>dedit</w>
       <w>lblcaption</w>
       <w>lblvalue</w>
+      <w>obser</w>
+      <w>obserlist</w>
     </words>
   </dictionary>
 </component>

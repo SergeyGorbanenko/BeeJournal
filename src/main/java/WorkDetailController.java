@@ -45,6 +45,8 @@ public class WorkDetailController {
             mnApp.getPrimaryStage().show();
             workCUDController.setWorkDetailController(this);
             workCUDController.setMainApp(mnApp);
+            workCUDController.setWorkEntity(workEntity);
+            workCUDController.initWorkDataInCombobox();
             workCUDController.initWorkEditState();
         } else {
             try {
@@ -59,8 +61,9 @@ public class WorkDetailController {
                 workCUDController = loader.getController();
                 workCUDController.setWorkListController(workListController);
                 workCUDController.setWorkDetailController(this);
-                //controller.setMainController(null);
                 workCUDController.setMainApp(mnApp);
+                workCUDController.setWorkEntity(workEntity);
+                workCUDController.initWorkDataInCombobox();
                 workCUDController.initWorkEditState();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -96,7 +99,13 @@ public class WorkDetailController {
         this.lblvalueWorkStatus.setText("пусто");
     }
 
+
+    //Конкретная работа
+    private WorkEntity workEntity = null;
+
     public void fillWorkDetailState(WorkEntity workEntity) {
+        this.workEntity = workEntity;
+        //
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy", new Locale("ru", "RU"));
         this.lblvalueName.setText(workEntity.getWorkKindByIdWorkKind().getName());
         this.lblvalueDateStart.setText(workEntity.getDateStart().format(formatter));

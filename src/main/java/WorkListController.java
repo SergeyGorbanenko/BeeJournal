@@ -87,8 +87,9 @@ public class WorkListController {
             mainStage.setScene(workCUDScene);
             mnApp.setPrimaryStage(mainStage);
             mnApp.getPrimaryStage().show();
-            workCUDController.setWorkListController(this);     //чекать!
+            workCUDController.setWorkListController(this);
             workCUDController.setMainApp(mnApp);
+            workCUDController.initWorkDataInCombobox();
             workCUDController.initWorkAddState();
         } else {
             try {
@@ -101,10 +102,9 @@ public class WorkListController {
                 mnApp.setPrimaryStage(mainStage);
                 mnApp.getPrimaryStage().show();
                 workCUDController = loader.getController();
-                //controller.setMainController(mainController);
-                workCUDController.setWorkListController(this);     //чекать!
-                //controller.setWorkDetailController(null);
+                workCUDController.setWorkListController(this);
                 workCUDController.setMainApp(mnApp);
+                workCUDController.initWorkDataInCombobox();
                 workCUDController.initWorkAddState();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -128,6 +128,7 @@ public class WorkListController {
     }
 
     @FXML private ScrollPane scrlPane;
+
 
     //Конкретная работа
     private WorkEntity workEntity;
