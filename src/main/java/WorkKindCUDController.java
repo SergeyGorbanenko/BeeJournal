@@ -1,8 +1,14 @@
 import hba.WorkKindEntity;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import java.util.Optional;
 
 public class WorkKindCUDController {
 
@@ -25,31 +31,118 @@ public class WorkKindCUDController {
         mainStage.setScene(workCUDController.getOwnerScene());
         mnApp.setPrimaryStage(mainStage);
         mnApp.getPrimaryStage().show();
+        workCUDController.initWorkDataInCombobox();
+        workCUDController.initWorkEditState();
     }
 
-    @FXML       //Назад
+    @FXML       //[НАЗАД]
     public void goBack() {
         changeStateToWorkCUD();
     }
 
-    @FXML       //Сохранить
-    public void goSave() {
-        changeStateToWorkCUD();
-    }
-
-    @FXML       //Удалить
-    public void goDelete() {
-        changeStateToWorkCUD();
-    }
-
-    @FXML       //Удалить
+    @FXML       //[ДОБАВИТЬ НОВЫЙ ВИД]
     public void goAdd() {
-        changeStateToWorkCUD();
+        Transaction transaction = null;
+        Session session = HBUtil.getSessionFactory().openSession();
+        try {
+            workKindEntity = new WorkKindEntity();
+            workKindEntity.setName(txtfldName.getText());
+            workKindEntity.setDescription(txtareaDescription.getText());
+            //
+            transaction = session.getTransaction();
+            transaction.begin();
+            session.save(workKindEntity);
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            } //
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Ошибка");
+            alert.setHeaderText("Проверьте правильность введенных данных");
+            alert.setContentText(   "- недопустимы пустые поля\n");
+            alert.showAndWait();
+        } finally {
+            if (session != null)
+                session.close();
+            changeStateToWorkCUD();
+        }
+
+    }
+
+    @FXML       //[ИЗМЕНИТЬ]
+    public void goSave() {
+        Transaction transaction = null;
+        Session session = HBUtil.getSessionFactory().openSession();
+        try {
+            workKindEntity.setName(txtfldName.getText());
+            workKindEntity.setDescription(txtareaDescription.getText());
+            //
+            transaction = session.getTransaction();
+            transaction.begin();
+            session.update(workKindEntity);
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            } //
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Ошибка");
+            alert.setHeaderText("Проверьте правильность введенных данных");
+            alert.setContentText(   "- недопустимы пустые поля\n");
+            alert.showAndWait();
+        } finally {
+            if (session != null)
+                session.close();
+            changeStateToWorkCUD();
+        }
+
+    }
+
+    @FXML       //[УДАЛИТЬ]
+    public void goDelete() {
+        String workKindName = workKindEntity.getName();
+        Alert alertSure = new Alert(Alert.AlertType.CONFIRMATION);
+        alertSure.setTitle("Удаление вида работы");
+        alertSure.setHeaderText("Удалить вид работы " + "[" + workKindName + "]" + "?");
+        alertSure.setContentText("Вы уверены, что хотите вид работы " + "[" + workKindName + "]" + "?");
+        Optional<ButtonType> result = alertSure.showAndWait();
+        if (result.get() == ButtonType.OK){
+            Transaction transaction = null;
+            Session session = HBUtil.getSessionFactory().openSession();
+            try {
+                transaction = session.beginTransaction();
+                session.delete(this.workKindEntity);
+                transaction.commit();
+                Alert alertSuccess = new Alert(Alert.AlertType.INFORMATION);
+                alertSuccess.setTitle("Вид работы удален");
+                alertSuccess.setHeaderText(null);
+                alertSuccess.setContentText("Вид работы " + "[" + workKindName + "]" + " был успешно удален!");
+                alertSuccess.showAndWait();
+            } catch (Exception e) {
+                e.printStackTrace();
+                if (transaction != null) {
+                    transaction.rollback();
+                }
+                Alert alertError = new Alert(Alert.AlertType.ERROR);
+                alertError.setTitle("Ошибка");
+                alertError.setHeaderText("Что-то пошло не так(");
+                alertError.setContentText("Что-то пошло не так(");
+                alertError.showAndWait();
+            } finally {
+                if (session != null)
+                    session.close();
+                changeStateToWorkCUD();
+            }
+        } else {
+            alertSure.hide();
+        }
     }
 
     @FXML private TextField txtfldName;
     @FXML private TextArea txtareaDescription;
-
 
 
     //Конкретный Вид работы
@@ -62,5 +155,6 @@ public class WorkKindCUDController {
         this.txtfldName.setText(this.workKindEntity.getName());
         this.txtareaDescription.setText(this.workKindEntity.getDescription());
     }
+
 
 }

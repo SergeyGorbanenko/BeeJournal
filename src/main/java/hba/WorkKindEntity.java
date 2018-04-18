@@ -13,6 +13,7 @@ public class WorkKindEntity {
     private Collection<WorkEntity> worksByIdWorkKind;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "idWorkKind", nullable = false)
     public Integer getIdWorkKind() {
         return idWorkKind;

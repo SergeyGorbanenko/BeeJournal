@@ -109,10 +109,8 @@ public class WorkCUDController {
         try {
             workEntity = new WorkEntity();
             workEntity.setIdBeegarden(loadBeegarden().getIdBeegarden());
-            if (this.cmbBeehive.getValue() != null) {
-                workEntity.setIdBeehive(this.cmbBeehive.getValue().getIdBeehive());
-                workEntity.setBeehive(this.cmbBeehive.getValue());
-            }
+            workEntity.setIdBeehive(this.cmbBeehive.getValue().getIdBeehive());
+            workEntity.setBeehive(this.cmbBeehive.getValue());
             workEntity.setIdWorkKind(this.cmbWorkKind.getValue().getIdWorkKind());
             workEntity.setWorkKindByIdWorkKind(this.cmbWorkKind.getValue());
             workEntity.setDateStart(this.dtpckrDateStart.getValue());
