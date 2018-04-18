@@ -141,20 +141,40 @@ public class WorkCUDController {
     @FXML       //[ИЗМЕНИТЬ]
     public void goEdit() {
         Transaction transaction = null;
+        Transaction transaction2 = null;
         Session session = HBUtil.getSessionFactory().openSession();
         try {
-            workEntity.setIdBeehive(this.cmbBeehive.getValue().getIdBeehive());
-            workEntity.setBeehive(this.cmbBeehive.getValue());
-            workEntity.setIdWorkKind(this.cmbWorkKind.getValue().getIdWorkKind());
-            workEntity.setWorkKindByIdWorkKind(this.cmbWorkKind.getValue());
-            workEntity.setDateStart(this.dtpckrDateStart.getValue());
-            workEntity.setDateEnd(this.dtpckrDateEnd.getValue());
-            workEntity.setWorkStatus(this.cmbStatus.getValue());
-            //
-            transaction = session.getTransaction();
-            transaction.begin();
-            session.update(workEntity);
-            transaction.commit();
+            if (workEntity.getIdWorkKind() != cmbWorkKind.getValue().getIdWorkKind()) {
+                transaction2 = session.getTransaction();
+                transaction2.begin();
+                session.delete(workEntity);
+                transaction2.commit();
+                //
+                workEntity = new WorkEntity();
+                workEntity.setIdBeehive(this.cmbBeehive.getValue().getIdBeehive());
+                workEntity.setBeehive(this.cmbBeehive.getValue());
+                workEntity.setIdWorkKind(this.cmbWorkKind.getValue().getIdWorkKind());
+                workEntity.setWorkKindByIdWorkKind(this.cmbWorkKind.getValue());
+                workEntity.setDateStart(this.dtpckrDateStart.getValue());
+                workEntity.setDateEnd(this.dtpckrDateEnd.getValue());
+                workEntity.setWorkStatus(this.cmbStatus.getValue());
+                //
+                transaction = session.getTransaction();
+                transaction.begin();
+                session.save(workEntity);
+                transaction.commit();
+            } else {
+                workEntity.setIdBeehive(this.cmbBeehive.getValue().getIdBeehive());
+                workEntity.setBeehive(this.cmbBeehive.getValue());
+                workEntity.setDateStart(this.dtpckrDateStart.getValue());
+                workEntity.setDateEnd(this.dtpckrDateEnd.getValue());
+                workEntity.setWorkStatus(this.cmbStatus.getValue());
+                //
+                transaction = session.getTransaction();
+                transaction.begin();
+                session.update(workEntity);
+                transaction.commit();
+            }
         } catch (Exception e) {
             e.printStackTrace();
             if (transaction != null) {
