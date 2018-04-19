@@ -38,32 +38,32 @@
                                 <Font name="System Bold" size="18.0" />
                             </font>
                         </Hyperlink>
-                        <Hyperlink layoutY="436.0" prefHeight="30.0" prefWidth="53.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="   кг" textFill="#0a0a0a">
+                        <Hyperlink layoutY="436.0" onAction="#viewWorksByMeasureKG" prefHeight="30.0" prefWidth="53.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="   кг" textFill="#0a0a0a">
                             <font>
                                 <Font name="System Bold" size="13.0" />
                             </font>
                         </Hyperlink>
-                        <Hyperlink layoutX="53.0" layoutY="436.0" prefHeight="30.0" prefWidth="53.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="   гр" textFill="#0a0a0a">
+                        <Hyperlink layoutX="53.0" layoutY="436.0" onAction="#viewWorksByMeasureGR" prefHeight="30.0" prefWidth="53.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="   гр" textFill="#0a0a0a">
                             <font>
                                 <Font name="System Bold" size="13.0" />
                             </font>
                         </Hyperlink>
-                        <Hyperlink layoutX="106.0" layoutY="436.0" prefHeight="30.0" prefWidth="53.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text=" литр" textFill="#0a0a0a">
+                        <Hyperlink layoutX="106.0" layoutY="436.0" onAction="#viewWorksByMeasureLITR" prefHeight="30.0" prefWidth="53.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text=" литр" textFill="#0a0a0a">
                             <font>
                                 <Font name="System Bold" size="13.0" />
                             </font>
                         </Hyperlink>
-                  <Hyperlink layoutX="159.0" layoutY="436.0" prefHeight="30.0" prefWidth="53.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="  мл" textFill="#0a0a0a">
+                  <Hyperlink layoutX="159.0" layoutY="436.0" onAction="#viewWorksByMeasureML" prefHeight="30.0" prefWidth="53.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="  мл" textFill="#0a0a0a">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
                   </Hyperlink>
-                  <Hyperlink layoutX="212.0" layoutY="436.0" prefHeight="30.0" prefWidth="53.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="  шт" textFill="#0a0a0a">
+                  <Hyperlink layoutX="212.0" layoutY="436.0" onAction="#viewWorksByMeasureSHT" prefHeight="30.0" prefWidth="53.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="  шт" textFill="#0a0a0a">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
                   </Hyperlink>
-                  <Hyperlink layoutX="264.0" layoutY="436.0" prefHeight="30.0" prefWidth="53.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="метр" textFill="#0a0a0a">
+                  <Hyperlink layoutX="264.0" layoutY="436.0" onAction="#viewWorksByMeasureMETR" prefHeight="30.0" prefWidth="53.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="метр" textFill="#0a0a0a">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>

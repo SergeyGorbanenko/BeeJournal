@@ -119,4 +119,28 @@ public class ResursListController {
         return String.valueOf(resSummaryCount);
     }
 
+    @FXML
+    public void viewWorksByMeasureKG() {
+        viewResurses( mainController.loadResursList("кг"));
+    }
+    @FXML
+    public void viewWorksByMeasureGR() {
+        viewResurses( mainController.loadResursList("гр"));
+    }
+    @FXML
+    public void viewWorksByMeasureLITR() {
+        viewResurses( mainController.loadResursList("литр"));
+    }
+    @FXML
+    public void viewWorksByMeasureML() {
+        viewResurses( mainController.loadResursList("мл"));
+    }
+    @FXML
+    public void viewWorksByMeasureSHT() {
+        viewResurses( mainController.loadResursList("шт"));
+    }
+    @FXML
+    public void viewWorksByMeasureMETR() {
+        viewResurses( mainController.loadResursList("метр"));
+    }
 }

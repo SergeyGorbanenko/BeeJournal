@@ -216,5 +216,31 @@ public class MainController {
         return this.resourceTypeEntityList;
     }
 
+    //Получить список Ресурсов по Единице измерения
+    public List<ResourceTypeEntity> loadResursList(String measureString) {
+        Transaction transaction = null;
+        Session session = HBUtil.getSessionFactory().openSession();
+        try {
+            transaction = session.beginTransaction();
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<ResourceTypeEntity> query = builder.createQuery(ResourceTypeEntity.class);
+            Root<ResourceTypeEntity> root = query.from(ResourceTypeEntity.class);
+            query.select(root);
+            query.where(builder.equal(root.get("measure"), measureString));
+            Query<ResourceTypeEntity> q = session.createQuery(query);
+            this.resourceTypeEntityList = q.getResultList();
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        } finally {
+            if (session != null)
+                session.close();
+        }
+        return this.resourceTypeEntityList;
+    }
+
 
 }
