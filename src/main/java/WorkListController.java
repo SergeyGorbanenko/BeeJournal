@@ -209,4 +209,10 @@ public class WorkListController {
     public void viewWorksByStatusDone() {
         viewWorks(mainController.loadWorkList("Выполнена"));
     }
+
+    @FXML
+    public void viewWorksByStatusProsrochka() {
+        viewWorks(mainController.loadWorkList("Просрочена"));
+    }
+
 }

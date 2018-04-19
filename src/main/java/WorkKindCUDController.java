@@ -1,9 +1,6 @@
 import hba.WorkKindEntity;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -134,6 +131,7 @@ public class WorkKindCUDController {
             Transaction transaction = null;
             Session session = HBUtil.getSessionFactory().openSession();
             try {
+                if (!workKindEntity.getWorksByIdWorkKind().isEmpty()) throw  new Exception();
                 transaction = session.beginTransaction();
                 session.delete(this.workKindEntity);
                 transaction.commit();
@@ -152,7 +150,8 @@ public class WorkKindCUDController {
                 Alert alertError = new Alert(Alert.AlertType.ERROR);
                 alertError.setTitle("Ошибка");
                 alertError.setHeaderText("Что-то пошло не так(");
-                alertError.setContentText("- нельзя удалить несуществующую запись, сперва выполите \"Добавить новый вид работы\"");
+                alertError.setContentText("- нельзя удалить несуществующую запись, сперва выполите \"Добавить новый вид работы\"" +
+                        "- нельзя удалить вид работы по которому есть текущие работы");
                 alertError.showAndWait();
             } finally {
                 if (session != null)
@@ -163,6 +162,7 @@ public class WorkKindCUDController {
         }
     }
 
+    @FXML private Label lblcaptionWorkKindName;
     @FXML private TextField txtfldName;
     @FXML private TextArea txtareaDescription;
 
@@ -174,8 +174,14 @@ public class WorkKindCUDController {
     }
 
     public void initWorkKindDataInTextFields() {
-        this.txtfldName.setText(this.workKindEntity.getName());
-        this.txtareaDescription.setText(this.workKindEntity.getDescription());
+        try {
+            this.lblcaptionWorkKindName.setText(this.workKindEntity.getName());
+            this.txtfldName.setText(this.workKindEntity.getName());
+            this.txtareaDescription.setText(this.workKindEntity.getDescription());
+        } catch (Exception e) {
+            this.lblcaptionWorkKindName.setText("");
+        }
+
     }
 
 }

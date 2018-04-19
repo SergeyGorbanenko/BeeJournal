@@ -29,33 +29,38 @@
                 </Pane>
                 <Pane layoutY="50.0" prefHeight="510.0" prefWidth="315.0" style="-fx-background-color: #ffefd3;">
                     <children>
-                        <Hyperlink layoutX="181.0" layoutY="226.0" onAction="#goSave" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="  Изменить" textFill="#7f5c2f">
+                        <Hyperlink layoutX="181.0" layoutY="235.0" onAction="#goSave" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="  Изменить" textFill="#7f5c2f">
                             <font>
                                 <Font name="System Bold" size="18.0" />
                             </font>
                         </Hyperlink>
-                  <Hyperlink layoutX="181.0" layoutY="266.0" onAction="#goDelete" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #fff7e0; -fx-underline: false;" text="    Удалить" textFill="#7f5c2f">
+                  <Hyperlink layoutX="181.0" layoutY="275.0" onAction="#goDelete" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #fff7e0; -fx-underline: false;" text="    Удалить" textFill="#7f5c2f">
                      <font>
                         <Font size="17.0" />
                      </font>
                   </Hyperlink>
-                  <Hyperlink layoutX="14.0" layoutY="225.0" onAction="#goAdd" prefHeight="80.0" prefWidth="104.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="   Добавить &#10;  новый вид" textFill="#7f5c2f">
+                  <Hyperlink layoutX="14.0" layoutY="234.0" onAction="#goAdd" prefHeight="80.0" prefWidth="104.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="   Добавить &#10;  новый вид" textFill="#7f5c2f">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Hyperlink>
-                        <Label layoutX="19.0" layoutY="45.0" text="Название" textFill="#7f5c2f">
+                        <Label layoutX="19.0" layoutY="54.0" text="Название" textFill="#7f5c2f">
                             <font>
                                 <Font name="System Bold" size="16.0" />
                             </font>
                         </Label>
-                  <Label layoutX="19.0" layoutY="93.0" text="Описание" textFill="#7f5c2f">
+                  <Label layoutX="19.0" layoutY="102.0" text="Описание" textFill="#7f5c2f">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="txtfldName" layoutX="113.0" layoutY="45.0" prefHeight="25.0" prefWidth="185.0" />
-                  <TextArea fx:id="txtareaDescription" layoutX="113.0" layoutY="93.0" prefHeight="100.0" prefWidth="185.0" wrapText="true" />
+                  <TextField fx:id="txtfldName" layoutX="113.0" layoutY="54.0" prefHeight="25.0" prefWidth="185.0" />
+                  <TextArea fx:id="txtareaDescription" layoutX="113.0" layoutY="102.0" prefHeight="100.0" prefWidth="185.0" wrapText="true" />
+                  <Label fx:id="lblcaptionWorkKindName" layoutX="20.0" layoutY="14.0" text="имя вида работы" textFill="#070707">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
                     </children>
                 </Pane>
             </children></AnchorPane>

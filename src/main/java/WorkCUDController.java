@@ -21,6 +21,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -102,6 +103,7 @@ public class WorkCUDController {
         Session session = HBUtil.getSessionFactory().openSession();
         try {
             if (dtpckrDateEnd.getValue().isBefore(dtpckrDateStart.getValue())) throw new Exception();
+            if (cmbStatus.getValue().equals("Планируется") && dtpckrDateStart.getValue().isBefore(LocalDate.now())) throw new Exception();
             workEntity = new WorkEntity();
             workEntity.setIdBeegarden(loadBeegarden().getIdBeegarden());
             workEntity.setIdBeehive(this.cmbBeehive.getValue().getIdBeehive());
@@ -127,12 +129,12 @@ public class WorkCUDController {
             alert.setTitle("Ошибка");
             alert.setHeaderText("Проверьте правильность введенных данных");
             alert.setContentText(   "- недопустимы пустые поля\n" +
-                    "- дата начала работы не может быть позже окончания");
+                    "- дата начала работы не может быть позже окончания\n" +
+                    "- дата начала планируемой работы не может быть раньше сегодняшней даты");
             alert.showAndWait();
         } finally {
             if (session != null)
                 session.close();
-
         }
     }
 
@@ -143,6 +145,7 @@ public class WorkCUDController {
         Session session = HBUtil.getSessionFactory().openSession();
         try {
             if (dtpckrDateEnd.getValue().isBefore(dtpckrDateStart.getValue())) throw new Exception();
+            if (cmbStatus.getValue().equals("Планируется") && dtpckrDateStart.getValue().isBefore(LocalDate.now())) throw new Exception();
             if (workEntity.getIdWorkKind() != cmbWorkKind.getValue().getIdWorkKind()) {
                 transaction2 = session.getTransaction();
                 transaction2.begin();
@@ -162,6 +165,8 @@ public class WorkCUDController {
                 transaction.begin();
                 session.save(workEntity);
                 transaction.commit();
+                //
+                workListController.changeStateToWorkDetail(this.workEntity);
             } else {
                 workEntity.setIdBeehive(this.cmbBeehive.getValue().getIdBeehive());
                 workEntity.setBeehive(this.cmbBeehive.getValue());
@@ -185,7 +190,8 @@ public class WorkCUDController {
             alert.setTitle("Ошибка");
             alert.setHeaderText("Проверьте правильность введенных данных");
             alert.setContentText(   "- недопустимы пустые поля\n" +
-                    "- дата начала работы не может быть позже окончания");
+                    "- дата начала работы не может быть позже окончания\n"+
+                    "- дата начала планируемой работы не может быть раньше сегодняшней даты");
             alert.showAndWait();
         } finally {
             if (session != null)
@@ -325,6 +331,7 @@ public class WorkCUDController {
         lst.add("Планируется");
         lst.add("В процессе");
         lst.add("Выполнена");
+        lst.add("Просрочена");
         this.obserlistWorkStatus = FXCollections.observableArrayList(lst);
         this.cmbStatus.getItems().clear();
         this.cmbStatus.setItems(this.obserlistWorkStatus);
@@ -365,7 +372,6 @@ public class WorkCUDController {
         this.dtpckrDateStart.setValue(workEntity.getDateStart());
         this.dtpckrDateEnd.setValue(workEntity.getDateEnd());
     }
-
 
 
     //Конкретная работа
