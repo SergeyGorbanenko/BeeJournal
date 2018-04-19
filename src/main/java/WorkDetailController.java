@@ -20,9 +20,6 @@ public class WorkDetailController {
     public void setWorkListController(WorkListController workListController) {
         this.workListController = workListController;
     }
-    public WorkListController getWorkListController() {
-        return workListController;
-    }
 
     private Scene ownerScene;
     public Scene getOwnerScene() {
@@ -89,15 +86,6 @@ public class WorkDetailController {
     @FXML private Label lblvalueDescription;
     @FXML private Label lblvalueName;
     @FXML private Label lblvalueWorkStatus;
-
-    public void initWorkDetailState() {
-        this.lblvalueDateStart.setText("пусто");
-        this.lblvalueDateEnd.setText("пусто");
-        this.lblvalueBeehive.setText("пусто");
-        this.lblvalueDescription.setText("пусто");
-        this.lblvalueName.setText("пусто");
-        this.lblvalueWorkStatus.setText("пусто");
-    }
 
 
     //Конкретная работа

@@ -33,17 +33,11 @@ public class WorkCUDController {
     }
 
     private WorkListController workListController;
-    public WorkListController getWorkListController() {
-        return workListController;
-    }
     public void setWorkListController(WorkListController workListController) {
         this.workListController = workListController;
     }
 
     private WorkDetailController workDetailController;
-    public WorkDetailController getWorkDetailController() {
-        return workDetailController;
-    }
     public void setWorkDetailController(WorkDetailController workDetailController) {
         this.workDetailController = workDetailController;
     }
@@ -245,6 +239,16 @@ public class WorkCUDController {
 
     @FXML       //[Редактированить ВИД РАБОТЫ]
     public void goEditWorkKind() {
+/*        try {     не применять: при удалении всех записей о виде работы - не пустит в сцену редактирования/создания вида работы
+            if (this.cmbWorkKind.getValue() == null) throw new Exception();
+        } catch (Exception e) {
+            Alert alertError = new Alert(Alert.AlertType.ERROR);
+            alertError.setTitle("Ошибка");
+            alertError.setHeaderText("Невозможно изменить пустой вид работы");
+            alertError.setContentText("Чтобы изменить вид работы выберите его в списке \"Вид работы\"");
+            alertError.showAndWait();
+            return;
+        }*/
         changeStateToWorkKindCUD();
     }
 
@@ -362,10 +366,15 @@ public class WorkCUDController {
         this.dtpckrDateEnd.setValue(workEntity.getDateEnd());
     }
 
+
+
     //Конкретная работа
     private WorkEntity workEntity = null;
     public void setWorkEntity(WorkEntity workEntity) {
         this.workEntity = workEntity;
+    }
+    public WorkEntity getWorkEntity() {
+        return workEntity;
     }
 
     private List<WorkKindEntity> workKindEntityList;

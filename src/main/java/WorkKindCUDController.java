@@ -29,11 +29,16 @@ public class WorkKindCUDController {
         mnApp.setPrimaryStage(mainStage);
         mnApp.getPrimaryStage().show();
         workCUDController.initWorkDataInCombobox();
-        workCUDController.initWorkEditState();
+        if (workCUDController.getWorkEntity() == null)
+            workCUDController.initWorkAddState();
+        else
+            workCUDController.initWorkEditState();
     }
 
     @FXML       //[НАЗАД]
     public void goBack() {
+        this.txtfldName.setText(null);
+        this.txtareaDescription.setText(null);
         changeStateToWorkCUD();
     }
 
@@ -42,6 +47,8 @@ public class WorkKindCUDController {
         Transaction transaction = null;
         Session session = HBUtil.getSessionFactory().openSession();
         try {
+            if (txtfldName.getText() == null || txtfldName.getText().equals("")) throw new Exception();
+            if (txtareaDescription.getText() == null || txtareaDescription.getText().equals("")) throw new Exception();
             workKindEntity = new WorkKindEntity();
             workKindEntity.setName(txtfldName.getText());
             workKindEntity.setDescription(txtareaDescription.getText());
@@ -74,6 +81,9 @@ public class WorkKindCUDController {
         Transaction transaction = null;
         Session session = HBUtil.getSessionFactory().openSession();
         try {
+            if (workKindEntity == null) throw new Exception();
+            if (txtfldName.getText() == null || txtfldName.getText().equals("")) throw new Exception();
+            if (txtareaDescription.getText() == null || txtareaDescription.getText().equals("")) throw new Exception();
             workKindEntity.setName(txtfldName.getText());
             workKindEntity.setDescription(txtareaDescription.getText());
             //
@@ -91,18 +101,30 @@ public class WorkKindCUDController {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Ошибка");
             alert.setHeaderText("Проверьте правильность введенных данных");
-            alert.setContentText(   "- недопустимы пустые поля\n");
+            alert.setContentText(   "- недопустимы пустые поля\n" +
+                    "- нельзя изменить несуществующую запись, сперва выполите \"Добавить новый вид работы\"");
             alert.showAndWait();
         } finally {
             if (session != null)
                 session.close();
         }
-
     }
 
     @FXML       //[УДАЛИТЬ]
     public void goDelete() {
-        String workKindName = workKindEntity.getName();
+        String workKindName = null;
+        try {
+            workKindName = workKindEntity.getName();
+            if (workKindName == null) throw new Exception();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Alert alertError = new Alert(Alert.AlertType.ERROR);
+            alertError.setTitle("Ошибка");
+            alertError.setHeaderText("Что-то пошло не так(");
+            alertError.setContentText("- нельзя удалить несуществующую запись, сперва выполите \"Добавить новый вид работы\"");
+            alertError.showAndWait();
+            return;
+        }
         Alert alertSure = new Alert(Alert.AlertType.CONFIRMATION);
         alertSure.setTitle("Удаление вида работы");
         alertSure.setHeaderText("Удалить вид работы " + "[" + workKindName + "]" + "?");
@@ -130,7 +152,7 @@ public class WorkKindCUDController {
                 Alert alertError = new Alert(Alert.AlertType.ERROR);
                 alertError.setTitle("Ошибка");
                 alertError.setHeaderText("Что-то пошло не так(");
-                alertError.setContentText("Что-то пошло не так(");
+                alertError.setContentText("- нельзя удалить несуществующую запись, сперва выполите \"Добавить новый вид работы\"");
                 alertError.showAndWait();
             } finally {
                 if (session != null)
@@ -155,6 +177,5 @@ public class WorkKindCUDController {
         this.txtfldName.setText(this.workKindEntity.getName());
         this.txtareaDescription.setText(this.workKindEntity.getDescription());
     }
-
 
 }
