@@ -48,11 +48,18 @@ public class ResursListController {
     }
 
     @FXML private ScrollPane scrlPane;
+    @FXML private Label lblResursNotFound;
 
     //Конкретный тип ресурса
     private ResourceTypeEntity resourceTypeEntity;
 
     public void viewResurses(List<ResourceTypeEntity> resourceTypeEntityList) {
+        if (resourceTypeEntityList.isEmpty()) {
+            this.lblResursNotFound.setVisible(true);
+            scrlPane.setContent(new AnchorPane());
+            return;
+        }
+        this.lblResursNotFound.setVisible(false);
         AnchorPane aPane = null;
         scrlPane.setContent(new AnchorPane());
         ColumnConstraints col1 = new ColumnConstraints();
