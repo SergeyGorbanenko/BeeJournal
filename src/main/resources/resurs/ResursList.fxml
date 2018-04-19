@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="560.0" prefWidth="315.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="resurs.ResursListController">
+    <center>
+        <AnchorPane prefHeight="560.0" prefWidth="315.0" BorderPane.alignment="CENTER">
+            <children>
+                <Pane prefHeight="50.0" prefWidth="315.0" style="-fx-background-color: #7f5c2f;">
+                    <children>
+                        <Hyperlink onAction="#goHome" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #ce9504; -fx-underline: false;" text=" Д" textFill="#0d0d0d">
+                            <font>
+                                <Font name="System Bold" size="24.0" />
+                            </font>
+                        </Hyperlink>
+                        <Label layoutX="73.0" layoutY="12.0" text="Name" textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </Pane>
+                <Pane layoutY="50.0" prefHeight="510.0" prefWidth="315.0" style="-fx-background-color: #ffefd3;">
+                    <children>
+                        <ScrollPane fx:id="scrlPane" prefHeight="470.0" prefWidth="315.0" style="-fx-background-color: #ffefd3;">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="310.0" />
+                            </content>
+                        </ScrollPane>
+                        <Hyperlink layoutY="470.0" prefHeight="40.0" prefWidth="315.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="NAME" textFill="#7f5c2f">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Hyperlink>
+                        <Hyperlink layoutX="36.0" layoutY="436.0" prefHeight="30.0" prefWidth="49.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="name" textFill="#0a0a0a">
+                            <font>
+                                <Font name="System Bold" size="13.0" />
+                            </font>
+                        </Hyperlink>
+                        <Hyperlink layoutX="116.0" layoutY="436.0" prefHeight="30.0" prefWidth="74.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="name" textFill="#0a0a0a">
+                            <font>
+                                <Font name="System Bold" size="13.0" />
+                            </font>
+                        </Hyperlink>
+                        <Hyperlink layoutX="206.0" layoutY="436.0" prefHeight="30.0" prefWidth="99.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="name" textFill="#0a0a0a">
+                            <font>
+                                <Font name="System Bold" size="13.0" />
+                            </font>
+                        </Hyperlink>
+                    </children>
+                </Pane>
+            </children></AnchorPane>
+    </center>
+</BorderPane>

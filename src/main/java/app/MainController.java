@@ -1,5 +1,6 @@
 package app;
 
+import hba.ResourceTypeEntity;
 import hba.WorkEntity;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,6 +11,7 @@ import javafx.stage.Stage;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import resurs.ResursListController;
 import work.WorkListController;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -26,10 +28,12 @@ public class MainController {
         this.mnApp = mainApp;
     }
 
+
+    //////////////////////////////////////////////////////////РАБОТЫ
     private WorkListController workListController;
     private BorderPane workListLayout;
     private Scene workListScene;
-    @FXML                               //[РАБОТЫ]
+    @FXML
     public void changeStateToWorkList() {
         this.workEntityList = loadWorkList();
         this.checkStatusPlaning();
@@ -61,7 +65,6 @@ public class MainController {
         }
     }
 
-
     private List<WorkEntity> workEntityList;
     //Получить список Работ
     public List<WorkEntity> loadWorkList() {
@@ -88,6 +91,7 @@ public class MainController {
         return this.workEntityList;
     }
 
+    //Получить список работ по определенному СТАТУСУ
     public List<WorkEntity> loadWorkList(String statusString) {
         Transaction transaction = null;
         Session session = HBUtil.getSessionFactory().openSession();
@@ -113,6 +117,7 @@ public class MainController {
         return this.workEntityList;
     }
 
+    //Проверка перед загрузкой списка работ: есть ли статусы несоответствующие своим датам
     public void checkStatusPlaning() {
         loadWorkList();
         Transaction transaction = null;
@@ -144,8 +149,72 @@ public class MainController {
             alertInfo.setTitle("Статус планируемых и текущий работ изменен");
             alertInfo.setHeaderText(null);
             alertInfo.setContentText("Срок некоторых ваших планируемых и текущих работ истек.\n" +
-                                     "Статус изменен на \"Просрочен\"!");
+                    "Статус изменен на \"Просрочен\"!");
             alertInfo.showAndWait();
         }
     }
+
+
+    /////////////////////////////////////////////////////////РЕСУРСЫ
+    private ResursListController resursListController;
+    private BorderPane resursListLayout;
+    private Scene resursListScene;
+    @FXML                               //[РАБОТЫ]
+    public void changeStateToResursList() {
+        this.resourceTypeEntityList = loadResursList();
+        if (resursListScene != null) {
+            Stage mainStage = mnApp.getPrimaryStage();
+            mainStage.setScene(resursListScene);
+            mnApp.setPrimaryStage(mainStage);
+            mnApp.getPrimaryStage().show();
+            resursListController.setMainController(this);
+            resursListController.setMainApp(mnApp);
+            //resursListController.viewResurses(this.resourceTypeEntityList); //TODO
+        } else {
+            try {
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(Main.class.getResource("/resurs/ResursList.fxml"));
+                resursListLayout = (BorderPane) loader.load();
+                resursListScene = new Scene(resursListLayout);
+                Stage mainStage = mnApp.getPrimaryStage();
+                mainStage.setScene(resursListScene);
+                mnApp.setPrimaryStage(mainStage);
+                mnApp.getPrimaryStage().show();
+                resursListController = loader.getController();
+                resursListController.setMainController(this);
+                resursListController.setMainApp(mnApp);
+                //resursListController.viewResurses(this.resourceTypeEntityList); //TODO
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private List<ResourceTypeEntity> resourceTypeEntityList;
+    //Получить список Ресурсов
+    public List<ResourceTypeEntity> loadResursList() {
+        Transaction transaction = null;
+        Session session = HBUtil.getSessionFactory().openSession();
+        try {
+            transaction = session.beginTransaction();
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<ResourceTypeEntity> query = builder.createQuery(ResourceTypeEntity.class);
+            Root<ResourceTypeEntity> root = query.from(ResourceTypeEntity.class);
+            query.select(root);
+            Query<ResourceTypeEntity> q = session.createQuery(query);
+            this.resourceTypeEntityList = q.getResultList();
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        } finally {
+            if (session != null)
+                session.close();
+        }
+        return this.resourceTypeEntityList;
+    }
+
+
 }
