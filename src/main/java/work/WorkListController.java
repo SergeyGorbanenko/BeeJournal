@@ -132,12 +132,18 @@ public class WorkListController {
     }
 
     @FXML private ScrollPane scrlPane;
-
+    @FXML private Label lblWorksNotFound;
 
     //Конкретная работа
     private WorkEntity workEntity;
 
     public void viewWorks(List<WorkEntity> workEntityList) {
+        if (workEntityList.isEmpty()) {
+            this.lblWorksNotFound.setVisible(true);
+            scrlPane.setContent(new AnchorPane());
+            return;
+        }
+        this.lblWorksNotFound.setVisible(false);
         AnchorPane aPane = null;
         scrlPane.setContent(new AnchorPane());
         ColumnConstraints col1 = new ColumnConstraints();
