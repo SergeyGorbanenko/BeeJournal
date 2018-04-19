@@ -116,8 +116,8 @@ public class MainController {
         Session session = null;
         boolean flag = false;
         for (WorkEntity wrkE : workEntityList) {
-            if ((wrkE.getWorkStatus().equals("Планируется") && wrkE.getDateEnd().isBefore( LocalDate.now())) ||
-                    (wrkE.getWorkStatus().equals("В процессе") && wrkE.getDateEnd().isBefore( LocalDate.now()))) {
+            if ((wrkE.getWorkStatus().equals("Планируется") && wrkE.getDateEnd().isBefore(LocalDate.now())) ||
+                    (wrkE.getWorkStatus().equals("В процессе") && wrkE.getDateEnd().isBefore(LocalDate.now()))) {
                 flag = true;
                 wrkE.setWorkStatus("Просрочена");
                 try {
@@ -138,10 +138,10 @@ public class MainController {
         }
         if (flag) {
             Alert alertInfo = new Alert(Alert.AlertType.INFORMATION);
-            alertInfo.setTitle("Статус планируемых работ изменен");
+            alertInfo.setTitle("Статус планируемых и текущий работ изменен");
             alertInfo.setHeaderText(null);
-            alertInfo.setContentText("Срок ваших планируемых и текущих работ истек.\n" +
-                                    "Статус изменен на \"Просрочен\"!");
+            alertInfo.setContentText("Срок некоторых ваших планируемых и текущих работ истек.\n" +
+                                     "Статус изменен на \"Просрочен\"!");
             alertInfo.showAndWait();
         }
     }

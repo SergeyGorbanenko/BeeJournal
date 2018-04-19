@@ -104,6 +104,7 @@ public class WorkCUDController {
         try {
             if (dtpckrDateEnd.getValue().isBefore(dtpckrDateStart.getValue())) throw new Exception();
             if (cmbStatus.getValue().equals("Планируется") && dtpckrDateStart.getValue().isBefore(LocalDate.now())) throw new Exception();
+            if (cmbStatus.getValue().equals("Просрочена") && dtpckrDateStart.getValue().isAfter(LocalDate.now())) throw new Exception();
             workEntity = new WorkEntity();
             workEntity.setIdBeegarden(loadBeegarden().getIdBeegarden());
             workEntity.setIdBeehive(this.cmbBeehive.getValue().getIdBeehive());
@@ -130,7 +131,8 @@ public class WorkCUDController {
             alert.setHeaderText("Проверьте правильность введенных данных");
             alert.setContentText(   "- недопустимы пустые поля\n" +
                     "- дата начала работы не может быть позже окончания\n" +
-                    "- дата начала планируемой работы не может быть раньше сегодняшней даты");
+                    "- дата начала планируемой работы не может быть раньше сегодняшней даты\n" +
+                    "- дата начала просроченной работы не может быть позже сегодняшней даты");
             alert.showAndWait();
         } finally {
             if (session != null)
@@ -146,6 +148,7 @@ public class WorkCUDController {
         try {
             if (dtpckrDateEnd.getValue().isBefore(dtpckrDateStart.getValue())) throw new Exception();
             if (cmbStatus.getValue().equals("Планируется") && dtpckrDateStart.getValue().isBefore(LocalDate.now())) throw new Exception();
+            if (cmbStatus.getValue().equals("Просрочена") && dtpckrDateStart.getValue().isAfter(LocalDate.now())) throw new Exception();
             if (workEntity.getIdWorkKind() != cmbWorkKind.getValue().getIdWorkKind()) {
                 transaction2 = session.getTransaction();
                 transaction2.begin();
@@ -191,7 +194,8 @@ public class WorkCUDController {
             alert.setHeaderText("Проверьте правильность введенных данных");
             alert.setContentText(   "- недопустимы пустые поля\n" +
                     "- дата начала работы не может быть позже окончания\n"+
-                    "- дата начала планируемой работы не может быть раньше сегодняшней даты");
+                    "- дата начала планируемой работы не может быть раньше сегодняшней даты\n"+
+                    "- дата начала просроченной работы не может быть позже сегодняшней даты");
             alert.showAndWait();
         } finally {
             if (session != null)

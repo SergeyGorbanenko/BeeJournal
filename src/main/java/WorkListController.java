@@ -154,7 +154,7 @@ public class WorkListController {
             //
             DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("dd MMM", new Locale("ru", "RU"));
             DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("EEE");
-            Label lblvalueDateStart = new Label(wrkE.getDateStart().format(formatter1).toString());
+            Label lblvalueDateStart = new Label(wrkE.getDateStart().format(formatter1));
             Label lblvalueDayDateStart = new Label("   " + wrkE.getDateStart().format(formatter2));
             Label lblvalueName = new Label(wrkE.getWorkKindByIdWorkKind().getName());
             Label lblcaptionWorkStatus = new Label("Статус");
@@ -170,6 +170,11 @@ public class WorkListController {
             lblvalueWorkStatus.setFont(new Font("Arial Bold", 13));
             lblcaptionWorkStatus.setFont(new Font("Arial", 12));
             lblvalueBeehive.setFont(new Font("Arial", 12));
+            //
+            if (lblvalueWorkStatus.getText().equals("Планируется")) lblvalueWorkStatus.setTextFill(Color.web("#006ac6"));
+            if (lblvalueWorkStatus.getText().equals("В процессе")) lblvalueWorkStatus.setTextFill(Color.web("#730093"));
+            if (lblvalueWorkStatus.getText().equals("Выполнена")) lblvalueWorkStatus.setTextFill(Color.web("#0cc100"));
+            if (lblvalueWorkStatus.getText().equals("Просрочена")) lblvalueWorkStatus.setTextFill(Color.web("#ff0000"));
             //
             gridPane.add(lblvalueDateStart, 0, 0, 1, 1);
             gridPane.add(lblvalueDayDateStart, 0, 1, 1, 1);
