@@ -19,7 +19,7 @@
                                 <Font name="System Bold" size="24.0" />
                             </font>
                         </Hyperlink>
-                        <Label layoutX="73.0" layoutY="12.0" text="Name" textFill="WHITE">
+                        <Label layoutX="73.0" layoutY="12.0" text="Ресурсы" textFill="WHITE">
                             <font>
                                 <Font name="System Bold" size="18.0" />
                             </font>
@@ -33,26 +33,41 @@
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="310.0" />
                             </content>
                         </ScrollPane>
-                        <Hyperlink layoutY="470.0" prefHeight="40.0" prefWidth="315.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="NAME" textFill="#7f5c2f">
+                        <Hyperlink layoutY="470.0" prefHeight="40.0" prefWidth="315.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="          Создать новый ресурс" textFill="#7f5c2f">
                             <font>
                                 <Font name="System Bold" size="18.0" />
                             </font>
                         </Hyperlink>
-                        <Hyperlink layoutX="36.0" layoutY="436.0" prefHeight="30.0" prefWidth="49.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="name" textFill="#0a0a0a">
+                        <Hyperlink layoutY="436.0" prefHeight="30.0" prefWidth="53.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="   кг" textFill="#0a0a0a">
                             <font>
                                 <Font name="System Bold" size="13.0" />
                             </font>
                         </Hyperlink>
-                        <Hyperlink layoutX="116.0" layoutY="436.0" prefHeight="30.0" prefWidth="74.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="name" textFill="#0a0a0a">
+                        <Hyperlink layoutX="53.0" layoutY="436.0" prefHeight="30.0" prefWidth="53.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="   гр" textFill="#0a0a0a">
                             <font>
                                 <Font name="System Bold" size="13.0" />
                             </font>
                         </Hyperlink>
-                        <Hyperlink layoutX="206.0" layoutY="436.0" prefHeight="30.0" prefWidth="99.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="name" textFill="#0a0a0a">
+                        <Hyperlink layoutX="106.0" layoutY="436.0" prefHeight="30.0" prefWidth="53.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text=" литр" textFill="#0a0a0a">
                             <font>
                                 <Font name="System Bold" size="13.0" />
                             </font>
                         </Hyperlink>
+                  <Hyperlink layoutX="159.0" layoutY="436.0" prefHeight="30.0" prefWidth="53.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="  мл" textFill="#0a0a0a">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Hyperlink>
+                  <Hyperlink layoutX="212.0" layoutY="436.0" prefHeight="30.0" prefWidth="53.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="  шт" textFill="#0a0a0a">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Hyperlink>
+                  <Hyperlink layoutX="264.0" layoutY="436.0" prefHeight="30.0" prefWidth="53.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="метр" textFill="#0a0a0a">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Hyperlink>
                     </children>
                 </Pane>
             </children></AnchorPane>

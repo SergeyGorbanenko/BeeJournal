@@ -169,7 +169,7 @@ public class MainController {
             mnApp.getPrimaryStage().show();
             resursListController.setMainController(this);
             resursListController.setMainApp(mnApp);
-            //resursListController.viewResurses(this.resourceTypeEntityList); //TODO
+            resursListController.viewResurses(this.resourceTypeEntityList);
         } else {
             try {
                 FXMLLoader loader = new FXMLLoader();
@@ -183,7 +183,7 @@ public class MainController {
                 resursListController = loader.getController();
                 resursListController.setMainController(this);
                 resursListController.setMainApp(mnApp);
-                //resursListController.viewResurses(this.resourceTypeEntityList); //TODO
+                resursListController.viewResurses(this.resourceTypeEntityList);
             } catch (IOException e) {
                 e.printStackTrace();
             }
