@@ -4,17 +4,24 @@ import app.Main;
 import app.MainController;
 import hba.IncomeExpenseEntity;
 import hba.ResourceTypeEntity;
+import hba.WorkEntity;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
+import work.WorkDetailController;
+
+import java.io.IOException;
 import java.util.List;
 
 public class ResursListController {
@@ -40,6 +47,38 @@ public class ResursListController {
     @FXML
     public void changeStateToHome() {
         mnApp.initRootLayout();
+    }
+
+    private ResursHistoryController resursHistoryController;
+    private BorderPane resursHistoryLayout;
+    private Scene resursHistoryScene;
+    public void changeStateToResursHistory(ResourceTypeEntity resourceTypeEntity) {
+        if (resursHistoryScene != null) {
+            Stage mainStage = mnApp.getPrimaryStage();
+            mainStage.setScene(resursHistoryScene);
+            mnApp.setPrimaryStage(mainStage);
+            mnApp.getPrimaryStage().show();
+            resursHistoryController.setResursListController(this);
+            resursHistoryController.setMainApp(mnApp);
+            resursHistoryController.fillHeaderOfResursInHistory(resourceTypeEntity);
+        } else {
+            try {
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(Main.class.getResource("/resurs/ResursHistory.fxml"));
+                resursHistoryLayout = (BorderPane) loader.load();
+                resursHistoryScene = new Scene(resursHistoryLayout);
+                Stage mainStage = mnApp.getPrimaryStage();
+                mainStage.setScene(resursHistoryScene);
+                mnApp.setPrimaryStage(mainStage);
+                mnApp.getPrimaryStage().show();
+                resursHistoryController = loader.getController();
+                resursHistoryController.setResursListController(this);
+                resursHistoryController.setMainApp(mnApp);
+                resursHistoryController.fillHeaderOfResursInHistory(resourceTypeEntity);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @FXML       //[ДОМОЙ]
@@ -103,7 +142,7 @@ public class ResursListController {
             //
             gridPane.setOnMouseClicked((MouseEvent event) -> {
                 this.resourceTypeEntity = rstE;
-                //changeStateToResursHistory(this.resourceTypeEntity); //TODO
+                changeStateToResursHistory(this.resourceTypeEntity);
             });
             //
             aPane = (AnchorPane) scrlPane.getContent();

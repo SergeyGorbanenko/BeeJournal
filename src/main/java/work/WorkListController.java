@@ -58,7 +58,6 @@ public class WorkListController {
             mnApp.getPrimaryStage().show();
             workDetailController.setWorkListController(this);
             workDetailController.setMainApp(mnApp);
-            //workDetailController.initWorkDetailState();
             workDetailController.fillWorkDetailState(workEntity);
         } else {
             try {
@@ -73,7 +72,6 @@ public class WorkListController {
                 workDetailController = loader.getController();
                 workDetailController.setWorkListController(this);
                 workDetailController.setMainApp(mnApp);
-                //workDetailController.initWorkDetailState();
                 workDetailController.fillWorkDetailState(workEntity);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -119,11 +117,6 @@ public class WorkListController {
     @FXML       //[ДОМОЙ]
     public void goHome() {
         changeStateToHome();
-    }
-
-    @FXML       //[ЭЛЕМЕНТ РАБОТЫ] - подробнее о работе
-    public void goWorkDetail() {
-        changeStateToWorkDetail(this.workEntity);
     }
 
     @FXML       //[СОЗДАТЬ НОВУЮ РАБОТУ]
