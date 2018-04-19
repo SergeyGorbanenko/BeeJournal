@@ -8,13 +8,13 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="560.0" prefWidth="315.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainController">
+<BorderPane prefHeight="560.0" prefWidth="315.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.MainController">
     <center>
         <AnchorPane prefHeight="560.0" prefWidth="315.0" BorderPane.alignment="CENTER">
          <children>
             <ImageView fitHeight="560.0" fitWidth="315.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@bee_1920x1080.png" />
+                  <Image url="@../bee_1920x1080.png" />
                </image>
                <viewport>
                   <Rectangle2D />

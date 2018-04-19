@@ -1,3 +1,5 @@
+package app;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -33,7 +35,7 @@ public class Main extends Application {
         } else {
             try {
                 FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(Main.class.getResource("Main.fxml"));
+                loader.setLocation(Main.class.getResource("/app/Main.fxml"));
                 rootLayout = (BorderPane) loader.load();
                 rootScene = new Scene(rootLayout);
                 primaryStage.setScene(rootScene);

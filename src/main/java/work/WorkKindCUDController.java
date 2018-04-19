@@ -1,3 +1,7 @@
+package work;
+
+import app.HBUtil;
+import app.Main;
 import hba.WorkKindEntity;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;

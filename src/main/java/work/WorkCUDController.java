@@ -1,3 +1,7 @@
+package work;
+
+import app.HBUtil;
+import app.Main;
 import hba.BeegardenEntity;
 import hba.BeehiveEntity;
 import hba.WorkEntity;
@@ -9,9 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 import javafx.util.StringConverter;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -65,7 +67,7 @@ public class WorkCUDController {
         } else {
             try {
                 FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(Main.class.getResource("WorkKindCUD.fxml"));
+                loader.setLocation(Main.class.getResource("/work/WorkKindCUD.fxml"));
                 workKindCUDLayout = (BorderPane) loader.load();
                 workKindCUDScene = new Scene(workKindCUDLayout);
                 Stage mainStage = mnApp.getPrimaryStage();

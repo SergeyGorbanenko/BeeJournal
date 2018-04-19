@@ -1,3 +1,5 @@
+package app;
+
 import hba.WorkEntity;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,6 +10,7 @@ import javafx.stage.Stage;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import work.WorkListController;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -41,7 +44,7 @@ public class MainController {
         } else {
             try {
                 FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(Main.class.getResource("WorkList.fxml"));
+                loader.setLocation(Main.class.getResource("/work/WorkList.fxml"));
                 workListLayout = (BorderPane) loader.load();
                 workListScene = new Scene(workListLayout);
                 Stage mainStage = mnApp.getPrimaryStage();

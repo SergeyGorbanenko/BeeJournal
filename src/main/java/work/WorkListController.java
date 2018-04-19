@@ -1,3 +1,7 @@
+package work;
+
+import app.Main;
+import app.MainController;
 import hba.WorkEntity;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -59,7 +63,7 @@ public class WorkListController {
         } else {
             try {
                 FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(Main.class.getResource("WorkDetail.fxml"));
+                loader.setLocation(Main.class.getResource("/work/WorkDetail.fxml"));
                 workDetailLayout = (BorderPane) loader.load();
                 workDetailScene = new Scene(workDetailLayout);
                 Stage mainStage = mnApp.getPrimaryStage();
@@ -94,7 +98,7 @@ public class WorkListController {
         } else {
             try {
                 FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(Main.class.getResource("WorkCUD.fxml"));
+                loader.setLocation(Main.class.getResource("/work/WorkCUD.fxml"));
                 workCUDLayout = (BorderPane) loader.load();
                 workCUDScene = new Scene(workCUDLayout);
                 Stage mainStage = mnApp.getPrimaryStage();

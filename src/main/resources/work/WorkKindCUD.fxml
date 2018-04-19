@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="560.0" prefWidth="315.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="WorkKindCUDController">
+<BorderPane prefHeight="560.0" prefWidth="315.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="work.WorkKindCUDController">
     <center>
         <AnchorPane prefHeight="560.0" prefWidth="315.0" BorderPane.alignment="CENTER">
             <children>
