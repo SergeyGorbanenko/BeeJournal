@@ -33,7 +33,6 @@ public class ResursHistoryController {
         resursListController.getMainController().changeStateToResursList();
     }
 
-
     private ResursCUDController resursCUDController;
     private BorderPane resursCUDLayout;
     private Scene resursCUDScene;
@@ -46,6 +45,8 @@ public class ResursHistoryController {
             mnApp.getPrimaryStage().show();
             resursCUDController.setResursHistoryController(this);
             resursCUDController.setMainApp(mnApp);
+            resursCUDController.initComboboxMeasure();
+            resursCUDController.initResursEditState();
         } else {
             try {
                 FXMLLoader loader = new FXMLLoader();
@@ -59,6 +60,8 @@ public class ResursHistoryController {
                 resursCUDController = loader.getController();
                 resursCUDController.setResursHistoryController(this);
                 resursCUDController.setMainApp(mnApp);
+                resursCUDController.initComboboxMeasure();
+                resursCUDController.initResursEditState();
             } catch (IOException e) {
                 e.printStackTrace();
             }

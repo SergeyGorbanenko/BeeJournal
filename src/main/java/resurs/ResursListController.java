@@ -81,9 +81,50 @@ public class ResursListController {
         }
     }
 
+
+    private ResursCUDController resursCUDController;
+    private BorderPane resursCUDLayout;
+    private Scene resursCUDScene;
+    public void changeStateToResursCUD() {
+        ownerScene = mnApp.getPrimaryStage().getScene();
+        if (resursCUDScene != null) {
+            Stage mainStage = mnApp.getPrimaryStage();
+            mainStage.setScene(resursCUDScene);
+            mnApp.setPrimaryStage(mainStage);
+            mnApp.getPrimaryStage().show();
+            resursCUDController.setResursListController(this);
+            resursCUDController.setMainApp(mnApp);
+            resursCUDController.initComboboxMeasure();
+            resursCUDController.initResursAddState();
+        } else {
+            try {
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(Main.class.getResource("/resurs/ResursCUD.fxml"));
+                resursCUDLayout = (BorderPane) loader.load();
+                resursCUDScene = new Scene(resursCUDLayout);
+                Stage mainStage = mnApp.getPrimaryStage();
+                mainStage.setScene(resursCUDScene);
+                mnApp.setPrimaryStage(mainStage);
+                mnApp.getPrimaryStage().show();
+                resursCUDController = loader.getController();
+                resursCUDController.setResursListController(this);
+                resursCUDController.setMainApp(mnApp);
+                resursCUDController.initComboboxMeasure();
+                resursCUDController.initResursAddState();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     @FXML       //[ДОМОЙ]
     public void goHome() {
         changeStateToHome();
+    }
+
+    @FXML       //[СОЗДАТЬ НОВЫЙ РЕСУРС]
+    public void goAddResurs() {
+        changeStateToResursCUD();
     }
 
     @FXML private ScrollPane scrlPane;
@@ -118,16 +159,19 @@ public class ResursListController {
             gridPane.setLayoutX(gridPaneLayoutX);
             gridPane.setPrefWidth(302);
             //
-            Label lblvalueIconResurs = new Label(" R");
+            Label lblvalueIconResurs = new Label();
             Label lblvalueName = new Label(rstE.getName());
             Label lblvalueCategory = new Label(rstE.getCategory());
             Label lblvalueSummaryCount = new Label(calculateSummaryCount(rstE) + " " + rstE.getMeasure());
             //
             lblvalueIconResurs.setFont(new Font("Arial Bold", 25));
+            lblvalueIconResurs.setStyle("-fx-background-image: url('/icons/resursMini.png')");
+            lblvalueIconResurs.setPrefHeight(32);
+            lblvalueIconResurs.setPrefWidth(32);
             lblvalueName.setFont(new Font("Arial Bold", 15));
             lblvalueCategory.setFont(new Font("Arial Bold", 13));
             lblvalueCategory.setTextFill(Color.web("#7f5c2f"));
-            lblvalueSummaryCount.setFont(new Font("Arial Bold", 19));
+            lblvalueSummaryCount.setFont(new Font("Arial Bold", 18));
             lblvalueSummaryCount.setTextFill(Color.web("#ffae00"));
             //
             gridPane.add(lblvalueIconResurs, 0, 0, 1, 2);
@@ -135,8 +179,8 @@ public class ResursListController {
             gridPane.add(lblvalueCategory, 1, 1, 1, 1);
             gridPane.add(lblvalueSummaryCount, 2, 0, 1, 2);
             //
-            col1.setPercentWidth(20);
-            col2.setPercentWidth(55);
+            col1.setPercentWidth(15);
+            col2.setPercentWidth(60);
             col3.setPercentWidth(25);
             gridPane.getColumnConstraints().addAll(col1, col2, col3);
             //

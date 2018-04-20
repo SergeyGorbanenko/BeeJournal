@@ -14,7 +14,7 @@
             <children>
                 <Pane prefHeight="50.0" prefWidth="315.0" style="-fx-background-color: #7f5c2f;">
                     <children>
-                        <Hyperlink onAction="#goHome" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #ce9504; -fx-underline: false;" text=" Д" textFill="#0d0d0d">
+                        <Hyperlink onAction="#goHome" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #7f5c2f; -fx-background-image: url('/icons/home.png'); -fx-underline: false;" textFill="#0d0d0d">
                             <font>
                                 <Font name="System Bold" size="24.0" />
                             </font>
@@ -33,7 +33,7 @@
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="310.0" />
                             </content>
                         </ScrollPane>
-                        <Hyperlink layoutY="470.0" prefHeight="40.0" prefWidth="315.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="          Создать новый ресурс" textFill="#7f5c2f">
+                        <Hyperlink layoutY="470.0" onAction="#goAddResurs" prefHeight="40.0" prefWidth="315.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="          Создать новый ресурс" textFill="#7f5c2f">
                             <font>
                                 <Font name="System Bold" size="18.0" />
                             </font>

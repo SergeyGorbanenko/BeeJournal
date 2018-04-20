@@ -13,7 +13,7 @@
             <children>
                 <Pane prefHeight="50.0" prefWidth="315.0" style="-fx-background-color: #7f5c2f;">
                     <children>
-                        <Hyperlink onAction="#goBack" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #ce9504; -fx-underline: false;" text=" ←" textFill="#0d0d0d">
+                        <Hyperlink onAction="#goBack" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #7f5c2f; -fx-background-image: url('/icons/back.png'); -fx-underline: false;" textFill="#0d0d0d">
                             <font>
                                 <Font name="System Bold" size="24.0" />
                             </font>
@@ -34,7 +34,7 @@
                   </Label>
                   <Label fx:id="lblvalueDateStart" layoutX="129.0" layoutY="55.0" text="начало">
                      <font>
-                        <Font name="Cambria" size="18.0" />
+                        <Font name="Calibri" size="18.0" />
                      </font>
                   </Label>
                   <Label layoutX="22.0" layoutY="96.0" text="Истекает" textFill="#7f5c2f">
@@ -44,7 +44,7 @@
                   </Label>
                   <Label fx:id="lblvalueDateEnd" layoutX="129.0" layoutY="98.0" text="истекает">
                      <font>
-                        <Font name="Cambria" size="18.0" />
+                        <Font name="Calibri" size="18.0" />
                      </font>
                   </Label>
                   <Label layoutX="22.0" layoutY="139.0" text="Улей" textFill="#7f5c2f">
@@ -54,12 +54,12 @@
                   </Label>
                   <Label fx:id="lblvalueBeehive" layoutX="129.0" layoutY="141.0" text="улей">
                      <font>
-                        <Font name="Cambria" size="18.0" />
+                        <Font name="Calibri" size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblvalueDescription" layoutX="23.0" layoutY="230.0" maxHeight="250.0" prefHeight="80.0" prefWidth="270.0" text="описание" wrapText="true">
+                  <Label fx:id="lblvalueDescription" layoutX="23.0" layoutY="230.0" maxHeight="250.0" prefHeight="80.0" prefWidth="270.0" text="описание" textFill="#703e00" wrapText="true">
                      <font>
-                        <Font name="Cambria" size="18.0" />
+                        <Font name="Calibri" size="18.0" />
                      </font>
                   </Label>
                   <Label layoutX="22.0" layoutY="178.0" text="Статус" textFill="#7f5c2f">
@@ -69,10 +69,10 @@
                   </Label>
                   <Label fx:id="lblvalueWorkStatus" layoutX="129.0" layoutY="180.0" text="статус">
                      <font>
-                        <Font name="Cambria" size="18.0" />
+                        <Font name="Calibri" size="18.0" />
                      </font>
                   </Label>
-                  <Hyperlink layoutX="260.0" layoutY="-17.0" onAction="#goEdit" prefHeight="35.0" prefWidth="55.0" style="-fx-background-color: #ffa500; -fx-underline: false;" text="  РЕД" textFill="#0d0d0d">
+                  <Hyperlink layoutX="250.0" layoutY="-25.0" onAction="#goEdit" prefHeight="50.0" prefWidth="50.0" style="-fx-background-image: url('/icons/EditA.png'); -fx-underline: false;" textFill="#0d0d0d">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
@@ -13,12 +15,12 @@
             <children>
                 <Pane prefHeight="50.0" prefWidth="315.0" style="-fx-background-color: #7f5c2f;">
                     <children>
-                        <Hyperlink prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #ce9504; -fx-underline: false;" text=" ←" textFill="#0d0d0d">
+                        <Hyperlink onAction="#goBack" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #7f5c2f; -fx-background-image: url('/icons/back.png'); -fx-underline: false;" textFill="#0d0d0d">
                             <font>
                                 <Font name="System Bold" size="24.0" />
                             </font>
                         </Hyperlink>
-                        <Label fx:id="lblvalueName" layoutX="73.0" layoutY="12.0" text="Name" textFill="WHITE">
+                        <Label fx:id="lblcaptionTitle" layoutX="73.0" layoutY="12.0" text="Доб / Изм ресурс" textFill="WHITE">
                             <font>
                                 <Font name="System Bold" size="18.0" />
                             </font>
@@ -26,23 +28,42 @@
                     </children>
                 </Pane>
                 <Pane layoutY="50.0" prefHeight="510.0" prefWidth="315.0" style="-fx-background-color: #ffefd3;">
-                    <children>
-                        <Label layoutX="22.0" layoutY="53.0" text="Начало" textFill="#7f5c2f">
-                            <font>
-                                <Font name="System Bold" size="17.0" />
-                            </font>
-                        </Label>
-                        <Label layoutX="129.0" layoutY="55.0" text="начало">
-                            <font>
-                                <Font name="Cambria" size="18.0" />
-                            </font>
-                        </Label>
-                        <Hyperlink layoutX="260.0" layoutY="-17.0" prefHeight="35.0" prefWidth="55.0" style="-fx-background-color: #ffa500; -fx-underline: false;" text="  РЕД" textFill="#0d0d0d">
-                            <font>
-                                <Font name="System Bold" size="14.0" />
-                            </font>
-                        </Hyperlink>
-                    </children>
+                <children>
+                    <Label layoutX="20.0" layoutY="41.0" text="Название" textFill="#7f5c2f">
+                        <font>
+                            <Font name="System Bold" size="16.0" />
+                        </font>
+                    </Label>
+                    <TextField fx:id="txtfldName" layoutX="113.0" layoutY="41.0" prefHeight="25.0" prefWidth="185.0" />
+                    <Label layoutX="20.0" layoutY="86.0" text="Категория" textFill="#7f5c2f">
+                        <font>
+                            <Font name="System Bold" size="16.0" />
+                        </font>
+                    </Label>
+                  <TextField fx:id="txtfldCategory" layoutX="113.0" layoutY="86.0" prefHeight="25.0" prefWidth="185.0" />
+                  <Label layoutX="20.0" layoutY="130.0" text="Описание" textFill="#7f5c2f">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtfldDescription" layoutX="113.0" layoutY="130.0" prefHeight="25.0" prefWidth="185.0" />
+                  <Label layoutX="20.0" layoutY="172.0" text="Единица измерения" textFill="#7f5c2f">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="cmbMeasure" layoutX="198.0" layoutY="172.0" prefHeight="25.0" prefWidth="100.0" />
+                    <Hyperlink fx:id="hyperlinkAddOrEdit" layoutX="181.0" layoutY="234.0" onAction="#goEdit" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="  Изменить" textFill="#7f5c2f">
+                        <font>
+                            <Font name="System Bold" size="18.0" />
+                        </font>
+                    </Hyperlink>
+                    <Hyperlink fx:id="hyperlinkDelete" layoutX="141.0" layoutY="234.0" onAction="#goDelete" prefHeight="40.0" prefWidth="40.0" style="-fx-background-image: url('/icons/Delete.png'); -fx-underline: false;">
+                        <font>
+                            <Font size="17.0" />
+                        </font>
+                    </Hyperlink>
+                </children>
                 </Pane>
             </children></AnchorPane>
     </center>

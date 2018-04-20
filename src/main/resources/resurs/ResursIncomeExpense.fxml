@@ -13,12 +13,12 @@
             <children>
                 <Pane prefHeight="50.0" prefWidth="315.0" style="-fx-background-color: #7f5c2f;">
                     <children>
-                        <Hyperlink prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #ce9504; -fx-underline: false;" text=" ←" textFill="#0d0d0d">
+                        <Hyperlink prefHeight="50.0" prefWidth="50.0" style="-fx-background-image: url('/icons/back.png'); -fx-underline: false;">
                             <font>
                                 <Font name="System Bold" size="24.0" />
                             </font>
                         </Hyperlink>
-                        <Label fx:id="lblvalueName" layoutX="73.0" layoutY="12.0" text="Name" textFill="WHITE">
+                        <Label fx:id="lblcaptionTitle" layoutX="73.0" layoutY="12.0" text="Доб/Изм приход/расход" textFill="WHITE">
                             <font>
                                 <Font name="System Bold" size="18.0" />
                             </font>
@@ -27,21 +27,7 @@
                 </Pane>
                 <Pane layoutY="50.0" prefHeight="510.0" prefWidth="315.0" style="-fx-background-color: #ffefd3;">
                     <children>
-                        <Label layoutX="22.0" layoutY="53.0" text="Начало" textFill="#7f5c2f">
-                            <font>
-                                <Font name="System Bold" size="17.0" />
-                            </font>
-                        </Label>
-                        <Label layoutX="129.0" layoutY="55.0" text="начало">
-                            <font>
-                                <Font name="Cambria" size="18.0" />
-                            </font>
-                        </Label>
-                        <Hyperlink layoutX="260.0" layoutY="-17.0" prefHeight="35.0" prefWidth="55.0" style="-fx-background-color: #ffa500; -fx-underline: false;" text="  РЕД" textFill="#0d0d0d">
-                            <font>
-                                <Font name="System Bold" size="14.0" />
-                            </font>
-                        </Hyperlink>
+                        <Hyperlink layoutX="250.0" layoutY="-25.0" prefHeight="50.0" prefWidth="50.0" style="-fx-background-image: url('/icons/EditA.png'); -fx-underline: false;" />
                     </children>
                 </Pane>
             </children></AnchorPane>
