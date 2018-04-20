@@ -60,7 +60,7 @@ public class ResursListController {
             mnApp.getPrimaryStage().show();
             resursHistoryController.setResursListController(this);
             resursHistoryController.setMainApp(mnApp);
-            resursHistoryController.fillHeaderOfResursInHistory(resourceTypeEntity);
+            resursHistoryController.fillResursHistory(resourceTypeEntity);
         } else {
             try {
                 FXMLLoader loader = new FXMLLoader();
@@ -74,7 +74,7 @@ public class ResursListController {
                 resursHistoryController = loader.getController();
                 resursHistoryController.setResursListController(this);
                 resursHistoryController.setMainApp(mnApp);
-                resursHistoryController.fillHeaderOfResursInHistory(resourceTypeEntity);
+                resursHistoryController.fillResursHistory(resourceTypeEntity);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -133,6 +133,7 @@ public class ResursListController {
     //Конкретный тип ресурса
     private ResourceTypeEntity resourceTypeEntity;
 
+    //Вывести спсок всех ресурсов
     public void viewResurses(List<ResourceTypeEntity> resourceTypeEntityList) {
         if (resourceTypeEntityList.isEmpty()) {
             this.lblResursNotFound.setVisible(true);

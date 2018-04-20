@@ -16,6 +16,7 @@ public class ResourceTypeEntity {
     private Collection<IncomeExpenseEntity> incomeExpensesByIdResourseType;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "idResourseType", nullable = false)
     public Integer getIdResourseType() {
         return idResourseType;

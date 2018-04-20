@@ -40,9 +40,9 @@
                                 <Font size="14.0" />
                             </font>
                         </Label>
-                        <ScrollPane fx:id="scrlPane" layoutY="82.0" prefHeight="394.0" prefWidth="315.0" style="-fx-background: #ffefd3;">
+                        <ScrollPane fx:id="scrlPane" layoutY="82.0" prefHeight="368.0" prefWidth="315.0" style="-fx-background: #ffefd3;">
                             <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="370.0" prefWidth="310.0" />
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="357.0" prefWidth="310.0" />
                             </content>
                         </ScrollPane>
                         <Hyperlink layoutY="470.0" onAction="#goIncomeExpense" prefHeight="40.0" prefWidth="315.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="       Добавить приход / расход" textFill="#7f5c2f">
@@ -50,6 +50,21 @@
                                 <Font name="System Bold" size="18.0" />
                             </font>
                         </Hyperlink>
+                        <Label fx:id="lblResursHistoryNotFound" layoutX="40.0" layoutY="105.0" text="   История ресурса не найдена&#10;Добавьте новый приход/расход" textFill="#5a5a5a">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </Label>
+                        <Hyperlink layoutY="436.0" onAction="#viewResursHistoryByOperationTypeTrue" prefHeight="30.0" prefWidth="157.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="            ПРИХОД" textFill="#0a0a0a">
+                            <font>
+                                <Font name="System Bold" size="13.0" />
+                            </font>
+                        </Hyperlink>
+                  <Hyperlink layoutX="157.0" layoutY="436.0" onAction="#viewResursHistoryByOperationTypeFalse" prefHeight="30.0" prefWidth="158.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="            РАСХОД" textFill="#0a0a0a">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Hyperlink>
                     </children>
                 </Pane>
             </children></AnchorPane>

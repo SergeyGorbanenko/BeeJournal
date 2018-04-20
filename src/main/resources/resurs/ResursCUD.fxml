@@ -53,7 +53,7 @@
                      </font>
                   </Label>
                   <ComboBox fx:id="cmbMeasure" layoutX="198.0" layoutY="172.0" prefHeight="25.0" prefWidth="100.0" />
-                    <Hyperlink fx:id="hyperlinkAddOrEdit" layoutX="181.0" layoutY="234.0" onAction="#goEdit" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="  Изменить" textFill="#7f5c2f">
+                    <Hyperlink fx:id="hyperlinkAddOrEdit" layoutX="181.0" layoutY="234.0" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="Доб / изм" textFill="#7f5c2f">
                         <font>
                             <Font name="System Bold" size="18.0" />
                         </font>

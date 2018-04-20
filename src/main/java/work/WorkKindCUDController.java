@@ -129,7 +129,7 @@ public class WorkKindCUDController {
         Alert alertSure = new Alert(Alert.AlertType.CONFIRMATION);
         alertSure.setTitle("Удаление вида работы");
         alertSure.setHeaderText("Удалить вид работы " + "[" + workKindName + "]" + "?");
-        alertSure.setContentText("Вы уверены, что хотите вид работы " + "[" + workKindName + "]" + "?");
+        alertSure.setContentText("Вы уверены, что хотите удалить вид работы " + "[" + workKindName + "]" + "?");
         Optional<ButtonType> result = alertSure.showAndWait();
         if (result.get() == ButtonType.OK){
             Transaction transaction = null;
@@ -154,8 +154,8 @@ public class WorkKindCUDController {
                 Alert alertError = new Alert(Alert.AlertType.ERROR);
                 alertError.setTitle("Ошибка");
                 alertError.setHeaderText("Что-то пошло не так(");
-                alertError.setContentText("- нельзя удалить несуществующую запись, сперва выполите \"Добавить новый вид работы\"" +
-                        "- нельзя удалить вид работы по которому есть текущие работы");
+                alertError.setContentText("- нельзя удалить несуществующую запись, сперва выполите \"Добавить новый вид работы\"\n" +
+                        "- нельзя удалить вид работы, по которому есть текущие работы");
                 alertError.showAndWait();
             } finally {
                 if (session != null)
