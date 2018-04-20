@@ -98,6 +98,10 @@ public class ResursHistoryController {
             mnApp.getPrimaryStage().show();
             resursIncomeExpenseController.setResursHistoryController(this);
             resursIncomeExpenseController.setMainApp(mnApp);
+            //
+            resursIncomeExpenseController.setIncomeExpenseEntity(this.incomeExpenseEntity);
+            resursIncomeExpenseController.initComboboxOperationType();
+            resursIncomeExpenseController.initComboboxBeehive();
         } else {
             try {
                 FXMLLoader loader = new FXMLLoader();
@@ -111,6 +115,10 @@ public class ResursHistoryController {
                 resursIncomeExpenseController = loader.getController();
                 resursIncomeExpenseController.setResursHistoryController(this);
                 resursIncomeExpenseController.setMainApp(mnApp);
+                //
+                resursIncomeExpenseController.setIncomeExpenseEntity(this.incomeExpenseEntity);
+                resursIncomeExpenseController.initComboboxOperationType();
+                resursIncomeExpenseController.initComboboxBeehive();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -130,6 +138,7 @@ public class ResursHistoryController {
     @FXML       //[ДОБАВИТЬ ПРИХОД/РАСХОД]
     void goIncomeExpense() {
         changeStateToResursIncomeExpense();
+        resursIncomeExpenseController.initIncomeExpenseAddState();
     }
 
 
@@ -224,7 +233,8 @@ public class ResursHistoryController {
             //
             gridPane.setOnMouseClicked((MouseEvent event) -> {
                 this.incomeExpenseEntity = ieE;
-                //changeStateToWorkDetail(this.workEntity);
+                changeStateToResursIncomeExpense();
+                resursIncomeExpenseController.initIncomeExpenseEditState();
             });
             //
             aPane = (AnchorPane) scrlPane.getContent();

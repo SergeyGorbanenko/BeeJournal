@@ -413,7 +413,7 @@ public class WorkCUDController {
     }
 
     private List<BeehiveEntity> beehiveEntityList;
-    //Получить список Работ
+    //Получить список Ульев
     public List<BeehiveEntity> loadBeehiveList() {
         Transaction transaction = null;
         Session session = HBUtil.getSessionFactory().openSession();

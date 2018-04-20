@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
@@ -13,7 +16,7 @@
             <children>
                 <Pane prefHeight="50.0" prefWidth="315.0" style="-fx-background-color: #7f5c2f;">
                     <children>
-                        <Hyperlink prefHeight="50.0" prefWidth="50.0" style="-fx-background-image: url('/icons/back.png'); -fx-underline: false;">
+                        <Hyperlink onAction="#goBack" prefHeight="50.0" prefWidth="50.0" style="-fx-background-image: url('/icons/back.png'); -fx-underline: false;">
                             <font>
                                 <Font name="System Bold" size="24.0" />
                             </font>
@@ -27,7 +30,46 @@
                 </Pane>
                 <Pane layoutY="50.0" prefHeight="510.0" prefWidth="315.0" style="-fx-background-color: #ffefd3;">
                     <children>
-                        <Hyperlink layoutX="250.0" layoutY="-25.0" prefHeight="50.0" prefWidth="50.0" style="-fx-background-image: url('/icons/EditA.png'); -fx-underline: false;" />
+                        <Label layoutX="20.0" layoutY="40.0" text="Тип операции" textFill="#7f5c2f">
+                            <font>
+                                <Font name="System Bold" size="16.0" />
+                            </font>
+                        </Label>
+                  <ComboBox fx:id="cmbOperationType" layoutX="150.0" layoutY="40.0" prefWidth="150.0" />
+                  <Label layoutX="20.0" layoutY="80.0" text="Улей" textFill="#7f5c2f">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="cmbBeehive" layoutX="150.0" layoutY="80.0" prefWidth="150.0" />
+                  <Label layoutX="20.0" layoutY="120.0" text="Количество" textFill="#7f5c2f">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                        <TextField fx:id="txtfldCount" layoutX="150.0" layoutY="120.0" prefHeight="25.0" prefWidth="150.0" />
+                  <Label layoutX="20.0" layoutY="160.0" text="Описание" textFill="#7f5c2f">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtfldDescription" layoutX="150.0" layoutY="160.0" prefHeight="25.0" prefWidth="150.0" />
+                  <Label layoutX="20.0" layoutY="200.0" text="Дата" textFill="#7f5c2f">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <DatePicker fx:id="dtpckrDate" layoutX="150.0" layoutY="200.0" prefWidth="150.0" />
+                        <Hyperlink fx:id="hyperlinkAddOrEdit" layoutX="181.0" layoutY="253.0" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="Доб / изм" textFill="#7f5c2f">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Hyperlink>
+                        <Hyperlink fx:id="hyperlinkDelete" layoutX="141.0" layoutY="253.0" onAction="#goDelete" prefHeight="40.0" prefWidth="40.0" style="-fx-background-image: url('/icons/Delete.png'); -fx-underline: false;">
+                            <font>
+                                <Font size="17.0" />
+                            </font>
+                        </Hyperlink>
                     </children>
                 </Pane>
             </children></AnchorPane>
