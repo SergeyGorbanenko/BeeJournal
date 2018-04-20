@@ -1,6 +1,8 @@
 package hba;
 
 import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Objects;
@@ -10,6 +12,7 @@ public class IncomeExpenseEntityPK implements Serializable {
     private Integer idResourseType;
 
     @Column(name = "idIncomeExpense", nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     public Integer getIdIncomeExpense() {
         return idIncomeExpense;

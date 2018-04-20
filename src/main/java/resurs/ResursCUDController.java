@@ -241,6 +241,10 @@ public class ResursCUDController {
         this.lblcaptionTitle.setText("Добавить ресурс");
         this.hyperlinkAddOrEdit.setText("  Добавить");
         this.hyperlinkDelete.setVisible(false);
+        //
+        this.txtfldName.setText(null);
+        this.txtfldCategory.setText(null);
+        this.txtfldDescription.setText(null);
     }
 
     public void initResursEditState() {

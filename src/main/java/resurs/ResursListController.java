@@ -181,8 +181,8 @@ public class ResursListController {
             gridPane.add(lblvalueSummaryCount, 2, 0, 1, 2);
             //
             col1.setPercentWidth(15);
-            col2.setPercentWidth(60);
-            col3.setPercentWidth(25);
+            col2.setPercentWidth(58);
+            col3.setPercentWidth(27);
             gridPane.getColumnConstraints().addAll(col1, col2, col3);
             //
             gridPane.setOnMouseClicked((MouseEvent event) -> {

@@ -97,9 +97,11 @@ public class ResursHistoryController {
             mnApp.setPrimaryStage(mainStage);
             mnApp.getPrimaryStage().show();
             resursIncomeExpenseController.setResursHistoryController(this);
+            resursIncomeExpenseController.setResursListController(resursListController);
             resursIncomeExpenseController.setMainApp(mnApp);
             //
             resursIncomeExpenseController.setIncomeExpenseEntity(this.incomeExpenseEntity);
+            resursIncomeExpenseController.setResourceTypeEntity(this.resourceTypeEntity);
             resursIncomeExpenseController.initComboboxOperationType();
             resursIncomeExpenseController.initComboboxBeehive();
         } else {
@@ -114,9 +116,11 @@ public class ResursHistoryController {
                 mnApp.getPrimaryStage().show();
                 resursIncomeExpenseController = loader.getController();
                 resursIncomeExpenseController.setResursHistoryController(this);
+                resursIncomeExpenseController.setResursListController(resursListController);
                 resursIncomeExpenseController.setMainApp(mnApp);
                 //
                 resursIncomeExpenseController.setIncomeExpenseEntity(this.incomeExpenseEntity);
+                resursIncomeExpenseController.setResourceTypeEntity(this.resourceTypeEntity);
                 resursIncomeExpenseController.initComboboxOperationType();
                 resursIncomeExpenseController.initComboboxBeehive();
             } catch (IOException e) {
@@ -227,8 +231,8 @@ public class ResursHistoryController {
             gridPane.add(lblvalueCount, 2, 0, 1, 2);
             //
             col1.setPercentWidth(18);
-            col2.setPercentWidth(62);
-            col3.setPercentWidth(20);
+            col2.setPercentWidth(57);
+            col3.setPercentWidth(25);
             gridPane.getColumnConstraints().addAll(col1, col2, col3);
             //
             gridPane.setOnMouseClicked((MouseEvent event) -> {
