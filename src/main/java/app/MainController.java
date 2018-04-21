@@ -263,7 +263,7 @@ public class MainController {
             mnApp.getPrimaryStage().show();
             hiveListController.setMainController(this);
             hiveListController.setMainApp(mnApp);
-            //hiveListController.viewHives(this.beehiveEntityList);
+            hiveListController.viewHives(this.beehiveEntityList);
         } else {
             try {
                 FXMLLoader loader = new FXMLLoader();
@@ -277,7 +277,7 @@ public class MainController {
                 hiveListController = loader.getController();
                 hiveListController.setMainController(this);
                 hiveListController.setMainApp(mnApp);
-                //hiveListController.viewHives(this.beehiveEntityList);
+                hiveListController.viewHives(this.beehiveEntityList);
             } catch (IOException e) {
                 e.printStackTrace();
             }

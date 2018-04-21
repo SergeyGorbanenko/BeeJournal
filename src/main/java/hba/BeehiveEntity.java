@@ -14,12 +14,12 @@ public class BeehiveEntity {
     private String description;
     private Integer idBeegarden;
     private BeegardenEntity beegardenByIdBeegarden;
-    private CountFrameEntity countFrame;
     private Collection<IncomeExpenseEntity> incomeExpenses;
     private Collection<WorkEntity> works;
+    private Collection<CountFrameEntity> countFrames;
 
     @Id
-    @Column(name = "idBeehive", nullable = false)
+    @Column(name = "idBeehive", nullable = false, insertable = false, updatable = false)
     public Integer getIdBeehive() {
         return idBeehive;
     }
@@ -92,10 +92,6 @@ public class BeehiveEntity {
         return beegardenByIdBeegarden;
     }
 
-    public void setBeegardenByIdBeegarden(BeegardenEntity beegardenByIdBeegarden) {
-        this.beegardenByIdBeegarden = beegardenByIdBeegarden;
-    }
-
 /*    @OneToOne(mappedBy = "beehive")
     public CountFrameEntity getCountFrame() {
         return countFrame;
@@ -104,6 +100,10 @@ public class BeehiveEntity {
     public void setCountFrame(CountFrameEntity countFrame) {
         this.countFrame = countFrame;
     }*/
+
+    public void setBeegardenByIdBeegarden(BeegardenEntity beegardenByIdBeegarden) {
+        this.beegardenByIdBeegarden = beegardenByIdBeegarden;
+    }
 
     @OneToMany(mappedBy = "beehive")
     public Collection<IncomeExpenseEntity> getIncomeExpenses() {
@@ -121,5 +121,14 @@ public class BeehiveEntity {
 
     public void setWorks(Collection<WorkEntity> works) {
         this.works = works;
+    }
+
+    @OneToMany(mappedBy = "beehive")
+    public Collection<CountFrameEntity> getCountFrames() {
+        return countFrames;
+    }
+
+    public void setCountFrames(Collection<CountFrameEntity> countFrames) {
+        this.countFrames = countFrames;
     }
 }
