@@ -1,5 +1,6 @@
 package beehive;
 
+import app.HBUtil;
 import app.Main;
 import app.MainController;
 import hba.BeehiveEntity;
@@ -8,22 +9,27 @@ import hba.IncomeExpenseEntity;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import resurs.ResursHistoryController;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 import resurs.ResursListController;
-
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
-import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 
 public class HiveDetailController {
 
@@ -92,6 +98,7 @@ public class HiveDetailController {
         scrlPaneCountFrame.setContent(new AnchorPane());
         ColumnConstraints col1 = new ColumnConstraints();
         ColumnConstraints col2 = new ColumnConstraints();
+        ColumnConstraints col3 = new ColumnConstraints();
         Integer gridPaneLayoutY = 10;
         Integer gridPaneLayoutX = 10;
         Integer aPanePrefHeight = 50;
@@ -102,25 +109,35 @@ public class HiveDetailController {
             gridPane.setHgap(3);
             gridPane.setVgap(3);
             gridPane.setLayoutY(gridPaneLayoutY);
-            gridPaneLayoutY += 30;
+            gridPaneLayoutY += 35;
             gridPane.setLayoutX(gridPaneLayoutX);
             gridPane.setPrefWidth(302);
             //
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy", new Locale("ru", "RU"));
             Label lblvalueDate = new Label(cfE.getCheckDate().format(formatter));
             Label lblvalueCount = new Label(cfE.getCountFrame() + " шт");
+            Label lblIconDelete = new Label();
             //
             lblvalueDate.setFont(new Font("Arial Bold", 13));
             lblvalueCount.setFont(new Font("Arial Bold", 13));
-            lblvalueCount.setTextFill(Color.web("#ffae00"));
+            lblvalueCount.setTextFill(Color.web("#7f5c2f"));
+            lblIconDelete.setFont(new Font("Arial Bold", 18));
+            lblIconDelete.setStyle("-fx-background-image: url('/icons/DeleteMini.png')");
+            lblIconDelete.setPrefHeight(25);
+            lblIconDelete.setPrefWidth(22);
             //
             gridPane.add(lblvalueDate, 0, 0, 1, 1);
             gridPane.add(lblvalueCount, 1, 0, 1, 1);
+            gridPane.add(lblIconDelete, 2, 0, 1,1);
             //
             col1.setPercentWidth(50);
-            col2.setPercentWidth(50);
-            gridPane.getColumnConstraints().addAll(col1, col2);
+            col2.setPercentWidth(30);
+            col3.setPercentWidth(20);
+            gridPane.getColumnConstraints().addAll(col1, col2, col3);
             //
+            lblIconDelete.setOnMouseClicked(event -> {
+                performDeleteCountFrame(cfE);
+            });
             gridPane.setOnMouseClicked((MouseEvent event) -> {
                 this.countFrameEntity = cfE;
                 //changeStateToHiveDetail(this.beehiveEntity);
@@ -129,7 +146,7 @@ public class HiveDetailController {
             aPane = (AnchorPane) scrlPaneCountFrame.getContent();
             aPane.getChildren().add(gridPane);
             aPane.setPrefHeight(aPanePrefHeight);
-            aPanePrefHeight += 30;
+            aPanePrefHeight += 35;
             scrlPaneCountFrame.setContent(aPane);
         }
     }
@@ -217,4 +234,109 @@ public class HiveDetailController {
         mainController.setWorkEntityList(beehiveEntity.getWorks());
         mainController.changeStateToWorkList();
     }
+
+
+    @FXML       //[УДАЛИТЬ ЗАПИСЬ О КОЛИЧЕСТВЕ РАМОК]
+    public void performDeleteCountFrame(CountFrameEntity countFrameEntity) {
+        String cfData = null;
+        String cfCount = null;
+        try {
+            cfData = countFrameEntity.getCheckDate().toString();
+            cfCount = countFrameEntity.getCountFrame();
+            if (cfData == null || cfCount == null) throw new Exception();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Alert alertError = new Alert(Alert.AlertType.ERROR);
+            alertError.setTitle("Ошибка");
+            alertError.setHeaderText("Что-то пошло не так(");
+            alertError.setContentText("");
+            alertError.showAndWait();
+            return;
+        }
+        Alert alertSure = new Alert(Alert.AlertType.CONFIRMATION);
+        alertSure.setTitle("Удаление записи о количестве рамок");
+        alertSure.setHeaderText("Удалить запись " + "[" + cfData + " было " + cfCount + "шт]" + "?");
+        alertSure.setContentText("Вы уверены, что хотите удалить запись " + "[" + cfData + " было " + cfCount + "шт]" + "?");
+        Optional<ButtonType> result = alertSure.showAndWait();
+        if (result.get() == ButtonType.OK){
+            Transaction transaction1 = null;
+            Transaction transaction2 = null;
+            Session session = null;
+            try {
+                session = HBUtil.getSessionFactory().openSession();
+                transaction1 = session.beginTransaction();
+                session.delete(countFrameEntity);
+                transaction1.commit();
+                Alert alertSuccess = new Alert(Alert.AlertType.INFORMATION);
+                alertSuccess.setTitle("Запись о количестве рамок удалена");
+                alertSuccess.setHeaderText(null);
+                alertSuccess.setContentText("Запись " + "[" + cfData + " было " + cfCount + "шт]" + " была успешна удалена из истории улья!");
+                alertSuccess.showAndWait();
+            } catch (Exception e) {
+                e.printStackTrace();
+                if (transaction1 != null) {
+                    transaction1.rollback();
+                }
+                Alert alertError = new Alert(Alert.AlertType.ERROR);
+                alertError.setTitle("Ошибка");
+                alertError.setHeaderText("Что-то пошло не так(");
+                alertError.setContentText("");
+                alertError.showAndWait();
+            } finally {
+                if (session != null)
+                    session.close();
+            }
+            //
+            try {
+                session = HBUtil.getSessionFactory().openSession();
+                transaction2 = session.beginTransaction();
+                CriteriaBuilder builder = session.getCriteriaBuilder();
+                CriteriaQuery<BeehiveEntity> query = builder.createQuery(BeehiveEntity.class);
+                Root<BeehiveEntity> root = query.from(BeehiveEntity.class);
+                query.select(root).where(builder.equal(root.get("idBeehive"), this.beehiveEntity.getIdBeehive()));
+                Query<BeehiveEntity> q = session.createQuery(query);
+                this.beehiveEntity = null;
+                this.beehiveEntity = q.getSingleResult();
+                transaction2.commit();
+            }  catch (Exception e) {
+                e.printStackTrace();
+                if (transaction2 != null)
+                    transaction2.rollback();
+            } finally {
+                if (session != null)
+                    session.close();
+            }
+            //
+            viewCountFrames(beehiveEntity.getCountFrames());
+        } else {
+            alertSure.hide();
+        }
+    }
+
+    @FXML   //Инициализировать Улей
+    public BeehiveEntity initBeehive() {
+        Transaction transaction = null;
+        Session session = HBUtil.getSessionFactory().openSession();
+        try {
+            transaction = session.beginTransaction();
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<BeehiveEntity> query = builder.createQuery(BeehiveEntity.class);
+            Root<BeehiveEntity> root = query.from(BeehiveEntity.class);
+            query.select(root);
+            Query<BeehiveEntity> q = session.createQuery(query);
+            this.beehiveEntity = null;
+            this.beehiveEntity = q.getSingleResult();
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        } finally {
+            if (session != null)
+                session.close();
+        }
+        return this.beehiveEntity;
+    }
+
 }

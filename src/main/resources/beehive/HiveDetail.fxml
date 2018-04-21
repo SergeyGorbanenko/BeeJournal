@@ -98,7 +98,7 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <Hyperlink layoutX="266.0" layoutY="270.0" prefHeight="40.0" prefWidth="40.0" style="-fx-background-image: url('/icons/EditA.png'); -fx-underline: false;" textFill="#0d0d0d">
+                  <Hyperlink layoutX="266.0" layoutY="270.0" prefHeight="40.0" prefWidth="40.0" style="-fx-underline: false; -fx-background-color: #eeeeee;" textFill="#0d0d0d">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
