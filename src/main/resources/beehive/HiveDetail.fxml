@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
@@ -98,11 +100,13 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <Hyperlink layoutX="266.0" layoutY="270.0" prefHeight="40.0" prefWidth="40.0" style="-fx-underline: false; -fx-background-color: #eeeeee;" textFill="#0d0d0d">
+                  <Hyperlink layoutX="266.0" layoutY="270.0" onAction="#setShownFieldsForNewCF" prefHeight="40.0" prefWidth="40.0" style="-fx-underline: false; -fx-background-image: url('/icons/Add.png');" textFill="#0d0d0d">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Hyperlink>
+                  <DatePicker fx:id="dtpckrDateCountFrameAdd" layoutX="20.0" layoutY="265.0" prefHeight="25.0" prefWidth="100.0" visible="false" />
+                  <TextField fx:id="txtfldCountFrameAdd" layoutX="144.0" layoutY="265.0" onAction="#performAddCountFrame" prefHeight="25.0" prefWidth="40.0" visible="false" />
                     </children>
                 </Pane>
             </children></AnchorPane>

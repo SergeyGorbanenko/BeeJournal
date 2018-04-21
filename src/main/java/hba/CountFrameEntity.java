@@ -55,6 +55,7 @@ public class CountFrameEntity {
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "idCountFrame", nullable = false, insertable = false, updatable = false)
     public Integer getIdCountFrame() {
         return idCountFrame;

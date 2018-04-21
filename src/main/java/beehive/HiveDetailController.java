@@ -9,10 +9,7 @@ import hba.IncomeExpenseEntity;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
@@ -23,9 +20,11 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import resurs.ResursListController;
+import work.WorkCUDController;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.Locale;
@@ -60,6 +59,9 @@ public class HiveDetailController {
     @FXML private ScrollPane scrlPaneResurs;
     @FXML private Label lblCountFramesNotFound;
     @FXML private Label lblResursNotFound;
+    //
+    @FXML private DatePicker dtpckrDateCountFrameAdd;
+    @FXML private TextField txtfldCountFrameAdd;
 
     @FXML       //[НАЗАД]
     public void goBack() {
@@ -99,6 +101,7 @@ public class HiveDetailController {
         ColumnConstraints col1 = new ColumnConstraints();
         ColumnConstraints col2 = new ColumnConstraints();
         ColumnConstraints col3 = new ColumnConstraints();
+        ColumnConstraints col4 = new ColumnConstraints();
         Integer gridPaneLayoutY = 10;
         Integer gridPaneLayoutX = 10;
         Integer aPanePrefHeight = 50;
@@ -111,12 +114,23 @@ public class HiveDetailController {
             gridPane.setLayoutY(gridPaneLayoutY);
             gridPaneLayoutY += 35;
             gridPane.setLayoutX(gridPaneLayoutX);
-            gridPane.setPrefWidth(302);
+            gridPane.setPrefWidth(290);
             //
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy", new Locale("ru", "RU"));
             Label lblvalueDate = new Label(cfE.getCheckDate().format(formatter));
             Label lblvalueCount = new Label(cfE.getCountFrame() + " шт");
+            Label lblIconEdit = new Label();
             Label lblIconDelete = new Label();
+            //
+            DatePicker dtpckrData = new DatePicker();
+            TextField txtfldCount = new TextField();
+            dtpckrData.setVisible(false);
+            txtfldCount.setVisible(false);
+            dtpckrData.setPrefWidth(100);
+            txtfldCount.setPrefWidth(40);
+            txtfldCount.setMaxWidth(40);
+            dtpckrData.setValue(cfE.getCheckDate());
+            txtfldCount.setText(cfE.getCountFrame());
             //
             lblvalueDate.setFont(new Font("Arial Bold", 13));
             lblvalueCount.setFont(new Font("Arial Bold", 13));
@@ -125,16 +139,33 @@ public class HiveDetailController {
             lblIconDelete.setStyle("-fx-background-image: url('/icons/DeleteMini.png')");
             lblIconDelete.setPrefHeight(25);
             lblIconDelete.setPrefWidth(22);
+            lblIconEdit.setFont(new Font("Arial Bold", 18));
+            lblIconEdit.setStyle("-fx-background-image: url('/icons/shester.png')");
+            lblIconEdit.setPrefHeight(25);
+            lblIconEdit.setPrefWidth(25);
             //
             gridPane.add(lblvalueDate, 0, 0, 1, 1);
+            gridPane.add(dtpckrData, 0, 0, 1, 1);
             gridPane.add(lblvalueCount, 1, 0, 1, 1);
-            gridPane.add(lblIconDelete, 2, 0, 1,1);
+            gridPane.add(txtfldCount, 1, 0, 1, 1);
+            gridPane.add(lblIconEdit, 2, 0, 1,1);
+            gridPane.add(lblIconDelete, 3, 0, 1,1);
             //
-            col1.setPercentWidth(50);
+            col1.setPercentWidth(44);
             col2.setPercentWidth(30);
-            col3.setPercentWidth(20);
-            gridPane.getColumnConstraints().addAll(col1, col2, col3);
+            col3.setPercentWidth(13);
+            col4.setPercentWidth(13);
+            gridPane.getColumnConstraints().addAll(col1, col2, col3, col4);
             //
+            dtpckrData.setOnAction(event -> {
+                performEditCountFrame(cfE, dtpckrData, txtfldCount);
+            });
+            txtfldCount.setOnAction(event -> {
+                performEditCountFrame(cfE, dtpckrData, txtfldCount);
+            });
+            lblIconEdit.setOnMouseClicked(event ->  {
+                setShownFieldsForEditCF(dtpckrData, txtfldCount);
+            });
             lblIconDelete.setOnMouseClicked(event -> {
                 performDeleteCountFrame(cfE);
             });
@@ -255,12 +286,11 @@ public class HiveDetailController {
         }
         Alert alertSure = new Alert(Alert.AlertType.CONFIRMATION);
         alertSure.setTitle("Удаление записи о количестве рамок");
-        alertSure.setHeaderText("Удалить запись " + "[" + cfData + " было " + cfCount + "шт]" + "?");
-        alertSure.setContentText("Вы уверены, что хотите удалить запись " + "[" + cfData + " было " + cfCount + "шт]" + "?");
+        alertSure.setHeaderText("Удалить запись " + "[" + cfData + " было " + cfCount + " шт]" + "?");
+        alertSure.setContentText("Вы уверены, что хотите удалить запись " + "[" + cfData + " было " + cfCount + " шт]" + "?");
         Optional<ButtonType> result = alertSure.showAndWait();
         if (result.get() == ButtonType.OK){
             Transaction transaction1 = null;
-            Transaction transaction2 = null;
             Session session = null;
             try {
                 session = HBUtil.getSessionFactory().openSession();
@@ -270,7 +300,7 @@ public class HiveDetailController {
                 Alert alertSuccess = new Alert(Alert.AlertType.INFORMATION);
                 alertSuccess.setTitle("Запись о количестве рамок удалена");
                 alertSuccess.setHeaderText(null);
-                alertSuccess.setContentText("Запись " + "[" + cfData + " было " + cfCount + "шт]" + " была успешна удалена из истории улья!");
+                alertSuccess.setContentText("Запись " + "[" + cfData + " было " + cfCount + " шт]" + " была успешна удалена из истории улья!");
                 alertSuccess.showAndWait();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -287,56 +317,139 @@ public class HiveDetailController {
                     session.close();
             }
             //
-            try {
-                session = HBUtil.getSessionFactory().openSession();
-                transaction2 = session.beginTransaction();
-                CriteriaBuilder builder = session.getCriteriaBuilder();
-                CriteriaQuery<BeehiveEntity> query = builder.createQuery(BeehiveEntity.class);
-                Root<BeehiveEntity> root = query.from(BeehiveEntity.class);
-                query.select(root).where(builder.equal(root.get("idBeehive"), this.beehiveEntity.getIdBeehive()));
-                Query<BeehiveEntity> q = session.createQuery(query);
-                this.beehiveEntity = null;
-                this.beehiveEntity = q.getSingleResult();
-                transaction2.commit();
-            }  catch (Exception e) {
-                e.printStackTrace();
-                if (transaction2 != null)
-                    transaction2.rollback();
-            } finally {
-                if (session != null)
-                    session.close();
-            }
-            //
+            initBeehive();
             viewCountFrames(beehiveEntity.getCountFrames());
         } else {
             alertSure.hide();
         }
     }
 
-    @FXML   //Инициализировать Улей
-    public BeehiveEntity initBeehive() {
+
+    //Скрываем / показываем элементы для ввода новых данных при создании НОВОЙ записи о количестве рамок улья
+    @FXML
+    public void setShownFieldsForNewCF() {
+        if (!dtpckrDateCountFrameAdd.isVisible()) {
+            this.dtpckrDateCountFrameAdd.setValue(null);
+            this.txtfldCountFrameAdd.setText(null);
+            this.dtpckrDateCountFrameAdd.setVisible(true);
+            this.txtfldCountFrameAdd.setVisible(true);
+        } else {
+            this.dtpckrDateCountFrameAdd.setVisible(false);
+            this.txtfldCountFrameAdd.setVisible(false);
+        }
+    }
+
+    //Скрываем / показываем элементы для ввода новых данных при изменении СУЩЕСТВУЮЩЕЙ записи о количестве рамок улья
+    @FXML
+    public void setShownFieldsForEditCF(DatePicker dtpckrDateCountFrameEdit, TextField txtfldCountFrameEdit) {
+        if (!dtpckrDateCountFrameEdit.isVisible()) {
+            dtpckrDateCountFrameEdit.setVisible(true);
+            txtfldCountFrameEdit.setVisible(true);
+        } else {
+            dtpckrDateCountFrameEdit.setVisible(false);
+            txtfldCountFrameEdit.setVisible(false);
+        }
+    }
+
+    //[РЕДАКТИРОВАТЬ ЗАПИСЬ О КОЛИЧЕСТВЕ РАМОК]
+    public void performEditCountFrame(CountFrameEntity countFrameEntity, DatePicker dtpckrDate, TextField txtfldCount) {
         Transaction transaction = null;
         Session session = HBUtil.getSessionFactory().openSession();
         try {
-            transaction = session.beginTransaction();
-            CriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaQuery<BeehiveEntity> query = builder.createQuery(BeehiveEntity.class);
-            Root<BeehiveEntity> root = query.from(BeehiveEntity.class);
-            query.select(root);
-            Query<BeehiveEntity> q = session.createQuery(query);
-            this.beehiveEntity = null;
-            this.beehiveEntity = q.getSingleResult();
+            if (countFrameEntity == null) throw new Exception();
+            if (dtpckrDate.getValue() == null) throw new Exception();
+            if (txtfldCount.getText() == null || txtfldCount.getText().equals("")) throw new Exception();
+            if (dtpckrDate.getValue().isAfter(LocalDate.now())) throw new Exception();
+            countFrameEntity.setCheckDate(dtpckrDate.getValue());
+            countFrameEntity.setCountFrame(txtfldCount.getText());
+            //
+            transaction = session.getTransaction();
+            transaction.begin();
+            session.update(countFrameEntity);
             transaction.commit();
         } catch (Exception e) {
             e.printStackTrace();
             if (transaction != null) {
                 transaction.rollback();
-            }
+            } //
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Ошибка");
+            alert.setHeaderText("Проверьте правильность введенных данных");
+            alert.setContentText(   "- недопустимы пустые поля\n" +
+                    "- введенная дата не может быть позже текущей даты");
+            alert.showAndWait();
         } finally {
             if (session != null)
                 session.close();
         }
-        return this.beehiveEntity;
+        //
+        initBeehive();
+        viewCountFrames(beehiveEntity.getCountFrames());
+    }
+
+    @FXML //[ДОБАВИТЬ ЗАПИСЬ О КОЛИЧЕСТВЕ РАМОК]
+    public void performAddCountFrame() {
+        Transaction transaction = null;
+        Session session = HBUtil.getSessionFactory().openSession();
+        try {
+            if (dtpckrDateCountFrameAdd.getValue() == null) throw new Exception();
+            if (txtfldCountFrameAdd.getText() == null || txtfldCountFrameAdd.getText().equals("")) throw new Exception();
+            if (dtpckrDateCountFrameAdd.getValue().isAfter(LocalDate.now())) throw new Exception();
+            CountFrameEntity countFrameEntity = new CountFrameEntity();
+            countFrameEntity.setCheckDate(this.dtpckrDateCountFrameAdd.getValue());
+            countFrameEntity.setCountFrame(this.txtfldCountFrameAdd.getText());
+            countFrameEntity.setIdBeehive(beehiveEntity.getIdBeehive());
+            countFrameEntity.setBeehive(beehiveEntity);
+            countFrameEntity.setIdBeegarden(new WorkCUDController().loadBeegarden().getIdBeegarden());
+            //
+            transaction = session.getTransaction();
+            transaction.begin();
+            session.save(countFrameEntity);
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            } //
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Ошибка");
+            alert.setHeaderText("Проверьте правильность введенных данных");
+            alert.setContentText(   "- недопустимы пустые поля\n" +
+                    "- введенная дата не может быть позже текущей даты");
+            alert.showAndWait();
+        } finally {
+            if (session != null)
+                session.close();
+        }
+        //
+        initBeehive();
+        setShownFieldsForNewCF();
+        viewCountFrames(beehiveEntity.getCountFrames());
+    }
+
+    //Инициализировать Улей (BeehiveEntity)
+    private void initBeehive() {
+        Session session = null;
+        Transaction transaction = null;
+        try {
+            session = HBUtil.getSessionFactory().openSession();
+            transaction = session.beginTransaction();
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<BeehiveEntity> query = builder.createQuery(BeehiveEntity.class);
+            Root<BeehiveEntity> root = query.from(BeehiveEntity.class);
+            query.select(root).where(builder.equal(root.get("idBeehive"), this.beehiveEntity.getIdBeehive()));
+            Query<BeehiveEntity> q = session.createQuery(query);
+            this.beehiveEntity = null;
+            this.beehiveEntity = q.getSingleResult();
+            transaction.commit();
+        }  catch (Exception e) {
+            e.printStackTrace();
+            if (transaction != null)
+                transaction.rollback();
+        } finally {
+            if (session != null)
+                session.close();
+        }
     }
 
 }

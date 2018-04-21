@@ -38,8 +38,7 @@ public class MainController {
     private Scene workListScene;
     @FXML
     public void changeStateToWorkList() {
-        if (workEntityList.isEmpty())
-            this.workEntityList = loadWorkList();
+        this.workEntityList = loadWorkList();
         this.checkStatusPlaning();
         if (workListScene != null) {
             Stage mainStage = mnApp.getPrimaryStage();
