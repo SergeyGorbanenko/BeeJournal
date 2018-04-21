@@ -1,5 +1,7 @@
 package app;
 
+import beehive.HiveListController;
+import hba.BeehiveEntity;
 import hba.ResourceTypeEntity;
 import hba.WorkEntity;
 import javafx.fxml.FXML;
@@ -13,7 +15,6 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import resurs.ResursListController;
 import work.WorkListController;
-
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -28,8 +29,9 @@ public class MainController {
         this.mnApp = mainApp;
     }
 
-
-    //////////////////////////////////////////////////////////РАБОТЫ
+    /////////////////////////////////////////////////////////////
+    //////                      РАБОТЫ                     //////
+    /////////////////////////////////////////////////////////////
     private WorkListController workListController;
     private BorderPane workListLayout;
     private Scene workListScene;
@@ -155,11 +157,13 @@ public class MainController {
     }
 
 
-    /////////////////////////////////////////////////////////РЕСУРСЫ
+    /////////////////////////////////////////////////////////////
+    //////                     РЕСУРСЫ                     //////
+    /////////////////////////////////////////////////////////////
     private ResursListController resursListController;
     private BorderPane resursListLayout;
     private Scene resursListScene;
-    @FXML                               //[РАБОТЫ]
+    @FXML
     public void changeStateToResursList() {
         this.resourceTypeEntityList = loadResursList();
         if (resursListScene != null) {
@@ -243,4 +247,71 @@ public class MainController {
     }
 
 
+    /////////////////////////////////////////////////////////////
+    //////                      УЛЬИ                       //////
+    /////////////////////////////////////////////////////////////
+    private HiveListController hiveListController;
+    private BorderPane hiveListLayout;
+    private Scene hiveListScene;
+    @FXML
+    public void changeStateToHiveList() {
+        this.beehiveEntityList = loadHiveList();
+        if (hiveListScene != null) {
+            Stage mainStage = mnApp.getPrimaryStage();
+            mainStage.setScene(hiveListScene);
+            mnApp.setPrimaryStage(mainStage);
+            mnApp.getPrimaryStage().show();
+            hiveListController.setMainController(this);
+            hiveListController.setMainApp(mnApp);
+            //hiveListController.viewHives(this.beehiveEntityList);
+        } else {
+            try {
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(Main.class.getResource("/beehive/HiveList.fxml"));
+                hiveListLayout = (BorderPane) loader.load();
+                hiveListScene = new Scene(hiveListLayout);
+                Stage mainStage = mnApp.getPrimaryStage();
+                mainStage.setScene(hiveListScene);
+                mnApp.setPrimaryStage(mainStage);
+                mnApp.getPrimaryStage().show();
+                hiveListController = loader.getController();
+                hiveListController.setMainController(this);
+                hiveListController.setMainApp(mnApp);
+                //hiveListController.viewHives(this.beehiveEntityList);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private List<BeehiveEntity> beehiveEntityList;
+    //Получить список Ульев
+    public List<BeehiveEntity> loadHiveList() {
+        Transaction transaction = null;
+        Session session = HBUtil.getSessionFactory().openSession();
+        try {
+            transaction = session.beginTransaction();
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<BeehiveEntity> query = builder.createQuery(BeehiveEntity.class);
+            Root<BeehiveEntity> root = query.from(BeehiveEntity.class);
+            query.select(root);
+            Query<BeehiveEntity> q = session.createQuery(query);
+            this.beehiveEntityList = q.getResultList();
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        } finally {
+            if (session != null)
+                session.close();
+        }
+        return this.beehiveEntityList;
+    }
+
+
+    /////////////////////////////////////////////////////////////
+    //////                     ФИНАНСЫ                     //////
+    /////////////////////////////////////////////////////////////
 }
