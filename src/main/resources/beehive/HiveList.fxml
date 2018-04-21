@@ -19,7 +19,7 @@
                                 <Font name="System Bold" size="24.0" />
                             </font>
                         </Hyperlink>
-                        <Label layoutX="73.0" layoutY="12.0" text="Ульи" textFill="WHITE">
+                        <Label fx:id="lblTitle" layoutX="73.0" layoutY="12.0" text="Ульи" textFill="WHITE">
                             <font>
                                 <Font name="System Bold" size="18.0" />
                             </font>
@@ -38,7 +38,7 @@
                                 <Font name="System Bold" size="18.0" />
                             </font>
                         </Hyperlink>
-                        <Hyperlink layoutY="436.0" prefHeight="30.0" prefWidth="53.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="фильтр" textFill="#0a0a0a">
+                        <Hyperlink layoutY="436.0" onAction="#viewHivesByCountFramesSmall" prefHeight="30.0" prefWidth="105.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="       малый" textFill="#0a0a0a">
                             <font>
                                 <Font name="System Bold" size="13.0" />
                             </font>
@@ -48,6 +48,16 @@
                                 <Font size="18.0" />
                             </font>
                         </Label>
+                  <Hyperlink layoutX="105.0" layoutY="436.0" onAction="#viewHivesByCountFramesMiddle" prefHeight="30.0" prefWidth="105.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="     средний" textFill="#0a0a0a">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Hyperlink>
+                  <Hyperlink layoutX="210.0" layoutY="436.0" onAction="#viewHivesByCountFramesBig" prefHeight="30.0" prefWidth="105.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="     большой" textFill="#0a0a0a">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Hyperlink>
                     </children>
                 </Pane>
             </children></AnchorPane>

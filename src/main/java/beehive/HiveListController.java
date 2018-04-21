@@ -5,17 +5,24 @@ import app.MainController;
 import hba.BeehiveEntity;
 import hba.CountFrameEntity;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
+import resurs.ResursHistoryController;
+
+import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -44,6 +51,38 @@ public class HiveListController {
         mnApp.initRootLayout();
     }
 
+    private HiveDetailController hiveDetailController;
+    private BorderPane hiveDetailLayout;
+    private Scene hiveDetailScene;
+    private void changeStateToHiveDetail(BeehiveEntity beehiveEntity) {
+        if (hiveDetailScene != null) {
+            Stage mainStage = mnApp.getPrimaryStage();
+            mainStage.setScene(hiveDetailScene);
+            mnApp.setPrimaryStage(mainStage);
+            mnApp.getPrimaryStage().show();
+            hiveDetailController.setHiveListController(this);
+            hiveDetailController.setMainApp(mnApp);
+            //resursHistoryController.fillResursHistory(resourceTypeEntity);
+        } else {
+            try {
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(Main.class.getResource("/beehive/HiveDetail.fxml"));
+                hiveDetailLayout = (BorderPane) loader.load();
+                hiveDetailScene = new Scene(hiveDetailLayout);
+                Stage mainStage = mnApp.getPrimaryStage();
+                mainStage.setScene(hiveDetailScene);
+                mnApp.setPrimaryStage(mainStage);
+                mnApp.getPrimaryStage().show();
+                hiveDetailController = loader.getController();
+                hiveDetailController.setHiveListController(this);
+                hiveDetailController.setMainApp(mnApp);
+                //resursHistoryController.fillResursHistory(resourceTypeEntity);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 
     @FXML       //[ДОМОЙ]
     public void goHome() {
@@ -55,8 +94,14 @@ public class HiveListController {
 
     }
 
+
+    @FXML private Label lblTitle;
     @FXML private Label lblHiveNotFound;
     @FXML private ScrollPane scrlPane;
+
+    public void setTextlblTitle(String lblTitleText) {
+        this.lblTitle.setText(lblTitleText);
+    }
 
     //Конкретный Улей
     private BeehiveEntity beehiveEntity;
@@ -126,7 +171,7 @@ public class HiveListController {
             //
             gridPane.setOnMouseClicked((MouseEvent event) -> {
                 this.beehiveEntity = bhE;
-                //changeStateToResursHistory(this.resourceTypeEntity);
+                changeStateToHiveDetail(this.beehiveEntity);
             });
             //
             aPane = (AnchorPane) scrlPane.getContent();
@@ -150,5 +195,47 @@ public class HiveListController {
         return countFramesByLastDate;
     }
 
+    private Integer smallHive = 5;
+    private Integer middleHive = 10;
+    private Integer bigHive = 15;
+
+    @FXML   //Вывести МАЛЫЕ ульи
+    public void viewHivesByCountFramesSmall() {
+        List<BeehiveEntity> beehiveEntityList = mainController.loadHiveList();
+        List<BeehiveEntity> resList = new ArrayList<>();
+        for (BeehiveEntity bhE : beehiveEntityList) {
+            if (bhE.getIdBeehive().equals(1)) continue;
+            if (Integer.valueOf(getCountFrameByLastDate(bhE.getCountFrames())) <= smallHive)
+                resList.add(bhE);
+        }
+        this.lblTitle.setText("Малые ульи");
+        viewHives(resList);
+    }
+
+    @FXML   //Вывести СРЕДНИЕ ульи
+    public void viewHivesByCountFramesMiddle() {
+        List<BeehiveEntity> beehiveEntityList = mainController.loadHiveList();
+        List<BeehiveEntity> resList = new ArrayList<>();
+        for (BeehiveEntity bhE : beehiveEntityList) {
+            if (bhE.getIdBeehive().equals(1)) continue;
+            if ((Integer.valueOf(getCountFrameByLastDate(bhE.getCountFrames())) > smallHive) && (Integer.valueOf(getCountFrameByLastDate(bhE.getCountFrames())) <= middleHive))
+                resList.add(bhE);
+        }
+        this.lblTitle.setText("Средние ульи");
+        viewHives(resList);
+    }
+
+    @FXML   //Вывести БОЛЬШИЕ ульи
+    public void viewHivesByCountFramesBig() {
+        List<BeehiveEntity> beehiveEntityList = mainController.loadHiveList();
+        List<BeehiveEntity> resList = new ArrayList<>();
+        for (BeehiveEntity bhE : beehiveEntityList) {
+            if (bhE.getIdBeehive().equals(1)) continue;
+            if (Integer.valueOf(getCountFrameByLastDate(bhE.getCountFrames())) >= bigHive)
+                resList.add(bhE);
+        }
+        this.lblTitle.setText("Большие ульи");
+        viewHives(resList);
+    }
 
 }

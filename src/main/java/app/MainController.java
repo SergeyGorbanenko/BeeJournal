@@ -264,6 +264,7 @@ public class MainController {
             hiveListController.setMainController(this);
             hiveListController.setMainApp(mnApp);
             hiveListController.viewHives(this.beehiveEntityList);
+            hiveListController.setTextlblTitle("Ульи");
         } else {
             try {
                 FXMLLoader loader = new FXMLLoader();
@@ -278,6 +279,7 @@ public class MainController {
                 hiveListController.setMainController(this);
                 hiveListController.setMainApp(mnApp);
                 hiveListController.viewHives(this.beehiveEntityList);
+                hiveListController.setTextlblTitle("Ульи");
             } catch (IOException e) {
                 e.printStackTrace();
             }
