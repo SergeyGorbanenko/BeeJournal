@@ -2,6 +2,8 @@ package resurs;
 
 import app.HBUtil;
 import app.Main;
+import beehive.HiveDetailController;
+import beehive.HiveListController;
 import hba.IncomeExpenseEntity;
 import hba.ResourceTypeEntity;
 import javafx.fxml.FXML;
@@ -38,13 +40,21 @@ public class ResursHistoryController {
         this.resursListController = resursListController;
     }
 
+    private HiveListController hiveListController;
+    public void setHiveListController(HiveListController hiveListController) {
+        this.hiveListController = hiveListController;
+    }
+
     private Scene ownerScene;
     public Scene getOwnerScene() {
         return ownerScene;
     }
 
     public void changeStateToResursList() {
+        if (resursListController.getMainController() != null)
         resursListController.getMainController().changeStateToResursList();
+        else    //возврат в подробно об улье
+            hiveListController.changeStateToHiveDetail(hiveListController.getBeehiveEntity());
     }
 
     private ResursCUDController resursCUDController;

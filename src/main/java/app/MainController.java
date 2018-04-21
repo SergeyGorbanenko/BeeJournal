@@ -20,6 +20,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
 
 public class MainController {
@@ -37,7 +38,8 @@ public class MainController {
     private Scene workListScene;
     @FXML
     public void changeStateToWorkList() {
-        this.workEntityList = loadWorkList();
+        if (workEntityList.isEmpty())
+            this.workEntityList = loadWorkList();
         this.checkStatusPlaning();
         if (workListScene != null) {
             Stage mainStage = mnApp.getPrimaryStage();
@@ -67,9 +69,14 @@ public class MainController {
         }
     }
 
-    private List<WorkEntity> workEntityList;
+
+
+    private Collection<WorkEntity> workEntityList;
+    public void setWorkEntityList(Collection<WorkEntity> workEntityList) {
+        this.workEntityList = workEntityList;
+    }
     //Получить список Работ
-    public List<WorkEntity> loadWorkList() {
+    public Collection<WorkEntity> loadWorkList() {
         Transaction transaction = null;
         Session session = HBUtil.getSessionFactory().openSession();
         try {
@@ -94,7 +101,7 @@ public class MainController {
     }
 
     //Получить список работ по определенному СТАТУСУ
-    public List<WorkEntity> loadWorkList(String statusString) {
+    public Collection<WorkEntity> loadWorkList(String statusString) {
         Transaction transaction = null;
         Session session = HBUtil.getSessionFactory().openSession();
         try {
@@ -121,7 +128,6 @@ public class MainController {
 
     //Проверка перед загрузкой списка работ: есть ли статусы несоответствующие своим датам
     public void checkStatusPlaning() {
-        loadWorkList();
         Transaction transaction = null;
         Session session = null;
         boolean flag = false;

@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
@@ -27,21 +28,81 @@
                 </Pane>
                 <Pane layoutY="50.0" prefHeight="510.0" prefWidth="315.0" style="-fx-background-color: #ffefd3;">
                     <children>
-                        <Label layoutX="22.0" layoutY="53.0" text="Начало" textFill="#7f5c2f">
-                            <font>
-                                <Font name="System Bold" size="17.0" />
-                            </font>
-                        </Label>
-                        <Label layoutX="129.0" layoutY="55.0" text="начало">
-                            <font>
-                                <Font name="Calibri" size="18.0" />
-                            </font>
-                        </Label>
                         <Hyperlink layoutX="250.0" layoutY="-25.0" onAction="#goEdit" prefHeight="50.0" prefWidth="50.0" style="-fx-background-image: url('/icons/EditA.png'); -fx-underline: false;" textFill="#0d0d0d">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
                         </Hyperlink>
+                        <Label layoutX="20.0" layoutY="20.0" text="Тип" textFill="#7f5c2f">
+                            <font>
+                                <Font name="System Bold" size="15.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="lblvalueType" layoutX="110.0" layoutY="20.0" text="тип">
+                            <font>
+                                <Font name="Calibri" size="17.0" />
+                            </font>
+                        </Label>
+                  <Label layoutX="20.0" layoutY="55.0" text="Пасека" textFill="#7f5c2f">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblvalueBeegarden" layoutX="110.0" layoutY="55.0" text="пасека">
+                     <font>
+                        <Font name="Calibri" size="17.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="20.0" layoutY="90.0" text="Описание" textFill="#7f5c2f">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblvalueDescription" layoutX="110.0" layoutY="90.0" prefWidth="200.0" text="описание" wrapText="true">
+                     <font>
+                        <Font name="Calibri" size="17.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="20.0" layoutY="125.0" text="Рамки" textFill="#7f5c2f">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Label>
+                        <ScrollPane fx:id="scrlPaneCountFrame" layoutY="155.0" prefHeight="135.0" prefWidth="315.0" style="-fx-background: #ffefd3;">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="112.0" prefWidth="310.0" />
+                            </content>
+                        </ScrollPane>
+                        <Label fx:id="lblCountFramesNotFound" layoutX="78.0" layoutY="170.0" text="   Рамки не найдены&#10;Создайте новые рамки" textFill="#5a5a5a">
+                            <font>
+                                <Font size="15.0" />
+                            </font>
+                        </Label>
+                  <Label layoutX="20.0" layoutY="300.0" text="Ресурсы" textFill="#7f5c2f">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <ScrollPane fx:id="scrlPaneResurs" layoutY="330.0" prefHeight="140.0" prefWidth="315.0" style="-fx-background: #ffefd3;">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="112.0" prefWidth="310.0" />
+                     </content>
+                  </ScrollPane>
+                        <Hyperlink layoutY="470.0" onAction="#showWorksByBeehive" prefHeight="40.0" prefWidth="315.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="       Показать работы по улью" textFill="#7f5c2f">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Hyperlink>
+                  <Label fx:id="lblResursNotFound" layoutX="55.0" layoutY="347.0" text="История ресурсов не найдена" textFill="#5a5a5a">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Hyperlink layoutX="266.0" layoutY="270.0" prefHeight="40.0" prefWidth="40.0" style="-fx-background-image: url('/icons/EditA.png'); -fx-underline: false;" textFill="#0d0d0d">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Hyperlink>
                     </children>
                 </Pane>
             </children></AnchorPane>

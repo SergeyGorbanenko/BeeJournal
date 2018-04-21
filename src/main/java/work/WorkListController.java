@@ -19,6 +19,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
+import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 
@@ -130,7 +131,7 @@ public class WorkListController {
     //Конкретная работа
     private WorkEntity workEntity;
 
-    public void viewWorks(List<WorkEntity> workEntityList) {
+    public void viewWorks(Collection<WorkEntity> workEntityList) {
         if (workEntityList.isEmpty()) {
             this.lblWorksNotFound.setVisible(true);
             scrlPane.setContent(new AnchorPane());

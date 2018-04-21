@@ -54,7 +54,7 @@ public class HiveListController {
     private HiveDetailController hiveDetailController;
     private BorderPane hiveDetailLayout;
     private Scene hiveDetailScene;
-    private void changeStateToHiveDetail(BeehiveEntity beehiveEntity) {
+    public void changeStateToHiveDetail(BeehiveEntity beehiveEntity) {
         if (hiveDetailScene != null) {
             Stage mainStage = mnApp.getPrimaryStage();
             mainStage.setScene(hiveDetailScene);
@@ -62,7 +62,7 @@ public class HiveListController {
             mnApp.getPrimaryStage().show();
             hiveDetailController.setHiveListController(this);
             hiveDetailController.setMainApp(mnApp);
-            //resursHistoryController.fillResursHistory(resourceTypeEntity);
+            hiveDetailController.initDataInHiveDetail(this.beehiveEntity);
         } else {
             try {
                 FXMLLoader loader = new FXMLLoader();
@@ -76,7 +76,7 @@ public class HiveListController {
                 hiveDetailController = loader.getController();
                 hiveDetailController.setHiveListController(this);
                 hiveDetailController.setMainApp(mnApp);
-                //resursHistoryController.fillResursHistory(resourceTypeEntity);
+                hiveDetailController.initDataInHiveDetail(this.beehiveEntity);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -105,6 +105,9 @@ public class HiveListController {
 
     //Конкретный Улей
     private BeehiveEntity beehiveEntity;
+    public BeehiveEntity getBeehiveEntity() {
+        return beehiveEntity;
+    }
 
     //Вывести спсок всех Ульев
     public void viewHives(List<BeehiveEntity> beehiveEntityList) {

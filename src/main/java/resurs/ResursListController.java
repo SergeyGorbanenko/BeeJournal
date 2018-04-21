@@ -2,6 +2,8 @@ package resurs;
 
 import app.Main;
 import app.MainController;
+import beehive.HiveDetailController;
+import beehive.HiveListController;
 import hba.IncomeExpenseEntity;
 import hba.ResourceTypeEntity;
 import hba.WorkEntity;
@@ -39,6 +41,11 @@ public class ResursListController {
         return mainController;
     }
 
+    private HiveListController hiveListController;
+    public void setHiveListController(HiveListController hiveListController) {
+        this.hiveListController = hiveListController;
+    }
+
     private Scene ownerScene;
     public Scene getOwnerScene() {
         return ownerScene;
@@ -61,6 +68,8 @@ public class ResursListController {
             resursHistoryController.setResursListController(this);
             resursHistoryController.setMainApp(mnApp);
             resursHistoryController.fillResursHistory(resourceTypeEntity);
+            //для возврата в подробно об улье
+            resursHistoryController.setHiveListController(hiveListController);
         } else {
             try {
                 FXMLLoader loader = new FXMLLoader();
@@ -75,6 +84,8 @@ public class ResursListController {
                 resursHistoryController.setResursListController(this);
                 resursHistoryController.setMainApp(mnApp);
                 resursHistoryController.fillResursHistory(resourceTypeEntity);
+                //для возврата в подробно об улье
+                resursHistoryController.setHiveListController(hiveListController);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -234,4 +245,7 @@ public class ResursListController {
     public void viewWorksByMeasureMETR() {
         viewResurses( mainController.loadResursList("метр"));
     }
+
+
+
 }
