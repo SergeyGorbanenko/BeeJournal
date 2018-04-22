@@ -20,7 +20,7 @@
                   <Rectangle2D />
                </viewport>
             </ImageView>
-            <Hyperlink layoutX="30.0" layoutY="372.0" onAction="#changeStateToWorkList" prefHeight="60.0" prefWidth="110.0" style="-fx-background-color: #e2aa00; -fx-underline: false;" text="   Работы" textFill="#070700">
+            <Hyperlink layoutX="30.0" layoutY="372.0" onAction="#goWorks" prefHeight="60.0" prefWidth="110.0" style="-fx-background-color: #e2aa00; -fx-underline: false;" text="   Работы" textFill="#070700">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>

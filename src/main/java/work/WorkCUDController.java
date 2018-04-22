@@ -228,7 +228,7 @@ public class WorkCUDController {
                 alertSuccess.setContentText("Работа" + "[" + workKindName + ": " + workStatus + " - c " + dateStart + " по " + dateEnd + "]" + " была успешно удалена!");
                 alertSuccess.showAndWait();
                 //
-                workListController.getMainController().changeStateToWorkList();
+                workListController.getMainController().goWorks();
             } catch (Exception e) {
                 e.printStackTrace();
                 if (transaction != null) {

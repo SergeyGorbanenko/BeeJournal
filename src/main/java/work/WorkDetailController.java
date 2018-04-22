@@ -30,7 +30,7 @@ public class WorkDetailController {
     }
 
     public void changeStateToWorkList() {
-        workListController.getMainController().changeStateToWorkList();
+        workListController.getMainController().goWorks();
     }
 
     private WorkCUDController workCUDController;

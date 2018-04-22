@@ -127,8 +127,8 @@ public class HiveDetailController {
             dtpckrData.setVisible(false);
             txtfldCount.setVisible(false);
             dtpckrData.setPrefWidth(100);
-            txtfldCount.setPrefWidth(40);
-            txtfldCount.setMaxWidth(40);
+            txtfldCount.setPrefWidth(50);
+            txtfldCount.setMaxWidth(50);
             dtpckrData.setValue(cfE.getCheckDate());
             txtfldCount.setText(cfE.getCountFrame());
             //
@@ -140,7 +140,7 @@ public class HiveDetailController {
             lblIconDelete.setPrefHeight(25);
             lblIconDelete.setPrefWidth(22);
             lblIconEdit.setFont(new Font("Arial Bold", 18));
-            lblIconEdit.setStyle("-fx-background-image: url('/icons/shester.png')");
+            lblIconEdit.setStyle("-fx-background-image: url('/icons/shestYellow2.png')");
             lblIconEdit.setPrefHeight(25);
             lblIconEdit.setPrefWidth(25);
             //
