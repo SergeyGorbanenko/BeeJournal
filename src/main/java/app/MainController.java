@@ -38,7 +38,6 @@ public class MainController {
     private Scene workListScene;
     @FXML
     public void changeStateToWorkList() {
-        //this.workEntityList = loadWorkList();   //TODO пофиксить показ работ по улью!
         this.checkStatusPlaning();
         if (workListScene != null) {
             Stage mainStage = mnApp.getPrimaryStage();

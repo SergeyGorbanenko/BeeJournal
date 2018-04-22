@@ -7,23 +7,28 @@ import hba.BeehiveEntity;
 import hba.CountFrameEntity;
 import hba.IncomeExpenseEntity;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import resurs.ResursCUDController;
 import resurs.ResursListController;
 import work.WorkCUDController;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
@@ -51,6 +56,45 @@ public class HiveDetailController {
         hiveListController.getMainController().changeStateToHiveList();
     }
 
+    private HiveCUDController hiveCUDController;
+    private BorderPane hiveCUDLayout;
+    private Scene hiveCUDScene;
+    public void changeStateToHiveCUD() {
+        ownerScene = mnApp.getPrimaryStage().getScene();
+        if (hiveCUDScene != null) {
+            Stage mainStage = mnApp.getPrimaryStage();
+            mainStage.setScene(hiveCUDScene);
+            mnApp.setPrimaryStage(mainStage);
+            mnApp.getPrimaryStage().show();
+            hiveCUDController.setHiveDetailController(this);
+            hiveCUDController.setHiveListController(hiveListController);
+            hiveCUDController.setMainApp(mnApp);
+            hiveCUDController.initComboboxBeegarden();
+            hiveCUDController.setBeehiveEntity(beehiveEntity);
+            hiveCUDController.initHiveEditState();
+        } else {
+            try {
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(Main.class.getResource("/beehive/HiveCUD.fxml"));
+                hiveCUDLayout = (BorderPane) loader.load();
+                hiveCUDScene = new Scene(hiveCUDLayout);
+                Stage mainStage = mnApp.getPrimaryStage();
+                mainStage.setScene(hiveCUDScene);
+                mnApp.setPrimaryStage(mainStage);
+                mnApp.getPrimaryStage().show();
+                hiveCUDController = loader.getController();
+                hiveCUDController.setHiveDetailController(this);
+                hiveCUDController.setHiveListController(hiveListController);
+                hiveCUDController.setMainApp(mnApp);
+                hiveCUDController.initComboboxBeegarden();
+                hiveCUDController.setBeehiveEntity(beehiveEntity);
+                hiveCUDController.initHiveEditState();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     @FXML private Label lblTitleHiveNumber;
     @FXML private Label lblvalueType;
     @FXML private Label lblvalueBeegarden;
@@ -63,6 +107,7 @@ public class HiveDetailController {
     @FXML private DatePicker dtpckrDateCountFrameAdd;
     @FXML private TextField txtfldCountFrameAdd;
 
+
     @FXML       //[НАЗАД]
     public void goBack() {
         changeStateToHiveList();
@@ -70,7 +115,7 @@ public class HiveDetailController {
 
     @FXML       //[РЕД]
     public void goEdit() {
-
+        changeStateToHiveCUD();
     }
 
     private BeehiveEntity beehiveEntity = null;

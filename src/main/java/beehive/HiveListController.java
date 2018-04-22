@@ -18,6 +18,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import resurs.ResursCUDController;
 import resurs.ResursHistoryController;
 
 import java.io.IOException;
@@ -83,6 +84,41 @@ public class HiveListController {
         }
     }
 
+    private HiveCUDController hiveCUDController;
+    private BorderPane hiveCUDLayout;
+    private Scene hiveCUDScene;
+    public void changeStateToHiveCUD() {
+        ownerScene = mnApp.getPrimaryStage().getScene();
+        if (hiveCUDScene != null) {
+            Stage mainStage = mnApp.getPrimaryStage();
+            mainStage.setScene(hiveCUDScene);
+            mnApp.setPrimaryStage(mainStage);
+            mnApp.getPrimaryStage().show();
+            hiveCUDController.setHiveListController(this);
+            hiveCUDController.setMainApp(mnApp);
+            hiveCUDController.initComboboxBeegarden();
+            hiveCUDController.initHiveAddState();
+        } else {
+            try {
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(Main.class.getResource("/beehive/HiveCUD.fxml"));
+                hiveCUDLayout = (BorderPane) loader.load();
+                hiveCUDScene = new Scene(hiveCUDLayout);
+                Stage mainStage = mnApp.getPrimaryStage();
+                mainStage.setScene(hiveCUDScene);
+                mnApp.setPrimaryStage(mainStage);
+                mnApp.getPrimaryStage().show();
+                hiveCUDController = loader.getController();
+                hiveCUDController.setHiveListController(this);
+                hiveCUDController.setMainApp(mnApp);
+                hiveCUDController.initComboboxBeegarden();
+                hiveCUDController.initHiveAddState();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 
     @FXML       //[ДОМОЙ]
     public void goHome() {
@@ -91,7 +127,7 @@ public class HiveListController {
 
     @FXML       //[СОЗДАТЬ НОВЫЙ УЛЕЙ]
     public void goAddHive() {
-
+        changeStateToHiveCUD();
     }
 
 
