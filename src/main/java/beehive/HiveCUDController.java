@@ -1,20 +1,20 @@
 package beehive;
 
+import app.HBUtil;
 import app.Main;
 import hba.BeegardenEntity;
 import hba.BeehiveEntity;
-import hba.WorkKindEntity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import work.WorkCUDController;
+import java.util.Optional;
 
 public class HiveCUDController {
 
@@ -98,18 +98,136 @@ public class HiveCUDController {
 
     @FXML       //[ДОБАВИТЬ]
     public void goAdd() {
-
-
+        Transaction transaction = null;
+        Session session = HBUtil.getSessionFactory().openSession();
+        try {
+            if (txtfldHiveNumber.getText() == null || txtfldHiveNumber.getText().equals("")) throw new Exception();
+            if (txtfldHiveType.getText() == null || txtfldHiveType.getText().equals("")) throw new Exception();
+            if (txtfldHiveDescription.getText() == null || txtfldHiveDescription.getText().equals("")) throw new Exception();
+            beehiveEntity = new BeehiveEntity();
+            beehiveEntity.setHiveNumber(this.txtfldHiveNumber.getText());
+            beehiveEntity.setHiveType(this.txtfldHiveType.getText());
+            beehiveEntity.setDescription(this.txtfldHiveDescription.getText());
+            beehiveEntity.setIdBeegarden(this.cmbBeegarden.getValue().getIdBeegarden());
+            beehiveEntity.setBeegardenByIdBeegarden(this.cmbBeegarden.getValue());
+            //
+            transaction = session.getTransaction();
+            transaction.begin();
+            session.save(beehiveEntity);
+            transaction.commit();
+            //
+            hiveListController.changeStateToHiveDetail(beehiveEntity);
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            } //
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Ошибка");
+            alert.setHeaderText("Проверьте правильность введенных данных");
+            alert.setContentText(   "- недопустимы пустые поля");
+            alert.showAndWait();
+        } finally {
+            if (session != null)
+                session.close();
+        }
     }
 
     @FXML       //[ИЗМЕНИТЬ]
     public void goEdit() {
-
+        Transaction transaction = null;
+        Session session = HBUtil.getSessionFactory().openSession();
+        try {
+            if (beehiveEntity == null) throw new Exception();
+            if (txtfldHiveNumber.getText() == null || txtfldHiveNumber.getText().equals("")) throw new Exception();
+            if (txtfldHiveType.getText() == null || txtfldHiveType.getText().equals("")) throw new Exception();
+            if (txtfldHiveDescription.getText() == null || txtfldHiveDescription.getText().equals("")) throw new Exception();
+            beehiveEntity.setHiveNumber(this.txtfldHiveNumber.getText());
+            beehiveEntity.setHiveType(this.txtfldHiveType.getText());
+            beehiveEntity.setDescription(this.txtfldHiveDescription.getText());
+            beehiveEntity.setIdBeegarden(this.cmbBeegarden.getValue().getIdBeegarden());
+            beehiveEntity.setBeegardenByIdBeegarden(this.cmbBeegarden.getValue());
+            //
+            transaction = session.getTransaction();
+            transaction.begin();
+            session.update(beehiveEntity);
+            transaction.commit();
+            //
+            hiveListController.changeStateToHiveDetail(beehiveEntity);
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            } //
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Ошибка");
+            alert.setHeaderText("Проверьте правильность введенных данных");
+            alert.setContentText(   "- недопустимы пустые поля");
+            alert.showAndWait();
+        } finally {
+            if (session != null)
+                session.close();
+        }
     }
 
     @FXML       //[УДАЛИТЬ]
     public void goDelete() {
-
+        String hiveNumber = null;
+        String hiveType = null;
+        try {
+            hiveNumber = beehiveEntity.getHiveNumber();
+            hiveType = beehiveEntity.getHiveType();
+            if (hiveNumber == null || hiveType == null) throw new Exception();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Alert alertError = new Alert(Alert.AlertType.ERROR);
+            alertError.setTitle("Ошибка");
+            alertError.setHeaderText("Что-то пошло не так(");
+            alertError.setContentText("- нельзя удалить несуществующую запись, сперва выполите \"Создать новый улей\"");
+            alertError.showAndWait();
+            return;
+        }
+        Alert alertSure = new Alert(Alert.AlertType.CONFIRMATION);
+        alertSure.setTitle("Удаление улья");
+        alertSure.setHeaderText("Удалить улей " + "[№ " + hiveNumber + " " + hiveType + "]" + "?");
+        alertSure.setContentText("Вы уверены, что хотите удалить улей " + "[№ " + hiveNumber + " " + hiveType + "]" + "?");
+        Optional<ButtonType> result = alertSure.showAndWait();
+        if (result.get() == ButtonType.OK){
+            Transaction transaction = null;
+            Session session = HBUtil.getSessionFactory().openSession();
+            try {
+                if (!beehiveEntity.getCountFrames().isEmpty()) throw new Exception();
+                if (!beehiveEntity.getWorks().isEmpty()) throw new Exception();
+                if (!beehiveEntity.getIncomeExpenses().isEmpty()) throw new Exception();
+                transaction = session.beginTransaction();
+                session.delete(this.beehiveEntity);
+                transaction.commit();
+                Alert alertSuccess = new Alert(Alert.AlertType.INFORMATION);
+                alertSuccess.setTitle("Улей удален");
+                alertSuccess.setHeaderText(null);
+                alertSuccess.setContentText("Улей " + "[№ " + hiveNumber + " " + hiveType + "]" + " был успешно удален!");
+                alertSuccess.showAndWait();
+                //
+                hiveListController.getMainController().changeStateToHiveList();
+            } catch (Exception e) {
+                e.printStackTrace();
+                if (transaction != null) {
+                    transaction.rollback();
+                }
+                Alert alertError = new Alert(Alert.AlertType.ERROR);
+                alertError.setTitle("Ошибка");
+                alertError.setHeaderText("Что-то пошло не так(");
+                alertError.setContentText("- нельзя удалить улей, у которого есть история количества рамок\n" +
+                        "- нельзя удалить улей, у которого есть история приходов/расходов\n" +
+                        "- нельзя удалить улей, по которому есть работы");
+                alertError.showAndWait();
+            } finally {
+                if (session != null)
+                    session.close();
+            }
+        } else {
+            alertSure.hide();
+        }
     }
 
     public void initHiveAddState() {

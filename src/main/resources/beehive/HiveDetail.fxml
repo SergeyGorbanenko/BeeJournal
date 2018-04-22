@@ -80,7 +80,7 @@
                                 <Font size="15.0" />
                             </font>
                         </Label>
-                  <Label layoutX="20.0" layoutY="300.0" text="Ресурсы" textFill="#7f5c2f">
+                  <Label layoutX="20.0" layoutY="300.0" onMouseClicked="#goToResursList" text="Ресурсы" textFill="#ea9c00">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>

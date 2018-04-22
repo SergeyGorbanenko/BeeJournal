@@ -22,7 +22,6 @@ import javafx.stage.Stage;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-import resurs.ResursCUDController;
 import resurs.ResursListController;
 import work.WorkCUDController;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -118,7 +117,9 @@ public class HiveDetailController {
         changeStateToHiveCUD();
     }
 
+    //Конкретный улей
     private BeehiveEntity beehiveEntity = null;
+
     public void initDataInHiveDetail(BeehiveEntity beehiveEntity) {
         this.beehiveEntity = beehiveEntity;
         this.lblTitleHiveNumber.setText("Улей № " + beehiveEntity.getHiveNumber());
@@ -135,6 +136,11 @@ public class HiveDetailController {
 
     //Вывести спсок Истории рамок по конкретному улью
     public void viewCountFrames(Collection<CountFrameEntity> countFrameEntityList) {
+        if (countFrameEntityList == null) {
+            this.lblCountFramesNotFound.setVisible(true);
+            scrlPaneCountFrame.setContent(new AnchorPane());
+            return;
+        }
         if (countFrameEntityList.isEmpty()) {
             this.lblCountFramesNotFound.setVisible(true);
             scrlPaneCountFrame.setContent(new AnchorPane());
@@ -229,6 +235,11 @@ public class HiveDetailController {
 
     //Вывести список Истории ресурса по кокретному улью
     public void viewResursHistory(Collection<IncomeExpenseEntity> incomeExpenseEntityList) {
+        if (incomeExpenseEntityList == null) {
+            this.lblResursNotFound.setVisible(true);
+            scrlPaneResurs.setContent(new AnchorPane());
+            return;
+        }
         if (incomeExpenseEntityList.isEmpty()) {
             this.lblResursNotFound.setVisible(true);
             scrlPaneResurs.setContent(new AnchorPane());
@@ -311,6 +322,12 @@ public class HiveDetailController {
         mainController.changeStateToWorkList();
     }
 
+    @FXML//      [Ресурсы] - перейти к списку ресурсов
+    public void goToResursList() {
+        MainController mainController = new MainController();
+        mainController.setMainApp(mnApp);
+        mainController.changeStateToResursList();
+    }
 
     @FXML       //[УДАЛИТЬ ЗАПИСЬ О КОЛИЧЕСТВЕ РАМОК]
     public void performDeleteCountFrame(CountFrameEntity countFrameEntity) {
@@ -473,7 +490,7 @@ public class HiveDetailController {
     }
 
     //Инициализировать Улей (BeehiveEntity)
-    private void initBeehive() {
+    public BeehiveEntity initBeehive() {
         Session session = null;
         Transaction transaction = null;
         try {
@@ -495,6 +512,7 @@ public class HiveDetailController {
             if (session != null)
                 session.close();
         }
+        return this.beehiveEntity;
     }
 
 }

@@ -2,11 +2,9 @@ package resurs;
 
 import app.Main;
 import app.MainController;
-import beehive.HiveDetailController;
 import beehive.HiveListController;
 import hba.IncomeExpenseEntity;
 import hba.ResourceTypeEntity;
-import hba.WorkEntity;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -21,8 +19,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import work.WorkDetailController;
-
 import java.io.IOException;
 import java.util.List;
 
@@ -169,7 +165,7 @@ public class ResursListController {
             gridPane.setLayoutY(gridPaneLayoutY);
             gridPaneLayoutY += 65;
             gridPane.setLayoutX(gridPaneLayoutX);
-            gridPane.setPrefWidth(302);
+            gridPane.setPrefWidth(302);          //295 для отсутствия полосы прокрутки снизу
             //
             Label lblvalueIconResurs = new Label();
             Label lblvalueName = new Label(rstE.getName());

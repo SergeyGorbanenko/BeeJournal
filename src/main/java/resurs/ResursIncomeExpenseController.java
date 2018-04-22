@@ -5,7 +5,6 @@ import app.Main;
 import hba.BeehiveEntity;
 import hba.IncomeExpenseEntity;
 import hba.ResourceTypeEntity;
-import hba.WorkEntity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -15,7 +14,6 @@ import javafx.stage.Stage;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import work.WorkCUDController;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;

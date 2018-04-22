@@ -20,7 +20,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
-import java.util.List;
 import java.util.Locale;
 
 public class WorkListController {
@@ -154,7 +153,7 @@ public class WorkListController {
             gridPane.setVgap(3);
             gridPane.setLayoutY(gridPaneLayoutY); gridPaneLayoutY+=65;
             gridPane.setLayoutX(gridPaneLayoutX);
-            gridPane.setPrefWidth(302);
+            gridPane.setPrefWidth(302);     //295 для отсутствия полосы прокрутки снизу
             //
             DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("dd MMM", new Locale("ru", "RU"));
             DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("EEE");

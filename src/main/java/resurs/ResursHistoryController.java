@@ -2,7 +2,6 @@ package resurs;
 
 import app.HBUtil;
 import app.Main;
-import beehive.HiveDetailController;
 import beehive.HiveListController;
 import hba.IncomeExpenseEntity;
 import hba.ResourceTypeEntity;
@@ -202,7 +201,7 @@ public class ResursHistoryController {
             gridPane.setVgap(3);
             gridPane.setLayoutY(gridPaneLayoutY); gridPaneLayoutY+=65;
             gridPane.setLayoutX(gridPaneLayoutX);
-            gridPane.setPrefWidth(302);
+            gridPane.setPrefWidth(302);     //295 для отсутствия полосы прокрутки снизу
             //
             DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("dd MMM", new Locale("ru", "RU"));
             DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("EEE");

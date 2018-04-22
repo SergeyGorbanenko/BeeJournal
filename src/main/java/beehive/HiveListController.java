@@ -18,9 +18,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import resurs.ResursCUDController;
-import resurs.ResursHistoryController;
-
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -63,7 +60,9 @@ public class HiveListController {
             mnApp.getPrimaryStage().show();
             hiveDetailController.setHiveListController(this);
             hiveDetailController.setMainApp(mnApp);
-            hiveDetailController.initDataInHiveDetail(this.beehiveEntity);
+            hiveDetailController.initDataInHiveDetail(beehiveEntity);
+            hiveDetailController.viewCountFrames(hiveDetailController.initBeehive().getCountFrames());
+            hiveDetailController.viewResursHistory(hiveDetailController.initBeehive().getIncomeExpenses());
         } else {
             try {
                 FXMLLoader loader = new FXMLLoader();
@@ -77,7 +76,9 @@ public class HiveListController {
                 hiveDetailController = loader.getController();
                 hiveDetailController.setHiveListController(this);
                 hiveDetailController.setMainApp(mnApp);
-                hiveDetailController.initDataInHiveDetail(this.beehiveEntity);
+                hiveDetailController.initDataInHiveDetail(beehiveEntity);
+                hiveDetailController.viewCountFrames(hiveDetailController.initBeehive().getCountFrames());
+                hiveDetailController.viewResursHistory(hiveDetailController.initBeehive().getIncomeExpenses());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -172,7 +173,7 @@ public class HiveListController {
             gridPane.setLayoutY(gridPaneLayoutY);
             gridPaneLayoutY += 65;
             gridPane.setLayoutX(gridPaneLayoutX);
-            gridPane.setPrefWidth(302);
+            gridPane.setPrefWidth(302);     //295 для отсутствия полосы прокрутки снизу
             //
             Label lblvalueIconHive = new Label();
             Label lblvalueType = new Label(bhE.getHiveType());
@@ -224,7 +225,7 @@ public class HiveListController {
     //Получить количество рамок за последюю дату
     public String getCountFrameByLastDate(Collection<CountFrameEntity> countFrameEntityCollection) {
         LocalDate lastDate = LocalDate.MIN;
-        String countFramesByLastDate = "";
+        String countFramesByLastDate = "---";
         for (CountFrameEntity cfE : countFrameEntityCollection) {
             if (lastDate.isBefore(cfE.getCheckDate())) {
                 lastDate = cfE.getCheckDate();

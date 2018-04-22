@@ -3,18 +3,14 @@ package resurs;
 import app.HBUtil;
 import app.Main;
 import hba.ResourceTypeEntity;
-import hba.WorkEntity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import jdk.management.resource.ResourceType;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -127,7 +123,6 @@ public class ResursCUDController {
             if (session != null)
                 session.close();
         }
-
     }
 
     @FXML       //[ИЗМЕНИТЬ]

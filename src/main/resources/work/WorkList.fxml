@@ -24,7 +24,7 @@
             </Pane>
             <Pane layoutY="50.0" prefHeight="510.0" prefWidth="315.0" style="-fx-background-color: #ffefd3;">
                <children>
-                  <ScrollPane fx:id="scrlPane" prefHeight="470.0" prefWidth="315.0" style="-fx-background-color: #ffefd3;">
+                  <ScrollPane fx:id="scrlPane" prefHeight="440.0" prefWidth="315.0" style="-fx-background-color: #ffefd3;">
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="310.0" />
                     </content>

@@ -40,7 +40,7 @@
                                 <Font size="14.0" />
                             </font>
                         </Label>
-                        <ScrollPane fx:id="scrlPane" layoutY="82.0" prefHeight="368.0" prefWidth="315.0" style="-fx-background: #ffefd3;">
+                        <ScrollPane fx:id="scrlPane" layoutY="82.0" prefHeight="360.0" prefWidth="315.0" style="-fx-background: #ffefd3;">
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="357.0" prefWidth="310.0" />
                             </content>
