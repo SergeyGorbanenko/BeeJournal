@@ -14,6 +14,8 @@ import javafx.stage.Stage;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import work.WorkCUDController;
+
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -100,16 +102,16 @@ public class ResursIncomeExpenseController {
         Transaction transaction = null;
         Session session = HBUtil.getSessionFactory().openSession();
         try {
-            if (dtpckrDate.getValue() == null || dtpckrDate.getValue().equals("")) throw new Exception();
-            if (txtfldCount.getText() == null || txtfldCount.getText().equals("")) throw new Exception();
-            if (txtfldDescription.getText() == null || txtfldDescription.getText().equals("")) throw new Exception();
+            if (dtpckrDate.getValue() == null) throw new NullPointerException();
+            if (txtfldCount.getText() == null || txtfldCount.getText().equals("")) throw new NullPointerException();
+            if (txtfldDescription.getText() == null || txtfldDescription.getText().equals("")) throw new NullPointerException();
             //
-            if(cmbOperationType.getValue().equals("Приход") && dtpckrDate.getValue().isAfter(LocalDate.now())) throw new Exception();
-            if(cmbOperationType.getValue().equals("Расход") && dtpckrDate.getValue().isAfter(LocalDate.now())) throw new Exception();
+            if (cmbOperationType.getValue().equals("Приход") && dtpckrDate.getValue().isAfter(LocalDate.now())) throw new Exception();
+            if (cmbOperationType.getValue().equals("Расход") && dtpckrDate.getValue().isAfter(LocalDate.now())) throw new Exception();
             //
             incomeExpenseEntity = new IncomeExpenseEntity();
             incomeExpenseEntity.setDate(dtpckrDate.getValue());
-            incomeExpenseEntity.setCount(Integer.valueOf(txtfldCount.getText()));
+            incomeExpenseEntity.setCount(Double.valueOf(txtfldCount.getText()));
             incomeExpenseEntity.setDescription(txtfldDescription.getText());
             if (cmbOperationType.getValue().equals("Приход"))
                 incomeExpenseEntity.setOperationType(true);
@@ -127,6 +129,26 @@ public class ResursIncomeExpenseController {
             transaction.commit();
             //
             resursListController.changeStateToResursHistory(this.resourceTypeEntity);
+        } catch (NumberFormatException npe) {
+            npe.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            } //
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Ошибка");
+            alert.setHeaderText("Проверьте правильность введенных данных");
+            alert.setContentText(   "- поле \"Количество\" может содержать только числа");
+            alert.showAndWait();
+        } catch (NullPointerException npe) {
+            npe.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            } //
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Ошибка");
+            alert.setHeaderText("Проверьте правильность введенных данных");
+            alert.setContentText(   "- недопустимы пустые поля");
+            alert.showAndWait();
         } catch (Exception e) {
             e.printStackTrace();
             if (transaction != null) {
@@ -135,9 +157,7 @@ public class ResursIncomeExpenseController {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Ошибка");
             alert.setHeaderText("Проверьте правильность введенных данных");
-            alert.setContentText(   "- недопустимы пустые поля\n" +
-                    "- в поле \"Количество\" допустимы только числа\n" +
-                    "- дата прихода/расхода не может быть позже текущей даты.");
+            alert.setContentText(   "- дата прихода/расхода не может быть позже текущей даты.");
             alert.showAndWait();
         } finally {
             if (session != null)
@@ -150,15 +170,15 @@ public class ResursIncomeExpenseController {
         Transaction transaction = null;
         Session session = HBUtil.getSessionFactory().openSession();
         try {
-            if (dtpckrDate.getValue() == null || dtpckrDate.getValue().equals("")) throw new Exception();
-            if (txtfldCount.getText() == null || txtfldCount.getText().equals("")) throw new Exception();
-            if (txtfldDescription.getText() == null || txtfldDescription.getText().equals("")) throw new Exception();
+            if (dtpckrDate.getValue() == null) throw new NullPointerException();
+            if (txtfldCount.getText() == null || txtfldCount.getText().equals("")) throw new NullPointerException();
+            if (txtfldDescription.getText() == null || txtfldDescription.getText().equals("")) throw new NullPointerException();
             //
-            if(cmbOperationType.getValue().equals("Приход") && dtpckrDate.getValue().isAfter(LocalDate.now())) throw new Exception();
-            if(cmbOperationType.getValue().equals("Расход") && dtpckrDate.getValue().isAfter(LocalDate.now())) throw new Exception();
+            if (cmbOperationType.getValue().equals("Приход") && dtpckrDate.getValue().isAfter(LocalDate.now())) throw new Exception();
+            if (cmbOperationType.getValue().equals("Расход") && dtpckrDate.getValue().isAfter(LocalDate.now())) throw new Exception();
             //
             incomeExpenseEntity.setDate(dtpckrDate.getValue());
-            incomeExpenseEntity.setCount(Integer.valueOf(txtfldCount.getText()));
+            incomeExpenseEntity.setCount(Double.valueOf(txtfldCount.getText()));
             incomeExpenseEntity.setDescription(txtfldDescription.getText());
             if (cmbOperationType.getValue().equals("Приход"))
                 incomeExpenseEntity.setOperationType(true);
@@ -173,6 +193,26 @@ public class ResursIncomeExpenseController {
             transaction.commit();
             //
             resursListController.changeStateToResursHistory(this.resourceTypeEntity);
+        } catch (NumberFormatException npe) {
+            npe.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            } //
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Ошибка");
+            alert.setHeaderText("Проверьте правильность введенных данных");
+            alert.setContentText(   "- поле \"Количество\" может содержать только числа");
+            alert.showAndWait();
+        } catch (NullPointerException npe) {
+            npe.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            } //
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Ошибка");
+            alert.setHeaderText("Проверьте правильность введенных данных");
+            alert.setContentText(   "- недопустимы пустые поля");
+            alert.showAndWait();
         } catch (Exception e) {
             e.printStackTrace();
             if (transaction != null) {
@@ -181,9 +221,7 @@ public class ResursIncomeExpenseController {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Ошибка");
             alert.setHeaderText("Проверьте правильность введенных данных");
-            alert.setContentText(   "- недопустимы пустые поля\n" +
-                    "- в поле \"Количество\" допустимы только числа\n" +
-                    "- дата прихода/расхода не может быть позже текущей даты.");
+            alert.setContentText(   "- дата прихода/расхода не может быть позже текущей даты.");
             alert.showAndWait();
         } finally {
             if (session != null)

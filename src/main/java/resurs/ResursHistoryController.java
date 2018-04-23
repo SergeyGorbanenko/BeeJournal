@@ -267,7 +267,7 @@ public class ResursHistoryController {
             CriteriaQuery<IncomeExpenseEntity> query = builder.createQuery(IncomeExpenseEntity.class);
             Root<IncomeExpenseEntity> root = query.from(IncomeExpenseEntity.class);
             query.select(root).where(builder.equal(root.get("idResourseType"), resourceTypeEntity.getIdResourseType()));
-            query.orderBy(builder.asc(root.get("date")));
+            query.orderBy(builder.desc(root.get("date")));
             Query<IncomeExpenseEntity> q = session.createQuery(query);
             this.incomeExpenseEntityList = q.getResultList();
             transaction.commit();
@@ -294,7 +294,7 @@ public class ResursHistoryController {
             Root<IncomeExpenseEntity> root = query.from(IncomeExpenseEntity.class);
             query.select(root).where(builder.equal(root.get("idResourseType"), resourceTypeEntity.getIdResourseType()),
                                     builder.equal(root.get("operationType"), operationType));
-            query.orderBy(builder.asc(root.get("date")));
+            query.orderBy(builder.desc(root.get("date")));
             Query<IncomeExpenseEntity> q = session.createQuery(query);
             this.incomeExpenseEntityList = q.getResultList();
             transaction.commit();

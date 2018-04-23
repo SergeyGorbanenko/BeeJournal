@@ -68,7 +68,6 @@ public class MainController {
     }
 
 
-
     private Collection<WorkEntity> workEntityList;
     public void setWorkEntityList(Collection<WorkEntity> workEntityList) {
         this.workEntityList = workEntityList;
@@ -205,25 +204,25 @@ public class MainController {
     private List<ResourceTypeEntity> resourceTypeEntityList;
     //Получить список Ресурсов
     public List<ResourceTypeEntity> loadResursList() {
-        Transaction transaction = null;
-        Session session = HBUtil.getSessionFactory().openSession();
+        Transaction transaction = null; //транзакция
+        Session session = HBUtil.getSessionFactory().openSession(); //открыть сессию
         try {
-            transaction = session.beginTransaction();
-            CriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaQuery<ResourceTypeEntity> query = builder.createQuery(ResourceTypeEntity.class);
-            Root<ResourceTypeEntity> root = query.from(ResourceTypeEntity.class);
-            query.select(root);
-            Query<ResourceTypeEntity> q = session.createQuery(query);
-            this.resourceTypeEntityList = q.getResultList();
-            transaction.commit();
+            transaction = session.beginTransaction();                   //начали транзакцию
+            CriteriaBuilder builder = session.getCriteriaBuilder();     //создали "построитель запроса"
+            CriteriaQuery<ResourceTypeEntity> query = builder.createQuery(ResourceTypeEntity.class);    //создали объект запроса
+            Root<ResourceTypeEntity> root = query.from(ResourceTypeEntity.class);   //аналог "FROM TABLENAME"
+            query.select(root); //указываем select
+            Query<ResourceTypeEntity> q = session.createQuery(query);   //подготавливаем запрос к выполнению
+            this.resourceTypeEntityList = q.getResultList();    //выполняем запрос
+            transaction.commit();   //подтверждаем транзакцию
         } catch (Exception e) {
             e.printStackTrace();
             if (transaction != null) {
-                transaction.rollback();
+                transaction.rollback(); //в случае возникновения исключения отменяем транзакцию
             }
         } finally {
             if (session != null)
-                session.close();
+                session.close();    //в конце закрываем сессию
         }
         return this.resourceTypeEntityList;
     }
@@ -319,7 +318,6 @@ public class MainController {
         }
         return this.beehiveEntityList;
     }
-
 
     /////////////////////////////////////////////////////////////
     //////                     ФИНАНСЫ                     //////

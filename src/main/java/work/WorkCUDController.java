@@ -329,6 +329,7 @@ public class WorkCUDController {
     }
 
 
+    //Инициализирует Комбобоксы данными из workEntity
     public void initWorkDataInCombobox() {
         List<String> lst = new ArrayList<>();
         lst.add("Планируется");
@@ -350,6 +351,7 @@ public class WorkCUDController {
         this.cmbBeehive.setItems(obserlistBeehive);
     }
 
+    //Инициализирует элементы управления на добавление записи
     public void initWorkAddState() {
         this.hyperlinkAddOrEdit.setOnMouseClicked(event -> {
             goAdd();
@@ -360,6 +362,7 @@ public class WorkCUDController {
         this.hyperlinkDeleteWork.setVisible(false);
     }
 
+    //Инициализирует элементы управления на редактирование записи
     public void initWorkEditState() {
         this.hyperlinkAddOrEdit.setOnMouseClicked(event -> {
             goEdit();

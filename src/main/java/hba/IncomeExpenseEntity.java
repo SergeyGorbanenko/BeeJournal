@@ -10,7 +10,7 @@ import java.util.Objects;
 public class IncomeExpenseEntity {
     private Integer idIncomeExpense;
     private LocalDate date;
-    private Integer count;
+    private Double count;
     private String description;
     private Boolean operationType;
     private Integer idBeehive;
@@ -41,11 +41,11 @@ public class IncomeExpenseEntity {
 
     @Basic
     @Column(name = "Count", nullable = false)
-    public Integer getCount() {
+    public Double getCount() {
         return count;
     }
 
-    public void setCount(Integer count) {
+    public void setCount(Double count) {
         this.count = count;
     }
 

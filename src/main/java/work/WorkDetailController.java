@@ -82,6 +82,8 @@ public class WorkDetailController {
         changeStateToWorkCUD();
     }
 
+    //Конкретная работа
+    private WorkEntity workEntity = null;
 
     @FXML private Label lblvalueDateStart;
     @FXML private Label lblvalueDateEnd;
@@ -89,10 +91,6 @@ public class WorkDetailController {
     @FXML private Label lblvalueDescription;
     @FXML private Label lblvalueName;
     @FXML private Label lblvalueWorkStatus;
-
-
-    //Конкретная работа
-    private WorkEntity workEntity = null;
 
     public void fillWorkDetailState(WorkEntity workEntity) {
         this.workEntity = workEntity;

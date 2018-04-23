@@ -10,9 +10,9 @@ import java.util.Objects;
 public class FinancialOperateEntity {
     private Integer idFinOperate;
     private LocalDate date;
-    private Integer count;
+    private Double count;
     private String description;
-    private double unitPrice;
+    private Double unitPrice;
     private Boolean operationType;
     private Integer idResourseType;
     private ResourceTypeEntity resourceTypeByIdResourseType;
@@ -39,11 +39,11 @@ public class FinancialOperateEntity {
 
     @Basic
     @Column(name = "Count", nullable = false)
-    public Integer getCount() {
+    public Double getCount() {
         return count;
     }
 
-    public void setCount(Integer count) {
+    public void setCount(Double count) {
         this.count = count;
     }
 
@@ -59,11 +59,11 @@ public class FinancialOperateEntity {
 
     @Basic
     @Column(name = "UnitPrice", nullable = false, precision = 0)
-    public double getUnitPrice() {
+    public Double getUnitPrice() {
         return unitPrice;
     }
 
-    public void setUnitPrice(double unitPrice) {
+    public void setUnitPrice(Double unitPrice) {
         this.unitPrice = unitPrice;
     }
 

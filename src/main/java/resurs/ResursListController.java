@@ -207,14 +207,19 @@ public class ResursListController {
 
     //Подсчитываем оставшееся количество ресурса по его записям о приходе/расходе в зависимости от типа операции
     public String calculateSummaryCount(ResourceTypeEntity resourceTypeEntity) {
-        int resSummaryCount = 0;
+        double resSummaryCount = 0;
+        int rightPart = 0;
         for (IncomeExpenseEntity incomeExpenseEntity : resourceTypeEntity.getIncomeExpensesByIdResourseType()) {
             if (incomeExpenseEntity.getOperationType())
                 resSummaryCount += incomeExpenseEntity.getCount();
             else
                 resSummaryCount -= incomeExpenseEntity.getCount();
         }
-        return String.valueOf(resSummaryCount);
+        rightPart = (int)resSummaryCount;
+        if ((resSummaryCount - rightPart) == 0)
+            return String.valueOf(rightPart);
+        else
+            return String.valueOf(resSummaryCount);
     }
 
     @FXML
