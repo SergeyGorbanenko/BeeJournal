@@ -23,12 +23,12 @@
                 </Pane>
                 <Pane layoutY="50.0" prefHeight="510.0" prefWidth="315.0" style="-fx-background-color: #ffefd3;">
                     <children>
-                        <Label layoutX="20.0" layoutY="80.0" text="Тип" textFill="#7f5c2f">
+                        <Label layoutX="20.0" layoutY="80.0" text="Операция" textFill="#7f5c2f">
                             <font>
                                 <Font name="System Bold" size="17.0" />
                             </font>
                         </Label>
-                        <Label fx:id="lblvalueOperationType" layoutX="140.0" layoutY="80.0" text="тип">
+                        <Label fx:id="lblvalueOperationType" layoutX="140.0" layoutY="80.0" text="операция">
                             <font>
                                 <Font name="Calibri" size="18.0" />
                             </font>

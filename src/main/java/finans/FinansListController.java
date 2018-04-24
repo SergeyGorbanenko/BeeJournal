@@ -2,6 +2,7 @@ package finans;
 
 import app.Main;
 import app.MainController;
+import app.ServiseUtil;
 import hba.BeehiveEntity;
 import hba.FinancialOperateEntity;
 import hba.WorkEntity;
@@ -16,6 +17,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import work.WorkCUDController;
 import work.WorkDetailController;
 
 import java.io.IOException;
@@ -81,14 +83,50 @@ public class FinansListController {
     }
 
 
+    private FinansCUDController finansCUDController;
+    private BorderPane finansCUDLayout;
+    private Scene finansCUDScene;
+    public void changeStateToFinansCUD() {
+        ownerScene = mnApp.getPrimaryStage().getScene();
+        if (finansCUDScene != null) {
+            Stage mainStage = mnApp.getPrimaryStage();
+            mainStage.setScene(finansCUDScene);
+            mnApp.setPrimaryStage(mainStage);
+            mnApp.getPrimaryStage().show();
+            finansCUDController.setFinansListController(this);
+            finansCUDController.setMainApp(mnApp);
+            finansCUDController.initFinansDataInCombobox();
+            finansCUDController.initFinansAddState();
+        } else {
+            try {
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(Main.class.getResource("/finans/FinansCUD.fxml"));
+                finansCUDLayout = (BorderPane) loader.load();
+                finansCUDScene = new Scene(finansCUDLayout);
+                Stage mainStage = mnApp.getPrimaryStage();
+                mainStage.setScene(finansCUDScene);
+                mnApp.setPrimaryStage(mainStage);
+                mnApp.getPrimaryStage().show();
+                finansCUDController = loader.getController();
+                finansCUDController.setFinansListController(this);
+                finansCUDController.setMainApp(mnApp);
+                finansCUDController.initFinansDataInCombobox();
+                finansCUDController.initFinansAddState();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
     @FXML       //[ДОМОЙ]
     public void goHome() {
         changeStateToHome();
     }
 
-    @FXML       //[СОЗДАТЬ НОВЫЙ УЛЕЙ]
+    @FXML       //[СОЗДАТЬ НОВУЮ ФИНАНСОВУЮ ОПЕРАЦИЮ]
     public void goAddFinans() {
-
+        changeStateToFinansCUD();
     }
 
 
@@ -101,7 +139,7 @@ public class FinansListController {
     }
 
 
-    //Конкретный Улей
+    //Конкретная финансовая операция
     private FinancialOperateEntity financialOperateEntity;
     public FinancialOperateEntity getFinancialOperateEntity() {
         return financialOperateEntity;
@@ -140,8 +178,8 @@ public class FinansListController {
             Label lblvalueOperateType = new Label();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy", new Locale("ru", "RU"));
             Label lblvalueDate = new Label(foE.getDate().format(formatter));
-            Label lblvalueCount = new Label(String.valueOf(foE.getCount()) + " " + foE.getResourceTypeByIdResourseType().getMeasure());
-            Label lblvalueSummaryPrice = new Label(String.valueOf(foE.getCount() * foE.getUnitPrice()) + " Р");
+            Label lblvalueCount = new Label(ServiseUtil.cutZero(foE.getCount()) + " " + foE.getResourceTypeByIdResourseType().getMeasure());
+            Label lblvalueSummaryPrice = new Label(ServiseUtil.cutZero(foE.getCount() * foE.getUnitPrice()) + " Р");
             //
             if (foE.getOperationType()) {       //Если Продажа
                 lblvalueOperateType.setText("Продажа: ");

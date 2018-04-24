@@ -10,7 +10,7 @@ import java.util.Objects;
 @IdClass(FinancialOperateEntityPK.class)
 public class FinancialOperateEntity {
     private Integer idFinOperate;
-    private LocalDateTime date;
+    private LocalDate date;
     private Double count;
     private String description;
     private Double unitPrice;
@@ -30,11 +30,11 @@ public class FinancialOperateEntity {
 
     @Basic
     @Column(name = "Date", nullable = false)
-    public LocalDateTime getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
