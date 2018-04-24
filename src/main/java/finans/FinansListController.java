@@ -3,9 +3,7 @@ package finans;
 import app.Main;
 import app.MainController;
 import app.ServiseUtil;
-import hba.BeehiveEntity;
 import hba.FinancialOperateEntity;
-import hba.WorkEntity;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -17,8 +15,6 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import work.WorkCUDController;
-import work.WorkDetailController;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;

@@ -15,7 +15,6 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import work.WorkCUDController;
 
-import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;

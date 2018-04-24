@@ -3,18 +3,15 @@ package finans;
 import app.Main;
 import app.ServiseUtil;
 import hba.FinancialOperateEntity;
-import hba.WorkEntity;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import work.WorkCUDController;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 
 public class FinansDetailController {
 
