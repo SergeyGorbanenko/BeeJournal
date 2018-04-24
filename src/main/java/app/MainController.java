@@ -414,4 +414,31 @@ public class MainController {
         return this.financialOperateEntityList;
     }
 
+
+    /////////////////////////////////////////////////////////////
+    //////                    Статистика                   //////
+    /////////////////////////////////////////////////////////////
+    private StatisticController statisticController;
+    private BorderPane statisticLayout;
+    private Scene statisticScene;
+    @FXML
+    public void changeStateToStatistic() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("/app/Statistic.fxml"));
+            statisticLayout = (BorderPane) loader.load();
+            statisticScene = new Scene(statisticLayout);
+            Stage mainStage = mnApp.getPrimaryStage();
+            mainStage.setScene(statisticScene);
+            mnApp.setPrimaryStage(mainStage);
+            mnApp.getPrimaryStage().show();
+            statisticController = loader.getController();
+            statisticController.setMainController(this);
+            statisticController.setMainApp(mnApp);
+            statisticController.initCombobox();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

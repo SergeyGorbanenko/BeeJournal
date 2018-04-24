@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="560.0" prefWidth="315.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.StatisticController">
+    <center>
+        <AnchorPane prefHeight="560.0" prefWidth="315.0" BorderPane.alignment="CENTER">
+            <children>
+                <Pane prefHeight="50.0" prefWidth="315.0" style="-fx-background-color: #7f5c2f;">
+                    <children>
+                        <Hyperlink onAction="#goHome" prefHeight="50.0" prefWidth="50.0" style="-fx-background-image: url('/icons/home.png'); -fx-underline: false;" />
+                        <Label fx:id="lblTitle" layoutX="73.0" layoutY="12.0" text="Статистика" textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </Pane>
+                <Pane layoutY="50.0" prefHeight="510.0" prefWidth="315.0" style="-fx-background-color: #ffefd3;">
+                    <children>
+                        <Label layoutX="20.0" layoutY="14.0" text="Статистика по" textFill="#7f5c2f">
+                            <font>
+                                <Font name="System Bold" size="17.0" />
+                            </font>
+                        </Label>
+                        <ScrollPane fx:id="scrlPane" layoutY="96.0" prefHeight="380.0" prefWidth="315.0" style="-fx-background-color: #ffefd3;">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="360.0" prefWidth="310.0" />
+                            </content>
+                        </ScrollPane>
+                        <Hyperlink layoutY="470.0" onAction="#performCalculateStatistic" prefHeight="40.0" prefWidth="315.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="             Показать статистику" textFill="#7f5c2f">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Hyperlink>
+                  <ComboBox fx:id="cmbRazdelName" layoutX="151.0" layoutY="15.0" prefWidth="150.0" />
+                  <Label layoutX="20.0" layoutY="51.0" text="От" textFill="#7f5c2f">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                  </Label>
+                  <DatePicker fx:id="dtDateStart" layoutX="50.0" layoutY="52.0" prefHeight="25.0" prefWidth="99.0" />
+                  <Label layoutX="164.0" layoutY="51.0" text="До" textFill="#7f5c2f">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                  </Label>
+                  <DatePicker fx:id="dtDateEnd" layoutX="202.0" layoutY="52.0" prefHeight="25.0" prefWidth="99.0" />
+                    </children>
+                </Pane>
+            </children></AnchorPane>
+    </center>
+</BorderPane>
