@@ -22,6 +22,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources/resurs" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources/icons" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources/beehive" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/resources/finans" type="java-resource" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />

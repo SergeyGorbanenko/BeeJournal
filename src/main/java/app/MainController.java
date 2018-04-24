@@ -1,7 +1,9 @@
 package app;
 
 import beehive.HiveListController;
+import finans.FinansListController;
 import hba.BeehiveEntity;
+import hba.FinancialOperateEntity;
 import hba.ResourceTypeEntity;
 import hba.WorkEntity;
 import javafx.fxml.FXML;
@@ -319,7 +321,96 @@ public class MainController {
         return this.beehiveEntityList;
     }
 
+
     /////////////////////////////////////////////////////////////
     //////                     ФИНАНСЫ                     //////
     /////////////////////////////////////////////////////////////
+    private FinansListController finansListController;
+    private BorderPane finansListLayout;
+    private Scene finansListScene;
+    @FXML
+    public void changeStateToFinansList() {
+        this.financialOperateEntityList = loadFinansList();
+        if (finansListScene != null) {
+            Stage mainStage = mnApp.getPrimaryStage();
+            mainStage.setScene(finansListScene);
+            mnApp.setPrimaryStage(mainStage);
+            mnApp.getPrimaryStage().show();
+            finansListController.setMainController(this);
+            finansListController.setMainApp(mnApp);
+            finansListController.viewFinanses(this.financialOperateEntityList);
+            finansListController.setTextlblTitle("Финансы");
+        } else {
+            try {
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(Main.class.getResource("/finans/FinansList.fxml"));
+                finansListLayout = (BorderPane) loader.load();
+                finansListScene = new Scene(finansListLayout);
+                Stage mainStage = mnApp.getPrimaryStage();
+                mainStage.setScene(finansListScene);
+                mnApp.setPrimaryStage(mainStage);
+                mnApp.getPrimaryStage().show();
+                finansListController = loader.getController();
+                finansListController.setMainController(this);
+                finansListController.setMainApp(mnApp);
+                finansListController.viewFinanses(this.financialOperateEntityList);
+                finansListController.setTextlblTitle("Финансы");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private List<FinancialOperateEntity> financialOperateEntityList;
+    //Получить список Финансовых операций
+    public List<FinancialOperateEntity> loadFinansList() {
+        Transaction transaction = null;
+        Session session = HBUtil.getSessionFactory().openSession();
+        try {
+            transaction = session.beginTransaction();
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<FinancialOperateEntity> query = builder.createQuery(FinancialOperateEntity.class);
+            Root<FinancialOperateEntity> root = query.from(FinancialOperateEntity.class);
+            query.select(root);
+            Query<FinancialOperateEntity> q = session.createQuery(query);
+            this.financialOperateEntityList = q.getResultList();
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        } finally {
+            if (session != null)
+                session.close();
+        }
+        return this.financialOperateEntityList;
+    }
+
+    //Получить список Финансовых операций по Типу операции
+    public List<FinancialOperateEntity> loadFinansList(Boolean typeOperate) {
+        Transaction transaction = null;
+        Session session = HBUtil.getSessionFactory().openSession();
+        try {
+            transaction = session.beginTransaction();
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<FinancialOperateEntity> query = builder.createQuery(FinancialOperateEntity.class);
+            Root<FinancialOperateEntity> root = query.from(FinancialOperateEntity.class);
+            query.select(root);
+            query.where(builder.equal(root.get("operationType"), typeOperate));
+            Query<FinancialOperateEntity> q = session.createQuery(query);
+            this.financialOperateEntityList = q.getResultList();
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        } finally {
+            if (session != null)
+                session.close();
+        }
+        return this.financialOperateEntityList;
+    }
+
 }

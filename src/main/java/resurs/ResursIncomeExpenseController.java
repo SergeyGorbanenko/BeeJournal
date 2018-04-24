@@ -337,7 +337,7 @@ public class ResursIncomeExpenseController {
         this.cmbBeehive.getSelectionModel().select(getIndexOfBeehive(incomeExpenseEntity, obserlistBeehive));
     }
 
-    WorkCUDController workCUDController = new WorkCUDController();      //TODO если так будут баги при переходах, то писать все по ульям прямо тут
+    private WorkCUDController workCUDController = new WorkCUDController();      //TODO если так будут баги при переходах, то писать все по ульям прямо тут
     public void initComboboxBeehive() {
         this.obserlistBeehive = FXCollections.observableArrayList(workCUDController.loadBeehiveList());
         this.cmbBeehive.setConverter(workCUDController.converterBeehiveNameType);

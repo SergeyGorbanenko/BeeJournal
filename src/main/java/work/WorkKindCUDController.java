@@ -184,7 +184,6 @@ public class WorkKindCUDController {
         } catch (Exception e) {
             this.lblcaptionWorkKindName.setText("");
         }
-
     }
 
 }

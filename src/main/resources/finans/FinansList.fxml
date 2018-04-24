@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="560.0" prefWidth="315.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="finans.FinansListController">
+    <center>
+        <AnchorPane prefHeight="560.0" prefWidth="315.0" BorderPane.alignment="CENTER">
+            <children>
+                <Pane prefHeight="50.0" prefWidth="315.0" style="-fx-background-color: #7f5c2f;">
+                    <children>
+                        <Hyperlink onAction="#goHome" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #7f5c2f; -fx-background-image: url('/icons/home.png'); -fx-underline: false;" textFill="#0d0d0d">
+                            <font>
+                                <Font name="System Bold" size="24.0" />
+                            </font>
+                        </Hyperlink>
+                        <Label fx:id="lblTitle" layoutX="73.0" layoutY="12.0" text="Финансы" textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </Pane>
+                <Pane layoutY="50.0" prefHeight="510.0" prefWidth="315.0" style="-fx-background-color: #ffefd3;">
+                    <children>
+                        <ScrollPane fx:id="scrlPane" prefHeight="440.0" prefWidth="315.0" style="-fx-background-color: #ffefd3;">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="310.0" />
+                            </content>
+                        </ScrollPane>
+                        <Hyperlink layoutY="470.0" onAction="#goAddFinans" prefHeight="40.0" prefWidth="315.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="        Создать новую операцию" textFill="#7f5c2f">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Hyperlink>
+                        <Hyperlink layoutY="436.0" onAction="#viewFinansesByOperationTypeTrue" prefHeight="30.0" prefWidth="157.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="            продажа" textFill="#0a0a0a">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Hyperlink>
+                        <Label fx:id="lblFinansNotFound" layoutX="10.0" layoutY="26.0" text="Финансовые операции не найдены&#10;       Создайте новую операцию" textFill="#5a5a5a">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                        </Label>
+                        <Hyperlink layoutX="157.0" layoutY="436.0" onAction="#viewFinansesByOperationTypeFalse" prefHeight="30.0" prefWidth="158.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="           покупка" textFill="#0a0a0a">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Hyperlink>
+                    </children>
+                </Pane>
+            </children></AnchorPane>
+    </center>
+</BorderPane>

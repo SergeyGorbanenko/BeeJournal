@@ -205,7 +205,7 @@ public class WorkListController {
 
     @FXML
     public void viewWorksByStatusPlanning() {
-        viewWorks( mainController.loadWorkList("Планируется"));
+        viewWorks(mainController.loadWorkList("Планируется"));
     }
 
     @FXML
