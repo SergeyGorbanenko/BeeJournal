@@ -14,12 +14,13 @@ import javafx.util.StringConverter;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class FinansCUDController {
 
@@ -60,17 +61,218 @@ public class FinansCUDController {
 
     @FXML       //[ДОБАВИТЬ]
     public void goAdd() {
+        Transaction transaction = null;
+        Session session = HBUtil.getSessionFactory().openSession();
+        try {
+            if (dtpckrDate.getValue() == null) throw new NullPointerException();
+            if (txtfldCount.getText() == null || txtfldCount.getText().equals("")) throw new NullPointerException();
+            if (txtfldUnitPrice.getText() == null || txtfldUnitPrice.getText().equals("")) throw new NullPointerException();
+            if (txtfldDescription.getText() == null || txtfldDescription.getText().equals("")) throw new NullPointerException();
+            //
+            if (cmbOperationType.getValue().equals("Покупка") && dtpckrDate.getValue().isAfter(LocalDate.now())) throw new Exception();
+            if (cmbOperationType.getValue().equals("Продажа") && dtpckrDate.getValue().isAfter(LocalDate.now())) throw new Exception();
 
+            financialOperateEntity = new FinancialOperateEntity();
+            financialOperateEntity.setIdResourseType(cmbResurs.getValue().getIdResourseType());
+            financialOperateEntity.setResourceTypeByIdResourseType(cmbResurs.getValue());
+            if (cmbOperationType.getValue().equals("Продажа"))
+                financialOperateEntity.setOperationType(true);
+            if (cmbOperationType.getValue().equals("Покупка"))
+                financialOperateEntity.setOperationType(false);
+            financialOperateEntity.setCount(Double.valueOf(txtfldCount.getText()));
+            financialOperateEntity.setUnitPrice(Double.valueOf(txtfldUnitPrice.getText()));
+            financialOperateEntity.setDate(dtpckrDate.getValue());
+            financialOperateEntity.setDescription(txtfldDescription.getText());
+            //
+            transaction = session.getTransaction();
+            transaction.begin();
+            session.save(financialOperateEntity);
+            transaction.commit();
+            //
+            finansListController.changeStateToFinansDetail(this.financialOperateEntity);
+        } catch (NumberFormatException npe) {
+            npe.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            } //
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Ошибка");
+            alert.setHeaderText("Проверьте правильность введенных данных");
+            alert.setContentText(   "- поле \"Количество\" и \"Цена за ед.\" может содержать только числа");
+            alert.showAndWait();
+        } catch (NullPointerException npe) {
+            npe.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            } //
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Ошибка");
+            alert.setHeaderText("Проверьте правильность введенных данных");
+            alert.setContentText(   "- недопустимы пустые поля");
+            alert.showAndWait();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            } //
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Ошибка");
+            alert.setHeaderText("Проверьте правильность введенных данных");
+            alert.setContentText(   "- дата покупки/продажи не может быть позже текущей даты.");
+            alert.showAndWait();
+        } finally {
+            if (session != null)
+                session.close();
+        }
     }
 
     @FXML       //[ИЗМЕНИТЬ]
     public void goEdit() {
-
+        Transaction transaction = null;
+        Transaction transaction2 = null;
+        Session session = HBUtil.getSessionFactory().openSession();
+        try {
+            if (dtpckrDate.getValue() == null) throw new NullPointerException();
+            if (txtfldCount.getText() == null || txtfldCount.getText().equals("")) throw new NullPointerException();
+            if (txtfldUnitPrice.getText() == null || txtfldUnitPrice.getText().equals("")) throw new NullPointerException();
+            if (txtfldDescription.getText() == null || txtfldDescription.getText().equals("")) throw new NullPointerException();
+            //
+            if (cmbOperationType.getValue().equals("Покупка") && dtpckrDate.getValue().isAfter(LocalDate.now())) throw new Exception();
+            if (cmbOperationType.getValue().equals("Продажа") && dtpckrDate.getValue().isAfter(LocalDate.now())) throw new Exception();
+            // так как связь между таблицами типРесурса -* финОперация инициализирующая, то при изменении типа работы придется удалить фин операцию и создать заново
+            if (!financialOperateEntity.getIdResourseType().equals(cmbResurs.getValue().getIdResourseType())) {
+                transaction2 = session.getTransaction();
+                transaction2.begin();
+                session.delete(financialOperateEntity);
+                transaction2.commit();
+                //
+                financialOperateEntity = new FinancialOperateEntity();
+                financialOperateEntity.setIdResourseType(cmbResurs.getValue().getIdResourseType());
+                financialOperateEntity.setResourceTypeByIdResourseType(cmbResurs.getValue());
+                if (cmbOperationType.getValue().equals("Продажа"))
+                    financialOperateEntity.setOperationType(true);
+                if (cmbOperationType.getValue().equals("Покупка"))
+                    financialOperateEntity.setOperationType(false);
+                financialOperateEntity.setCount(Double.valueOf(txtfldCount.getText()));
+                financialOperateEntity.setUnitPrice(Double.valueOf(txtfldUnitPrice.getText()));
+                financialOperateEntity.setDate(dtpckrDate.getValue());
+                financialOperateEntity.setDescription(txtfldDescription.getText());
+                //
+                transaction = session.getTransaction();
+                transaction.begin();
+                session.save(financialOperateEntity);
+                transaction.commit();
+                //
+                finansListController.changeStateToFinansDetail(this.financialOperateEntity);
+            } else {
+                if (cmbOperationType.getValue().equals("Продажа"))
+                    financialOperateEntity.setOperationType(true);
+                if (cmbOperationType.getValue().equals("Покупка"))
+                    financialOperateEntity.setOperationType(false);
+                financialOperateEntity.setCount(Double.valueOf(txtfldCount.getText()));
+                financialOperateEntity.setUnitPrice(Double.valueOf(txtfldUnitPrice.getText()));
+                financialOperateEntity.setDate(dtpckrDate.getValue());
+                financialOperateEntity.setDescription(txtfldDescription.getText());
+                //
+                transaction = session.getTransaction();
+                transaction.begin();
+                session.update(financialOperateEntity);
+                transaction.commit();
+                //
+                finansListController.changeStateToFinansDetail(this.financialOperateEntity);
+            }
+        } catch (NumberFormatException npe) {
+            npe.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            } //
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Ошибка");
+            alert.setHeaderText("Проверьте правильность введенных данных");
+            alert.setContentText(   "- поле \"Количество\" и \"Цена за ед.\" может содержать только числа");
+            alert.showAndWait();
+        } catch (NullPointerException npe) {
+            npe.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            } //
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Ошибка");
+            alert.setHeaderText("Проверьте правильность введенных данных");
+            alert.setContentText(   "- недопустимы пустые поля");
+            alert.showAndWait();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            } //
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Ошибка");
+            alert.setHeaderText("Проверьте правильность введенных данных");
+            alert.setContentText(   "- дата покупки/продажи не может быть позже текущей даты.");
+            alert.showAndWait();
+        } finally {
+            if (session != null)
+                session.close();
+        }
     }
 
     @FXML       //[УДАЛИТЬ]
     public void goDelete() {
-
+        String foType = null;
+        String foResursName = null;
+        String foCount = null;
+        try {
+            foCount = ServiseUtil.cutZero(financialOperateEntity.getCount()) + " " + financialOperateEntity.getResourceTypeByIdResourseType().getMeasure();
+            if (financialOperateEntity.getOperationType())  foType = "Продажа";
+            else                                            foType = "Покупка";
+            foResursName = financialOperateEntity.getResourceTypeByIdResourseType().getName();
+            if (foType == null || foResursName == null || foCount == null) throw new Exception();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Alert alertError = new Alert(Alert.AlertType.ERROR);
+            alertError.setTitle("Ошибка");
+            alertError.setHeaderText("Что-то пошло не так(");
+            alertError.setContentText("- нельзя удалить несуществующую запись, сперва выполите \"Добавить новую операцию\"");
+            alertError.showAndWait();
+            return;
+        }
+        Alert alertSure = new Alert(Alert.AlertType.CONFIRMATION);
+        alertSure.setTitle("Удаление финансовой операции");
+        alertSure.setHeaderText("Удалить фин. операцию " + "[" + foType + ": " + foResursName + " " + foCount + "]" + "?");
+        alertSure.setContentText("Вы уверены, что хотите удалить фин. операцию " + "[" + foType + ": " + foResursName + " " + foCount + "]" + "?");
+        Optional<ButtonType> result = alertSure.showAndWait();
+        if (result.get() == ButtonType.OK){
+            Transaction transaction = null;
+            Session session = HBUtil.getSessionFactory().openSession();
+            try {
+                transaction = session.beginTransaction();
+                session.delete(this.financialOperateEntity);
+                transaction.commit();
+                Alert alertSuccess = new Alert(Alert.AlertType.INFORMATION);
+                alertSuccess.setTitle("Финансовая операция удалена");
+                alertSuccess.setHeaderText(null);
+                alertSuccess.setContentText("Фин. операция " + "[" + foType + ": " + foResursName + " " + foCount + "]" + " была успешна удалена!");
+                alertSuccess.showAndWait();
+                //
+                finansListController.getMainController().changeStateToFinansList();
+            } catch (Exception e) {
+                e.printStackTrace();
+                if (transaction != null) {
+                    transaction.rollback();
+                }
+                Alert alertError = new Alert(Alert.AlertType.ERROR);
+                alertError.setTitle("Ошибка");
+                alertError.setHeaderText("Что-то пошло не так(");
+                alertError.setContentText("- нельзя удалить несуществующую запись, сперва выполите \"Добавить новую операцию\"\n");
+                alertError.showAndWait();
+            } finally {
+                if (session != null)
+                    session.close();
+            }
+        } else {
+            alertSure.hide();
+        }
     }
 
 
@@ -108,7 +310,6 @@ public class FinansCUDController {
                 index = ObservableList.indexOf(resourceTypeEntity);
         return index;
     }
-
 
 
     //Конкретная финансовая операция
@@ -166,8 +367,6 @@ public class FinansCUDController {
         this.txtfldDescription.setText(financialOperateEntity.getDescription());
         this.dtpckrDate.setValue(financialOperateEntity.getDate());
     }
-
-
 
 
     private List<ResourceTypeEntity> resourceTypeEntityList;
