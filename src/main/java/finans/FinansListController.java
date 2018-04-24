@@ -4,19 +4,21 @@ import app.Main;
 import app.MainController;
 import hba.BeehiveEntity;
 import hba.FinancialOperateEntity;
+import hba.WorkEntity;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
+import work.WorkDetailController;
 
+import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
@@ -46,6 +48,37 @@ public class FinansListController {
         mnApp.initRootLayout();
     }
 
+    private FinansDetailController finansDetailController;
+    private BorderPane finansDetailLayout;
+    private Scene finansDetailScene;
+    public void changeStateToFinansDetail(FinancialOperateEntity financialOperateEntity) {
+        if (finansDetailScene != null) {
+            Stage mainStage = mnApp.getPrimaryStage();
+            mainStage.setScene(finansDetailScene);
+            mnApp.setPrimaryStage(mainStage);
+            mnApp.getPrimaryStage().show();
+            finansDetailController.setFinansListController(this);
+            finansDetailController.setMainApp(mnApp);
+            finansDetailController.fillFinansDetailState(financialOperateEntity);
+        } else {
+            try {
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(Main.class.getResource("/finans/FinansDetail.fxml"));
+                finansDetailLayout = (BorderPane) loader.load();
+                finansDetailScene = new Scene(finansDetailLayout);
+                Stage mainStage = mnApp.getPrimaryStage();
+                mainStage.setScene(finansDetailScene);
+                mnApp.setPrimaryStage(mainStage);
+                mnApp.getPrimaryStage().show();
+                finansDetailController = loader.getController();
+                finansDetailController.setFinansListController(this);
+                finansDetailController.setMainApp(mnApp);
+                finansDetailController.fillFinansDetailState(financialOperateEntity);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 
     @FXML       //[ДОМОЙ]
@@ -151,7 +184,7 @@ public class FinansListController {
             //
             gridPane.setOnMouseClicked((MouseEvent event) -> {
                 this.financialOperateEntity = foE;
-                //changeStateToHiveDetail(this.beehiveEntity);
+                changeStateToFinansDetail(financialOperateEntity);
             });
             //
             aPane = (AnchorPane) scrlPane.getContent();

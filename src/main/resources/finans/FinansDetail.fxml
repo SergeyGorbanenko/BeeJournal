@@ -1,14 +1,105 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="FinansDetail"
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<BorderPane prefHeight="560.0" prefWidth="315.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="finans.FinansDetailController">
+    <center>
+        <AnchorPane prefHeight="560.0" prefWidth="315.0" BorderPane.alignment="CENTER">
+            <children>
+                <Pane prefHeight="50.0" prefWidth="315.0" style="-fx-background-color: #7f5c2f;">
+                    <children>
+                        <Hyperlink onAction="#goBack" prefHeight="50.0" prefWidth="50.0" style="-fx-background-image: url('/icons/back.png'); -fx-underline: false;" />
+                        <Label fx:id="lblvalueTitle" layoutX="73.0" layoutY="12.0" text="Фин. операция" textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </Pane>
+                <Pane layoutY="50.0" prefHeight="510.0" prefWidth="315.0" style="-fx-background-color: #ffefd3;">
+                    <children>
+                        <Label layoutX="20.0" layoutY="80.0" text="Тип" textFill="#7f5c2f">
+                            <font>
+                                <Font name="System Bold" size="17.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="lblvalueOperationType" layoutX="140.0" layoutY="80.0" text="тип">
+                            <font>
+                                <Font name="Calibri" size="18.0" />
+                            </font>
+                        </Label>
+                        <Label layoutX="20.0" layoutY="120.0" text="Дата" textFill="#7f5c2f">
+                            <font>
+                                <Font name="System Bold" size="17.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="lblvalueDate" layoutX="140.0" layoutY="120.0" text="дата">
+                            <font>
+                                <Font name="Calibri" size="18.0" />
+                            </font>
+                        </Label>
+                        <Label layoutX="20.0" layoutY="160.0" text="Количество" textFill="#7f5c2f">
+                            <font>
+                                <Font name="System Bold" size="17.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="lblvalueCount" layoutX="140.0" layoutY="160.0" text="количество">
+                            <font>
+                                <Font name="Calibri" size="18.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="lblvalueDescription" layoutX="23.0" layoutY="310.0" maxHeight="250.0" prefHeight="50.0" prefWidth="270.0" text="описание" wrapText="true">
+                            <font>
+                                <Font name="Calibri" size="18.0" />
+                            </font>
+                        </Label>
+                        <Label layoutX="20.0" layoutY="200.0" text="Цена за ед." textFill="#7f5c2f">
+                            <font>
+                                <Font name="System Bold" size="17.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="lblvalueUnitPrice" layoutX="140.0" layoutY="200.0" text="цена за ед">
+                            <font>
+                                <Font name="Calibri" size="18.0" />
+                            </font>
+                        </Label>
+                        <Hyperlink layoutX="250.0" layoutY="-25.0" onAction="#goEdit" prefHeight="50.0" prefWidth="50.0" style="-fx-background-image: url('/icons/EditA.png'); -fx-underline: false;" textFill="#0d0d0d">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Hyperlink>
+                  <Label layoutX="20.0" layoutY="240.0" text="Стоимость" textFill="#7f5c2f">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="20.0" layoutY="280.0" text="Описание" textFill="#7f5c2f">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblvalueSummaryPrice" layoutX="140.0" layoutY="240.0" text="стоимость">
+                     <font>
+                        <Font name="Calibri" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="20.0" layoutY="40.0" text="Ресурс" textFill="#7f5c2f">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblvalueResursName" layoutX="140.0" layoutY="40.0" text="ресурс">
+                     <font>
+                        <Font name="Calibri" size="18.0" />
+                     </font>
+                  </Label>
+                    </children>
+                </Pane>
+            </children></AnchorPane>
+    </center>
+</BorderPane>

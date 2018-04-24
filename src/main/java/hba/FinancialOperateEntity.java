@@ -2,6 +2,7 @@ package hba;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
@@ -9,7 +10,7 @@ import java.util.Objects;
 @IdClass(FinancialOperateEntityPK.class)
 public class FinancialOperateEntity {
     private Integer idFinOperate;
-    private LocalDate date;
+    private LocalDateTime date;
     private Double count;
     private String description;
     private Double unitPrice;
@@ -29,11 +30,11 @@ public class FinancialOperateEntity {
 
     @Basic
     @Column(name = "Date", nullable = false)
-    public LocalDate getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 
