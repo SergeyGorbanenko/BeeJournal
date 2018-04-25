@@ -4,6 +4,7 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
@@ -43,13 +44,35 @@
                         <Font name="System Bold" size="17.0" />
                      </font>
                   </Label>
-                        <Hyperlink layoutY="470.0" onAction="#performCalculateStatistic" prefHeight="40.0" prefWidth="315.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="             Показать статистику" textFill="#7f5c2f">
-                            <font>
-                                <Font name="System Bold" size="18.0" />
-                            </font>
-                        </Hyperlink>
                   <Pane fx:id="finansPane" layoutY="92.0" prefHeight="380.0" prefWidth="315.0" visible="false" />
-                  <Pane fx:id="resursPane" layoutY="92.0" prefHeight="380.0" prefWidth="315.0" visible="false" />
+                  <Pane fx:id="resursPane" layoutY="92.0" prefHeight="380.0" prefWidth="315.0">
+                     <children>
+                        <Label layoutX="14.0" layoutY="14.0" text="Ресурс" textFill="#7f5c2f">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="116.0" layoutY="14.0" text="Доход" textFill="#7f5c2f">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="186.0" layoutY="14.0" text="Расход" textFill="#7f5c2f">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="258.0" layoutY="14.0" text="Итог" textFill="#7f5c2f">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <ScrollPane fx:id="scrlPane" layoutY="44.0" prefHeight="344.0" prefWidth="315.0" style="-fx-background: #ffefd3;">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="336.0" prefWidth="305.0" />
+                          </content>
+                        </ScrollPane>
+                     </children></Pane>
                   <Pane fx:id="workPane" layoutY="92.0" prefHeight="380.0" prefWidth="315.0" visible="false">
                      <children>
                         <Label layoutX="20.0" layoutY="20.0" text="Планируются" textFill="#7f5c2f">
@@ -67,24 +90,24 @@
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
-                        <Label layoutX="20.0" layoutY="100.0" text="Выполнены" textFill="#7f5c2f">
-                           <font>
-                              <Font name="System Bold" size="17.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="20.0" layoutY="140.0" text="Просрочены" textFill="#7f5c2f">
-                           <font>
-                              <Font name="System Bold" size="17.0" />
-                           </font>
-                        </Label>
                         <Label fx:id="lblCountProcess" layoutX="160.0" layoutY="62.0" text="текст">
                            <font>
                               <Font name="Calibri" size="18.0" />
                            </font>
                         </Label>
+                        <Label layoutX="20.0" layoutY="100.0" text="Выполнены" textFill="#7f5c2f">
+                           <font>
+                              <Font name="System Bold" size="17.0" />
+                           </font>
+                        </Label>
                         <Label fx:id="lblCountDone" layoutX="160.0" layoutY="102.0" text="текст">
                            <font>
                               <Font name="Calibri" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="20.0" layoutY="140.0" text="Просрочены" textFill="#7f5c2f">
+                           <font>
+                              <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
                         <Label fx:id="lblCountOverdue" layoutX="160.0" layoutY="142.0" text="текст">
@@ -94,6 +117,11 @@
                         </Label>
                      </children>
                   </Pane>
+                        <Hyperlink layoutY="470.0" onAction="#performCalculateStatistic" prefHeight="40.0" prefWidth="315.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="             Показать статистику" textFill="#7f5c2f">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Hyperlink>
                     </children>
                 </Pane>
             </children></AnchorPane>

@@ -1,11 +1,19 @@
 package app;
 
+import hba.IncomeExpenseEntity;
+import hba.ResourceTypeEntity;
 import hba.WorkEntity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -46,6 +54,7 @@ public class StatisticController {
     @FXML private Label lblCountOverdue;
     //
     @FXML private Pane resursPane;
+    @FXML private ScrollPane scrlPane;
     //
     @FXML private Pane finansPane;
 
@@ -107,7 +116,7 @@ public class StatisticController {
     }
 
     //Рассчет статистики по работам
-    public void calculateWorkStatistic() {
+    private void calculateWorkStatistic() {
         int countPlan = 0;
         int countProcess = 0;
         int countDone = 0;
@@ -128,12 +137,74 @@ public class StatisticController {
     }
 
     //Рассчет статистики по ресурсам
-    public void calculateResursStatistic() {
-
+    private void calculateResursStatistic() {
+        double dohod = 0;
+        double rashod = 0;
+        List<ResourceTypeEntity> resourceTypeEntityList = mainController.loadResursList();
+        //
+        AnchorPane aPane = null;
+        scrlPane.setContent(new AnchorPane());
+        ColumnConstraints col1 = new ColumnConstraints();
+        ColumnConstraints col2 = new ColumnConstraints();
+        ColumnConstraints col3 = new ColumnConstraints();
+        ColumnConstraints col4 = new ColumnConstraints();
+        Integer gridPaneLayoutY = 10;
+        Integer gridPaneLayoutX = 5;
+        Integer aPanePrefHeight = 50;
+        for (ResourceTypeEntity rsE : resourceTypeEntityList) {
+            Collection<IncomeExpenseEntity> incomeExpenseEntityCollection = rsE.getIncomeExpensesByIdResourseType();
+            for (IncomeExpenseEntity ieE : incomeExpenseEntityCollection) {
+                if (ieE.getDate().isAfter(dtDateStart.getValue()) && ieE.getDate().isBefore(dtDateEnd.getValue())) {
+                    if (ieE.getOperationType()) dohod += ieE.getCount();
+                    else rashod += ieE.getCount();
+                }
+            }
+            //Динамическое формирование элементов управления
+            GridPane gridPane = new GridPane();
+            gridPane.setPadding(new Insets(10, 5, 10, 5));
+            gridPane.setHgap(3);
+            gridPane.setVgap(3);
+            gridPane.setLayoutY(gridPaneLayoutY);
+            gridPaneLayoutY += 25;
+            gridPane.setLayoutX(gridPaneLayoutX);
+            gridPane.setPrefWidth(302);
+            //
+            Label lblResursName = new Label(rsE.getName());
+            Label lblDohod = new Label(ServiseUtil.cutZero(dohod));
+            Label lblRashod = new Label(ServiseUtil.cutZero(rashod));
+            Label lblItog = new Label(ServiseUtil.cutZero(dohod - rashod) + " " + rsE.getMeasure());
+            lblResursName.setFont(new Font("Arial", 13));
+            lblDohod.setFont(new Font("Arial Bold", 13));
+            lblRashod.setFont(new Font("Arial Bold", 13));
+            lblItog.setFont(new Font("Arial Bold", 14));
+            if ((dohod - rashod) > 0)
+                lblItog.setTextFill(Color.GREEN);
+            else
+                lblItog.setTextFill(Color.RED);
+            //
+            gridPane.add(lblResursName, 0, 0, 1, 1);
+            gridPane.add(lblDohod, 1, 0, 1, 1);
+            gridPane.add(lblRashod, 2, 0, 1, 1);
+            gridPane.add(lblItog, 3, 0, 1, 1);
+            col1.setPercentWidth(40);
+            col2.setPercentWidth(24);
+            col3.setPercentWidth(18);
+            col4.setPercentWidth(18);
+            gridPane.getColumnConstraints().addAll(col1, col2, col3, col4);
+            aPane = (AnchorPane) scrlPane.getContent();
+            aPane.getChildren().add(gridPane);
+            aPane.setPrefHeight(aPanePrefHeight);
+            aPanePrefHeight += 25;
+            scrlPane.setContent(aPane);
+            //
+            dohod = 0;
+            rashod = 0;
+        }
     }
 
     //Рассчет статистики по финансам
-    public void calculateFinansStatistic() {
+    private void calculateFinansStatistic() {
 
     }
+
 }
