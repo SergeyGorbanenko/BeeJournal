@@ -347,6 +347,11 @@ public class FinansCUDController {
         this.lblcaptionTitle.setText("Добавить фин. операцию");
         this.hyperlinkAddOrEdit.setText("  Добавить");
         this.hyperlinkDelete.setVisible(false);
+        //
+        this.txtfldCount.setText(null);
+        this.txtfldUnitPrice.setText(null);
+        this.txtfldDescription.setText(null);
+        this.dtpckrDate.setValue(null);
     }
 
     //Инициализирует элементы управления на редактирование записи
