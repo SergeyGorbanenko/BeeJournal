@@ -28,6 +28,9 @@ import java.util.List;
 
 public class MainController {
 
+    //////////////////
+    //////////СДАНО!!!
+    //////////////////
     private Main mnApp;
     public void setMainApp(Main mainApp) {
         this.mnApp = mainApp;
