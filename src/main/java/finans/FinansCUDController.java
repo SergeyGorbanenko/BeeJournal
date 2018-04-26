@@ -247,6 +247,7 @@ public class FinansCUDController {
             Transaction transaction = null;
             Session session = HBUtil.getSessionFactory().openSession();
             try {
+
                 transaction = session.beginTransaction();
                 session.delete(this.financialOperateEntity);
                 transaction.commit();

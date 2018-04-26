@@ -142,6 +142,11 @@
                               <Font name="Calibri" size="18.0" />
                            </font>
                         </Label>
+                        <ScrollPane fx:id="scrlPaneWorkKind" prefHeight="385.0" prefWidth="315.0" style="-fx-background: #ffefd3;">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+                          </content>
+                        </ScrollPane>
                      </children>
                   </Pane>
                         <Hyperlink layoutY="470.0" onAction="#performCalculateStatistic" prefHeight="40.0" prefWidth="315.0" style="-fx-background-color: #ffe5b7; -fx-underline: false;" text="             Показать статистику" textFill="#7f5c2f">

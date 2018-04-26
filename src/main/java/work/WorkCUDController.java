@@ -391,7 +391,7 @@ public class WorkCUDController {
     }
 
     private List<WorkKindEntity> workKindEntityList;
-    //Получить список Работ
+    //Получить список Видов Работ
     public List<WorkKindEntity> loadWorkKindList() {
         Transaction transaction = null;
         Session session = HBUtil.getSessionFactory().openSession();

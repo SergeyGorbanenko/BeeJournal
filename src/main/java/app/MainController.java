@@ -373,6 +373,7 @@ public class MainController {
             CriteriaQuery<FinancialOperateEntity> query = builder.createQuery(FinancialOperateEntity.class);
             Root<FinancialOperateEntity> root = query.from(FinancialOperateEntity.class);
             query.select(root);
+            query.orderBy(builder.desc(root.get("date")));
             Query<FinancialOperateEntity> q = session.createQuery(query);
             this.financialOperateEntityList = q.getResultList();
             transaction.commit();
@@ -398,6 +399,7 @@ public class MainController {
             CriteriaQuery<FinancialOperateEntity> query = builder.createQuery(FinancialOperateEntity.class);
             Root<FinancialOperateEntity> root = query.from(FinancialOperateEntity.class);
             query.select(root);
+            query.orderBy(builder.desc(root.get("date")));
             query.where(builder.equal(root.get("operationType"), typeOperate));
             Query<FinancialOperateEntity> q = session.createQuery(query);
             this.financialOperateEntityList = q.getResultList();

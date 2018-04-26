@@ -189,6 +189,7 @@ public class ResursCUDController {
             Session session = HBUtil.getSessionFactory().openSession();
             try {
                 if (!resourceTypeEntity.getIncomeExpensesByIdResourseType().isEmpty()) throw  new Exception();
+                if (!resourceTypeEntity.getFinancialOperatesByIdResourseType().isEmpty()) throw  new Exception();
                 transaction = session.beginTransaction();
                 session.delete(this.resourceTypeEntity);
                 transaction.commit();
@@ -208,7 +209,8 @@ public class ResursCUDController {
                 alertError.setTitle("Ошибка");
                 alertError.setHeaderText("Что-то пошло не так(");
                 alertError.setContentText("- нельзя удалить несуществующую запись, сперва выполите \"Создать новый ресурс\"\n" +
-                        "- нельзя удалить ресурс, у которого есть история приходов/расходов");
+                        "- нельзя удалить ресурс, у которого есть история приходов/расходов\n" +
+                        "- нельзя удалить ресурс, у которого есть история покупок/продаж");
                 alertError.showAndWait();
             } finally {
                 if (session != null)

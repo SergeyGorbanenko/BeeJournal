@@ -1,9 +1,6 @@
 package app;
 
-import hba.FinancialOperateEntity;
-import hba.IncomeExpenseEntity;
-import hba.ResourceTypeEntity;
-import hba.WorkEntity;
+import hba.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -13,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import work.WorkCUDController;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -56,6 +54,7 @@ public class StatisticController {
     @FXML private ScrollPane scrlPaneResurs;
     @FXML private Pane finansPane;
     @FXML private ScrollPane scrlPaneFinans;
+    @FXML private ScrollPane scrlPaneWorkKind;
 
     private ObservableList<String> obserlistRazdelName;
 
@@ -70,6 +69,7 @@ public class StatisticController {
         this.cmbRazdelName.setItems(this.obserlistRazdelName);
     }
 
+
     public void performCalculateStatistic() {
         try {
             if (cmbRazdelName.getValue() == null) throw new NullPointerException();
@@ -78,7 +78,8 @@ public class StatisticController {
             if (dtDateStart.getValue().isAfter(dtDateEnd.getValue())) throw new Exception();
             if (cmbRazdelName.getValue().equals("Работы")) {
                 lblTitle.setText("Статистика по работам");
-                calculateWorkStatistic();
+                //calculateWorkStatistic();
+                calculateWorkKindStatistic();
                 workPane.setVisible(true);
                 resursPane.setVisible(false);
                 finansPane.setVisible(false);
@@ -122,7 +123,7 @@ public class StatisticController {
         int countOverdue = 0;
         Collection<WorkEntity> workEntityCollection = mainController.loadWorkList();
         for (WorkEntity wrkE : workEntityCollection) {
-            if (wrkE.getDateStart().isAfter(dtDateStart.getValue()) && wrkE.getDateEnd().isBefore(dtDateEnd.getValue())) {
+            if (wrkE.getDateStart().isAfter(dtDateStart.getValue().minusDays(1)) && wrkE.getDateEnd().isBefore(dtDateEnd.getValue().plusDays(1))) {
                 if (wrkE.getWorkStatus().equals("Планируется")) countPlan++;
                 if (wrkE.getWorkStatus().equals("В процессе")) countProcess++;
                 if (wrkE.getWorkStatus().equals("Выполнена")) countDone++;
@@ -133,6 +134,53 @@ public class StatisticController {
         lblCountProcess.setText(String.valueOf(countProcess));
         lblCountDone.setText(String.valueOf(countDone));
         lblCountOverdue.setText(String.valueOf(countOverdue));
+    }
+
+    //Рассчет статистики по видам работ
+    private void calculateWorkKindStatistic() {
+        AnchorPane aPane = null;
+        scrlPaneWorkKind.setContent(new AnchorPane());
+        ColumnConstraints col1 = new ColumnConstraints();
+        ColumnConstraints col2 = new ColumnConstraints();
+        Integer gridPaneLayoutY = 10;
+        Integer gridPaneLayoutX = 5;
+        Integer aPanePrefHeight = 50;
+        //
+        List<WorkKindEntity> workKindEntityList = new WorkCUDController().loadWorkKindList();
+        for (WorkKindEntity workKindEntity : workKindEntityList) {
+            Collection<WorkEntity> workEntityList = workKindEntity.getWorksByIdWorkKind();
+            int count = 0;
+            for (WorkEntity wEntity : workEntityList)
+                if (wEntity.getDateEnd().isAfter(dtDateStart.getValue().minusDays(1)) && wEntity.getDateEnd().isBefore(dtDateEnd.getValue().plusDays(1)))
+                    if (wEntity.getWorkStatus().equals("Выполнена")) count++;
+
+            //
+            //Динамическое формирование элементов управления
+            GridPane gridPane = new GridPane();
+            gridPane.setPadding(new Insets(10, 5, 10, 5));
+            gridPane.setHgap(3);
+            gridPane.setVgap(3);
+            gridPane.setLayoutY(gridPaneLayoutY);
+            gridPaneLayoutY += 25;
+            gridPane.setLayoutX(gridPaneLayoutX);
+            gridPane.setPrefWidth(302);
+            //
+            Label lblWorkKind = new Label(workKindEntity.getName());
+            Label lblCount = new Label(String.valueOf(count));
+            lblWorkKind.setFont(new Font("Arial", 14));
+            lblCount.setFont(new Font("Arial Bold", 14));
+            //
+            gridPane.add(lblWorkKind, 0, 0, 1, 1);
+            gridPane.add(lblCount, 1, 0, 1, 1);
+            col1.setPercentWidth(60);
+            col2.setPercentWidth(40);
+            gridPane.getColumnConstraints().addAll(col1, col2);
+            aPane = (AnchorPane) scrlPaneWorkKind.getContent();
+            aPane.getChildren().add(gridPane);
+            aPane.setPrefHeight(aPanePrefHeight);
+            aPanePrefHeight += 25;
+            scrlPaneWorkKind.setContent(aPane);
+        }
     }
 
     //Рассчет статистики по ресурсам
@@ -153,7 +201,7 @@ public class StatisticController {
         for (ResourceTypeEntity rsE : resourceTypeEntityList) {
             Collection<IncomeExpenseEntity> incomeExpenseEntityCollection = rsE.getIncomeExpensesByIdResourseType();
             for (IncomeExpenseEntity ieE : incomeExpenseEntityCollection) {
-                if (ieE.getDate().isAfter(dtDateStart.getValue()) && ieE.getDate().isBefore(dtDateEnd.getValue())) {
+                if (ieE.getDate().isAfter(dtDateStart.getValue().minusDays(1)) && ieE.getDate().isBefore(dtDateEnd.getValue().plusDays(1))) {
                     if (ieE.getOperationType()) dohodCount += ieE.getCount();
                     else                        rashodCount += ieE.getCount();
                 }
@@ -222,7 +270,7 @@ public class StatisticController {
         for (ResourceTypeEntity rsE : resourceTypeEntityList) {
             Collection<FinancialOperateEntity> financialOperateEntityCollection = rsE.getFinancialOperatesByIdResourseType();
             for (FinancialOperateEntity foE : financialOperateEntityCollection) {
-                if (foE.getDate().isAfter(dtDateStart.getValue()) && foE.getDate().isBefore(dtDateEnd.getValue())) {
+                if (foE.getDate().isAfter(dtDateStart.getValue().minusDays(1)) && foE.getDate().isBefore(dtDateEnd.getValue().plusDays(1))) {
                     if (foE.getOperationType()) {
                         dohodCount += foE.getCount();
                         dohodSummaryPrice += foE.getCount() * foE.getUnitPrice();
